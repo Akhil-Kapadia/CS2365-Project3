@@ -1,25 +1,58 @@
 package cs2365_project3;
 
 import java.util.Random;
+import java.util.ArrayList;
 
 public class Game {
     Random rand = new Random();
     
-    int sher = 1;
-    int depu, outl, reneg;
-    int roles[] = {sher, reneg, outl, depu};
+    int sher = 1; //used for game set up as a decrementing counter
+    int depu, outl, reneg;  //used for game set up as a decrementing counter
+    int roles[] = {sher, reneg, outl, depu};  //used for how many of each role are currently in the game
+    
+    private ArrayList<String> characterNames;
     
     private int totalPlayers;
     private ArrayList<Player> tableSeating = new ArrayList<>(total_players);
     
     public void setTotalPlayers()
     {
-        this.totalPlayers = rand.nextInt(5) + 4;
+        this.totalPlayers = rand.nextInt(5) + 4; //random range 4 to 8
     }
     
     public int getTotalPlayers()
     {
         return this.totalPlayers;
+    }
+    
+    public void setCharacterNames()
+    {
+        this.characterNames = new ArrayList<>();
+        this.characterNames.add("BART CASSIDY");
+        this.characterNames.add("BLACK JACK");
+        this.characterNames.add("CALAMITY JANET");
+        this.characterNames.add("EL GRINGO");
+        this.characterNames.add("JESSE JONES");
+        this.characterNames.add("JOURDONNAIS");
+        this.characterNames.add("KIT CARLSON");
+        this.characterNames.add("LUCKY DUKE");
+        this.characterNames.add("PAUL REGRET");
+        this.characterNames.add("PEDRO RAMIREZ");
+        this.characterNames.add("ROSE DOOLAN");
+        this.characterNames.add("SID KETCHUM");
+        this.characterNames.add("SLAB THE KILLER");
+        this.characterNames.add("SUZY LAFAYETTE");
+        this.characterNames.add("VULTURE SAM");
+        this.characterNames.add("WILLY THE KID");
+    }
+    
+    public String getCharacterName()
+    {
+        //get a random name from the list to return and remove that name from the list
+        int randomIndex = rand.nextInt(characterNames.size());
+        String name = characterNames.get(randomIndex);
+        characterNames.remove(randomIndex);
+        return name;
     }
     
     public void gameSetup()
@@ -73,6 +106,8 @@ public class Game {
                 break;
         }
         
+        setCharacterNames(); //initalize the list of all of the character names
+        
         for(int index = 0; index < getTotalPlayers(); index++) //add all the players to the list
             tableSeating.add(createPlayer(index));
     }
@@ -80,6 +115,8 @@ public class Game {
     public Player createPlayer(int index)
     {
         Player newPlayer = new Player();
+        
+        newPlayer.setCharacterName(getCharacterName()); //set the character name
         
         int role = rand.nextInt(5);
         for(;;) //loops infintely until you can add that role into the game
@@ -97,9 +134,60 @@ public class Game {
         }
         newPlayer.setRole(role); //valid role has been found, give it to the player
         
-        int HP = rand.nextInt(4) + 6; //set hp to random value for now, will change based on character
+        //set HP based on character name
+        int HP;
+        switch (newPlayer.getCharacterName()){
+            case "BART CASSIDY":
+                HP = 8;
+                break;
+            case "BLACK JACK":
+                HP = 8;
+                break;
+            case "CALAMITY JANET":
+                HP = 8;
+                break;
+            case "EL GRINGO":
+                HP = 7;
+                break;
+            case "JESSE JONES":
+                HP = 9;
+                break;
+            case "JOURDONNAIS":
+                HP = 7;
+                break;
+            case "KIT CARLSON":
+                HP = 7;
+                break;
+            case "LUCKY DUKE":
+                HP = 8;
+                break;
+            case "PAUL REGRET":
+                HP = 9;
+                break;
+            case "PEDRO RAMIREZ":
+                HP = 8;
+                break;
+            case "ROSE DOOLAN":
+                HP = 9;
+                break;
+            case "SID KETCHUM":
+                HP = 8;
+                break;
+            case "SLAB THE KILLER":
+                HP = 8;
+                break;
+            case "SUZY LAFAYETTE":
+                HP = 8;
+                break;
+            case "VULTURE SAM":
+                HP = 9;
+                break;
+            case "WILLY THE KID":
+                HP = 8;
+                break;
+        }
         
-         switch (role){
+        switch (role){
             case 0: //player is a sheriff 
                     newPlayer.setHealth(HP + 2); //sheriff gets boost to max HP
                     newPlayer.setArrowCount(0);
@@ -158,8 +246,21 @@ public class Game {
     
     public boolean checkPlayerDeath(Player damagedPlayer)
     {
-        if(damagedPlayer.getHealth() == 0)
+        if(damagedPlayer.getHealth() <= 0)
         {
+            String role = checkPlayerRole(damagedPlayer);
+            //decrement the current amount of the role of the dead player that exists in the game
+            if(role.equals("Sheriff"))
+                roles[0]--;
+            else if(role.equals("Renegade"))
+                roles[1]--;
+            else if(role.equals("Outlaw"))
+                roles[2]--;
+            else
+                roles[3]--;
+            
+            System.out.println("Player " + damagedPlayer.getIndex() + " is dead, their role was " + role);
+            
             tableSeating.remove(new Player(damagedPlayer)); //remove the player from the seating
             return true;
         }
