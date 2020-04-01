@@ -34,16 +34,85 @@ class Player
     private int RerollsRemaining;
     private int[] Favor;
     
-    
-    public Player(String CN, String R, int MH, int AC, int PI, int RR)
+    //Needs: CharacterName, Role, ArrowCount and Player Index to intialize
+    public Player(String CN, String R, int AC, int PI)
     {
         CharacterName = CN;
         Role = R;
-        MaxHealth = MH;
-        CurrentHealth = MaxHealth;
+        setHealth();
         ArrowCount = AC;
         PlayerIndex = PI;
-        RerollsRemaining = RR;
+        RerollsRemaining = 2;
+    }
+    
+    public void setHealth()
+    {
+        if(CharacterName.equals("BART CASSIDY"))
+        {
+            MaxHealth = 8;
+        }
+        else if(CharacterName.equals("BLACK JACK"))
+        {
+            MaxHealth = 8;
+        }
+        else if(CharacterName.equals("CALAMITY JANET"))
+        {
+            MaxHealth = 8;
+        }
+        else if(CharacterName.equals("EL GRINGO"))
+        {
+            MaxHealth = 7;
+        }
+        else if(CharacterName.equals("JESSE JONES"))
+        {
+            MaxHealth = 9;
+        }
+        else if(CharacterName.equals("JOURDONNAIS"))
+        {
+            MaxHealth = 7;
+        }
+        else if(CharacterName.equals("KIT CARLSON"))
+        {
+            MaxHealth = 7;
+        }
+        else if(CharacterName.equals("LUCKY DUKE"))
+        {
+            MaxHealth = 8;
+        }
+        else if(CharacterName.equals("PAUL REGRET"))
+        {
+            MaxHealth = 9;
+        }
+        else if(CharacterName.equals("PEDRO RAMIREZ"))
+        {
+            MaxHealth = 8;
+        }
+        else if(CharacterName.equals("ROSE DOOLAN"))
+        {
+            MaxHealth = 9;
+        }
+        else if(CharacterName.equals("SID KETCHUM"))
+        {
+            MaxHealth = 8;
+        }
+        else if(CharacterName.equals("SLAB THE KILLER"))
+        {
+            MaxHealth = 8;
+        }
+        else if(CharacterName.equals("SUZY LAFAYETTE"))
+        {
+            MaxHealth = 8;
+        }
+        else if(CharacterName.equals("VULTURE SAM"))
+        {
+            MaxHealth = 9;
+        }
+        else if(CharacterName.equals("WILLY THE KID"))
+        {
+            MaxHealth = 8;
+        }
+        
+        CurrentHealth = MaxHealth;
     }
     
     public int getHeath()
@@ -129,6 +198,15 @@ class Player
         return ret;
     }
     
+    public void usedReroll()
+    {
+        RerollsRemaining--;
+    }
+    public void setRerolls(int N)
+    {
+        RerollsRemaining = N;
+    }
+    
     public boolean CanReroll()
     {
         if(RerollsRemaining >0)
@@ -140,11 +218,11 @@ class Player
     
     /*
     
-    //Might have to use a Separate Class for applying the Abilities, I'll work on that tomorrow(WEDNESDAY)
+    //Will be used for Abilities shit
     
     public void UseAbility(Dice[] D)
     {
-        String Ability = getAbility();
+        
         
         if(CharacterName.equals("BART CASSIDY"))
         {
@@ -210,7 +288,11 @@ class Player
         {
            
         }
-    }*/
+    }
+    
+    --Will handle the Different Shot Favoring
+    
+    */
     
     
 }
