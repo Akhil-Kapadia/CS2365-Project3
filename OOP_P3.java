@@ -115,6 +115,21 @@ class Player
         CurrentHealth = MaxHealth;
     }
     
+    //When player gets hit with Damage, the function will check if dead or not after the Damage takes place. If Dead will return true
+    public boolean TakeDamage(int D)
+    {
+        CurrentHealth -= D;
+        
+        if(CurrentHealth > 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    
     public int getHeath()
     {
         return CurrentHealth;
@@ -214,6 +229,17 @@ class Player
             return true;
         }
         return false;
+    }
+    
+    
+    public int getArrowCount()
+    {
+        return ArrowCount;
+    }
+    
+    public void setArrowCount(int A)
+    {
+        ArrowCount += A;
     }
     
     /*
