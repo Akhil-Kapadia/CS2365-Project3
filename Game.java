@@ -13,7 +13,7 @@ public class Game {
     private ArrayList<String> characterNames;
     
     private int totalPlayers;
-    private ArrayList<Player> tableSeating = new ArrayList<>(total_players);
+    private ArrayList<Player> tableSeating = new ArrayList<>(totalPlayers);
     
     public void setTotalPlayers()
     {
@@ -256,7 +256,7 @@ public class Game {
             
             System.out.println("Player " + damagedPlayer.getIndex() + " is dead, their role was " + role);
             
-            tableSeating.remove(new Player(damagedPlayer)); //remove the player from the seating
+            tableSeating.remove(damagedPlayer); //remove the player from the seating
             return true;
         }
         else
