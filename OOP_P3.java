@@ -62,9 +62,19 @@ class Player
         }
     }
     
-    public int getHeath()
+    public int getHealth()
     {
         return CurrentHealth;
+    }
+    
+    public String getCharacterName()
+    {
+        return CharacterName;
+    }
+    
+    public int getPlayerIndex()
+    {
+        return PlayerIndex;
     }
     
     public String getRole()
@@ -172,6 +182,8 @@ class Player
     {
         ArrowCount += A;
     }
+    
+    
     
     /*
     
