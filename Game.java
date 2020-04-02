@@ -113,30 +113,49 @@ public class Game {
     }
     
     public Player createPlayer(int index)
-    {
-        Player newPlayer = new Player();
-        
-        newPlayer.setCharacterName(getCharacterName()); //set the character name
+    {        
+        String characterName = getCharacterName(); //set the character name
         
         int role = rand.nextInt(5);
         for(;;) //loops infintely until you can add that role into the game
         {
             if(role == 0 && sher != 0) //if you can add a sheriff
-                break;       
+            {
+                sher--;
+                break; 
+            }                     
             if(role == 1 && reneg != 0) //if you can add a renegade
-                break;        
+            {
+                reneg--;
+                break; 
+            }         
             if(role == 2 && outl != 0) //if you can add a outlaw
-                break;        
+            {
+                outl--;
+                break; 
+            }         
             if(role == 3 && depu != 0) //if you can add a deputy
-                break;
+            {
+                depu--;
+                break; 
+            } 
             
             role = rand.nextInt(5); //nothing could be added so generate a new number
         }
-        newPlayer.setRole(role); //valid role has been found, give it to the player
+        
+        String roleName = "";
+        if(role == 0)
+            roleName = "Sheriff";
+        if(role == 1)
+            roleName = "Renegade";
+        if(role == 2)
+            roleName = "Outlaw";
+        if(role == 3)
+            roleName = "Deputy";
         
         //set HP based on character name
-        int HP;
-        switch (newPlayer.getCharacterName()){
+        int HP = 0;
+        switch (characterName){
             case "BART CASSIDY":
                 HP = 8;
                 break;
@@ -187,35 +206,11 @@ public class Game {
                 break;
         }
         
-        switch (role){
-            case 0: //player is a sheriff 
-                    newPlayer.setHealth(HP + 2); //sheriff gets boost to max HP
-                    newPlayer.setArrowCount(0);
-                    newPlayer.setIndex(index);
-                    sher--; //decrememnt the number of avalible spots for that role
-                    break;
-            case 1: //player is a renegade
-                    newPlayer.setHealth(HP);
-                    newPlayer.setArrowCount(0);
-                    newPlayer.setIndex(index);
-                    reneg--;
-                    break;
-            case 2: //player is an outlaw 
-                    newPlayer.setHealth(HP);
-                    newPlayer.setArrowCount(0);
-                    newPlayer.setIndex(index);
-                    outl--;
-                    break;
-            case 3: //player is a deputy 
-                    newPlayer.setHealth(HP);
-                    newPlayer.setArrowCount(0);
-                    newPlayer.setIndex(index);
-                    depu--;
-                    break;
-            default: 
-                    break;
-        }
+        if(role == 0)
+            HP = HP + 2; //if sheriff increase HP by 2
     
+        Player newPlayer = new Player(characterName, roleName, index, HP);
+        
         return newPlayer;
     }
     
