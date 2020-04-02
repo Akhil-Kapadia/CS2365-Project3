@@ -34,86 +34,18 @@ class Player
     private int RerollsRemaining;
     private int[] Favor;
     
-    //Needs: CharacterName, Role, ArrowCount and Player Index to intialize
-    public Player(String CN, String R, int AC, int PI)
+    //Needs: CharacterName, Role, Player Index, and Max Health to intialize
+    public Player(String CN, String R, int PI, int MH)
     {
         CharacterName = CN;
         Role = R;
-        setHealth();
-        ArrowCount = AC;
+        ArrowCount = 0;
         PlayerIndex = PI;
         RerollsRemaining = 2;
-    }
-    
-    public void setHealth()
-    {
-        if(CharacterName.equals("BART CASSIDY"))
-        {
-            MaxHealth = 8;
-        }
-        else if(CharacterName.equals("BLACK JACK"))
-        {
-            MaxHealth = 8;
-        }
-        else if(CharacterName.equals("CALAMITY JANET"))
-        {
-            MaxHealth = 8;
-        }
-        else if(CharacterName.equals("EL GRINGO"))
-        {
-            MaxHealth = 7;
-        }
-        else if(CharacterName.equals("JESSE JONES"))
-        {
-            MaxHealth = 9;
-        }
-        else if(CharacterName.equals("JOURDONNAIS"))
-        {
-            MaxHealth = 7;
-        }
-        else if(CharacterName.equals("KIT CARLSON"))
-        {
-            MaxHealth = 7;
-        }
-        else if(CharacterName.equals("LUCKY DUKE"))
-        {
-            MaxHealth = 8;
-        }
-        else if(CharacterName.equals("PAUL REGRET"))
-        {
-            MaxHealth = 9;
-        }
-        else if(CharacterName.equals("PEDRO RAMIREZ"))
-        {
-            MaxHealth = 8;
-        }
-        else if(CharacterName.equals("ROSE DOOLAN"))
-        {
-            MaxHealth = 9;
-        }
-        else if(CharacterName.equals("SID KETCHUM"))
-        {
-            MaxHealth = 8;
-        }
-        else if(CharacterName.equals("SLAB THE KILLER"))
-        {
-            MaxHealth = 8;
-        }
-        else if(CharacterName.equals("SUZY LAFAYETTE"))
-        {
-            MaxHealth = 8;
-        }
-        else if(CharacterName.equals("VULTURE SAM"))
-        {
-            MaxHealth = 9;
-        }
-        else if(CharacterName.equals("WILLY THE KID"))
-        {
-            MaxHealth = 8;
-        }
-        
+        MaxHealth = MH;
         CurrentHealth = MaxHealth;
     }
+    
     
     //When player gets hit with Damage, the function will check if dead or not after the Damage takes place. If Dead will return true
     public boolean TakeDamage(int D)
@@ -230,7 +162,6 @@ class Player
         }
         return false;
     }
-    
     
     public int getArrowCount()
     {
