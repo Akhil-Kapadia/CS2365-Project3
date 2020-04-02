@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Game {
     Random rand = new Random();
-    
+
     int sher = 1; //used for game set up as a decrementing counter
     int depu, outl, reneg;  //used for game set up as a decrementing counter
     int roles[] = {sher, reneg, outl, depu};  //used for how many of each role are currently in the game
@@ -13,7 +13,8 @@ public class Game {
     private ArrayList<String> characterNames;
     
     private int totalPlayers;
-    private ArrayList<Player> tableSeating = new ArrayList<>(totalPlayers);
+    private ArrayList<Player> tableSeating = new ArrayList<>(0);
+    private ArrayList<Dice> diceArray;
     
     public void setTotalPlayers()
     {
@@ -23,6 +24,36 @@ public class Game {
     public int getTotalPlayers()
     {
         return this.totalPlayers;
+    }
+    
+    public void decrementTotalPlayers()
+    {
+        this.totalPlayers--;
+    }
+    
+    public void addTableSeating(Player newPlayer)
+    {
+        this.tableSeating.add(newPlayer);
+    }
+    
+    public ArrayList<Player> getTableSeating()
+    {
+        return new ArrayList<>(tableSeating);
+    }
+    
+    public void setDiceArray()
+    {
+        diceArray = new ArrayList<>(5);
+        for(int i = 0; i < 5; i++)
+        {
+            Dice newDice = new Dice();
+            diceArray.add(newDice);
+        }
+    }
+    
+    public ArrayList<Dice> getDiceArray()
+    {
+        return new ArrayList<>(diceArray);
     }
     
     public void setCharacterNames()
@@ -58,8 +89,7 @@ public class Game {
     public void gameSetup()
     {
         //dice creation
-        for(int d = 0; d < 5; d++)
-            dice[d] = createDice(); //this will change based on how the dice code works
+        setDiceArray();
         
         //player creation
         setTotalPlayers();
@@ -214,11 +244,6 @@ public class Game {
         return newPlayer;
     }
     
-    public void createDice()
-    {
-        
-    }
-    
     public int winCondition()
     {
         if(roles[0] == 0 && roles[1] == 1 && roles[2] == 0 && roles[3] == 0)
@@ -243,7 +268,7 @@ public class Game {
     {
         if(damagedPlayer.getHealth() <= 0)
         {
-            String role = checkPlayerRole(damagedPlayer);
+            String role = damagedPlayer.getRole();
             //decrement the current amount of the role of the dead player that exists in the game
             if(role.equals("Sheriff"))
                 roles[0]--;
@@ -254,7 +279,7 @@ public class Game {
             else
                 roles[3]--;
             
-            System.out.println("Player " + damagedPlayer.getIndex() + " is dead, their role was " + role);
+            System.out.println("Player " + damagedPlayer.getPlayerIndex() + " is dead, their role was " + role);
             
             tableSeating.remove(damagedPlayer); //remove the player from the seating
             return true;
@@ -263,8 +288,30 @@ public class Game {
             return false;
     }
     
-    public String checkPlayerRole(Player player)
+    public void printGameSetup()
     {
-        return player.getRole();
+        System.out.println("There are " + getTotalPlayers() + " players in the game.\n");
+        
+        for(Player player : getTableSeating())
+        {
+            System.out.println("Name: " + player.getCharacterName());
+            System.out.println("Ability: " + player.getAbility());
+            System.out.println("Health: " + player.getHealth());
+            System.out.println("Role: " + player.getRole());
+            System.out.println("Arrows: " + player.getArrowCount());
+            System.out.println("Index: " + player.getPlayerIndex());
+            System.out.println("");
+        }
+    }
+    
+    public void printDiceRolling()
+    { 
+        int c = 0;
+        for(Dice dice : getDiceArray())
+        {
+            dice.rollDice();
+            System.out.println("Dice " + c + ": " + dice.getDiceInt() + " = " + dice.getDiceString());
+            c++;
+        }
     }
 }
