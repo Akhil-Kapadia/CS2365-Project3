@@ -311,9 +311,9 @@ class AIDecisionMaking
         
         //handles who to shoot, who to heal
         
-        if(PlayerRole.equals("Sheriff"))
+        if(GameObject.equals("Beer"))
         {
-            if(GameObject.equals("Beer"))
+            if(PlayerRole.equals("Sheriff"))
             {
                 //heal self if not full, else heal the lowest deputy
                 if(!CurrentPlayer.isFullHealth())
@@ -335,10 +335,39 @@ class AIDecisionMaking
                         return CurrentPlayer;
                     }
                 }
-
-                
             }
-            else if(GameObject.equals("Shoot person one over left or right"))
+            else if (PlayerRole.equals("Deputy"))
+            {
+                if(!CurrentPlayer.isFullHealth())
+                {
+                    return CurrentPlayer;
+                }
+                else
+                {
+                    ArrayList<Player> Sheriffs = getPlayerType("Sheriff", CName);
+                    Sheriffs = sortPlayersHealth(Sheriffs, false);
+                    
+                    //if there are no Deputy, then the CurrentPlayer will be the highest favor
+                    if(Sheriffs.size() > 0)
+                    {
+                        return Sheriffs.get(0);
+                    }
+                    else
+                    {
+                        return CurrentPlayer;
+                    }
+                }
+            }
+            else if (PlayerRole.equals("Outlaw"))
+            {
+                return CurrentPlayer;
+            }
+            else if (PlayerRole.equals("Renegade"))
+            {
+                return CurrentPlayer;
+            }
+        }
+        else if(GameObject.equals("Shoot person one over left or right"))
             {
                 ArrayList<Player> AllP = GameC.getTableSeating();
                 
@@ -473,21 +502,6 @@ class AIDecisionMaking
                 
                 return P;
             }
-            //Will have a separate else if for only two players in list
-            
-        }
-        else if (PlayerRole.equals("Deputy"))
-        {
-            
-        }
-        else if (PlayerRole.equals("Outlaw"))
-        {
-            
-        }
-        else if (PlayerRole.equals("Renegade"))
-        {
-            
-        }
             
    
         
@@ -664,7 +678,7 @@ class AIDecisionMaking
            {
                ret = "Shoot person one over left or right";
            }
-           if(GameC.getTableSeating().size() == 2)
+           else if(GameC.getTableSeating().size() == 2)
            {
                 ret = "Shoot Other Player";
            }
