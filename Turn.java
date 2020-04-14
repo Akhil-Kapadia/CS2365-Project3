@@ -1,285 +1,277 @@
 package cs2365_project3;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class Turn {
-    //Arraylist of all players in the game for this turn.
-    private ArrayList player = new ArrayList();
-    //Index of the player's whose turn it is in the arraylist.
-    private int currentPlayer;
-    //The total amount of arrows left in the stack
-    private int arrowStack;
-    //Array of integer corresponding to Dice faces, sorted in priority order.
-    private int diceRoll[];
-    //Name of current Player from player class.
-    private String name;
-
-    /**
-     * Method sets the local player Arraylist equal to the ArrayList of Player
-     * objects from the game class.
-     * @param list	ArrayList of Player Objects
-     */
-    public void setPlayers(ArrayList<Player> list)
+class Turn{
+    
+    Scanner scan = new Scanner(System.in);
+    
+    Player currentPlayer;
+    private ArrayList<Player> tableSeating;
+    ArrayList<Dice> diceArray;
+    private int arrowPile;
+    
+    private ArrayList<String> turnResult;    
+    
+    public Turn(Player CP, ArrayList<Player> TS, ArrayList<Dice> DA, int AP)
     {
-            //Creates a shallow copy of Player array used in Game (Pointers basically).
-            player = (ArrayList)list.clone();
-    }
-
-    /**
-     * Sets the current players whose turn it is. This is used to reference
-     * the player Arraylist.
-     * @param index	Integer
-     */
-    public void setCurrentPlayer(int index)
-    {
-            currentPlayer=index;
-    }
-
-    /**
-     * Method gets the amount of arrows in the stack inside the game class, and
-     * sets it locally for use.
-     * @param arrows	Integer.
-     */
-    public void setArrowStack(int arrows)
-    {
-            arrowStack=arrows;
-    }
-
-    /**
-     * Method returns the amount of arrows left over after the turn ends.
-     * @return	Integer	Arrows left over after turn ends.
-     */
-    public int getArrowStack()
-    {
-            return arrowStack;
-    }
-
-    private String getName(int index)
-    {
-            return player.get(index).getCharacterName();
-    }
-
-
-    /**
-     * Method adds an arrow to the current player if theres enough in the stack.
-     * Also updates the stack count.
-     */
-    public void indianArrow()
-    {
-            if(arrowStack>1)
-            {
-                    player.get(currentPlayer).setArrowCount(1);
-                    arrowStack--;
-            }
-    }
-
-    /**
-     * Method enacts the Bull's Eye x1 dice, and handled the special cases when
-     * character's abilities interfere with the dice function.
-     * If no special cases, the method determing whether the player to the left
-     * or the right has worse favor, and shoots them dealing 1HP damage.
-     * 
-     * @param jack boolean Used to tell if his ability has been used.
-     */
-    public void bullsEyex1(boolean jack)
-    {
-            //Sets the left and right index of currentPlayer. If current is 0, then
-            //left is that last person.
-            int target;
-            int right = (currentPlayer!=player.size()-1) ? right+1 : 0 ;
-            int left = (currentPlayer!=0) ? currentPlayer - 1 :  player.size()-1;
-            int rightx2 = (currentPlayer < player.size()-2) ? currentPlayer +2:
-                    (currentPlayer == player.size()-1) ? 0 : 1;
-            int leftx2 = (currentPlayer>1) ? currentPlayer - 2 :  
-               (currentPlayer==1) ? player.size()-1 : player.size()-2 ;
-
-            if (name == "ROSE DOOLAN" || name == "CALAMITY JANET")
-            {
-
-                    /*Choose which ever has the worst favor here.
-                     * Choose between left and leftx2,
-                     * Choose between right and rightx2
-                     * then set left or right equal to it. 
-                     */
-            }
-
-            /*
-             * Put code Determing whether left/right has better favor here.
-             * Then set target equal to that.
-             */
-
-            if (name == "SLAB THE KILLER")
-            {
-                    int beer=0;
-                    for (int i : diceRoll)
-                             beer = (diceRoll[i]==5) ? beer+1 : beer;
-                    if(beer!=0 && !jack)
-                            player.get(target).TakeDamage(2);
-            }else
-            {
-                    player.get(target).TakeDamage(1);
-            }
-    }
-
-    /**
-     * Method enacts the Bull's Eye x2 dice, and handled the special cases when
-     * character's abilities interfere with the dice function.
-     * If no special cases, the method determing whether the player to the left
-     * or the right has worse favor, and shoots them dealing 2HP damage.
-     * 
-     * @param jack boolean Used to tell if his ability has been used.
-     */
-    public void bullsEyex2(boolean jack)
-    {
-            String character = player.get(currentPlayer).getCharacterName();
-            //Sets the left and right index of currentPlayer. If current is 0, then
-            //left is that last person.
-            int target;
-            int right = (currentPlayer!=player.size()-1) ? rightx1+1 : 0;
-            int left = (currentPlayer!=0) ? currentPlayer - 1 :  player.size()-1;
-            int rightx2 = (currentPlayer < player.size()-2) ? currentPlayer + 2 :
-                                    (currentPlayer == player.size()-1) ? 0 : 1;
-            int leftx2 = (currentPlayer>1) ? currentPlayer - 2 :  
-                               (currentPlayer==1) ? player.size()-1 : player.size()-2 ;
-            int rightx3 = (rightx2!=player.size()-1) ? rightx2+1 : 0;
-            int leftx3 = (leftx2!=0) ? leftx2-1 : player.size()-1;
-
-            if( name == "CALAMITY JANET")
-            {
-                    /*Choose which ever has the worst favor here.
-                     * Choose between left and leftx2,
-                     * Choose between right and rightx2
-                     * then set left or right equal to it. 
-                     */
-            }
-
-            if(name == "ROSE DOOLAN")
-            {
-                    /*Choose which ever has the worst favor here.
-                     * Choose between leftx2 and leftx3,
-                     * Choose between rightx2 and rightx3
-                     * then set left or right equal to it. 
-                     */
-            }
-
-            /*
-             * Put code Determing whether left/right has better favor here.
-             * Then set target equal to that.
-             */
-
-            if (name == "SLAB THE KILLER")
-            {
-                    int beer =0;
-                    for (int i : diceRoll)
-                            beer = (diceRoll[i]==5) ? beer+1 :beer;
-                    if(beer!=0 && !jack)
-                            player.get(target).TakeDamage(4);
-            }else
-            {
-                    player.get(target).TakeDamage(2);
-            }
-
-            if(player.get(target).getCharacterName().equals("EL GRINGO"))
-                    indianArrow();
-    }
-
-    /**
-     * Method for the beer dice. If current player is at max health, then HP
-     * is added to the person with the highest favor. If not at max health 
-     * then add to his own. Also handles Jesse Jones ability.
-     */
-    public void beer()
-    {
-            int health = player.get(currentPlayer).getHealth();
-            int target;
-            if(health < player.get(currentPlayer).getMaxHealth())
-            {
-                    if (name == "JESSE JONES" && health < 4)
-                            player.get(currentPlayer).setHealth(2);
-                    player.get(currentPlayer).setHealth(1);
-            }
-            else
-            {
-                    /*
-                     * Find whoever has the most favor and give them health.
-                     * Set target = to the index position.
-                     */
-                    player.get(target).setHealth(1);
-            }
-    }
-
-    public void gatlingGun()
-    {
-            for(Player obj : player)
-            {
-                    String person = obj.getCharacterName();
-                    if(!person.equals(name) || !person.equals("PAUL REGRET"))
-                    {
-                            obj.TakeDamage(1);
-                    }
-            }
-            //remove arrows from current player and add them to the stack.
-            arrowStack += player.getArrowCount();
-            player.setArrowCount(-player.getArrowCount());
-    }
-
-    /**
-     * Constructor. Create Dice and rolls. Execute dice actions.
-     */
-    public Turn()
-    {
-            //Object of Dice class. Contains the roll for this turn.
-            Dice dices = new Dice();
-            name = getName(currentPlayer);
-            //Count of dynamite dices.
-            int dynamite = 0;
-            //Count of gatling dices.
-            int gatling = 0;
-            //See if Jack used his ability yet.
-            boolean jack=false;
-            //Sends player obj over. Check for Black Jack here.
-            dices.setPlayer();
-            //Sends sorted array of Dice values.
-            diceRoll = dices.getRoll();
-
-            endTurn:
-            for(int die : diceRoll)
-            {
-                    switch(diceRoll[die])
-                    {
-                    case 1:	//Indian Arrow
-                            indianArrow();
-                            break;
-                    case 2:	//Dynamite
-                            dynamite++;
-                            if(dynamite==3)
-                            {
-                                    player.get(currentPlayer).TakeDamage(1);
-                                    break endturn;
-                            }
-                            break;
-                    case 3:	//Bull's Eye x1
-                            bullsEyex1(jack);
-                            jack=true;
-                            break;
-                    case 4:
-                            bullsEyex2(jack);
-                            jack=true;
-                            break;
-                    case 5: 
-                            beer();
-                            break;
-                    case 6:
-                            gatling++;
-                            if(name == "WILLY THE KID" && gatling == 2)
-                                    gatlingGun();
-                            else if(gatling>=3)
-                                    gatlingGun();
-                            break;
-                    }
-
-            }
-
+        this.currentPlayer = CP;
+        this.tableSeating = TS;
+        this.diceArray = DA;
+        this.arrowPile = AP;
     }
     
+    public ArrayList<Player> getTableSeating()
+    {
+        return new ArrayList<>(tableSeating);
+    }
+    
+    public void setTableSeating(ArrayList<Player> newSeating)
+    {
+        this.tableSeating = newSeating;
+    }
+    
+    public void setArrowPile(int totalArrows)
+    {
+        this.arrowPile = totalArrows;
+    }
+    
+    public int getArrowPile()
+    {
+        return this.arrowPile;
+    }
+    
+    public void decreaseArrowPile()
+    {
+        this.arrowPile--;
+    }
+    
+    public void addTurnResult(String output)
+    {
+        System.out.println(output);
+        this.turnResult.add(output);
+    }
+    
+    public ArrayList<String> getTurnResult()
+    {
+        return new ArrayList<>(turnResult);
+    }
+    
+    public void playTurn() //most of the user controlled stuff will turn into the PlayerControl class but I'm lazy
+    {
+        boolean[] diceReroll = {true, true, true, true, true}; //starts off as true since all dice will be rolled first time
+        
+        printGameStatus(); //as a check before the start of each turn
+        
+        addTurnResult(currentPlayer.getCharacterName() + " Turn Start! - Player " + currentPlayer.getPlayerIndex());
+        addTurnResult("--------------------------------------------------------");
+        
+        rollAllDice(diceReroll);
+        
+        if(currentPlayer.getUser()) //let user make decisions for rerolling
+        {
+            while(currentPlayer.CanReroll())
+            {
+                int i;
+                for(i = 0; i < 5; i++)
+                {
+                    System.out.println("Would you like to reroll dice " + (i+1) + "? (y or n)");
+                    String input = scan.nextLine();
+                    if(input.equals("y") && diceArray.get(i).getDiceInt() != 2) //cant reroll dynamite
+                        diceReroll[i] = true;
+                    else
+                        diceReroll[i] = false;
+                }
+
+                rollAllDice(diceReroll);
+                
+                //arrows get resolved right away
+                for(Dice dice : diceArray)
+                {
+                    if(dice.getDiceInt() == 0)
+                        resolveArrow();
+                }
+                
+                currentPlayer.usedReroll();
+            }
+            
+            currentPlayer.setRerolls(2); //reset rerolls to 2 after turn is over
+            
+        }
+        else //let AI make decisions for rerolling
+        {
+            
+        }
+        
+        //start resolving dice
+        for(Dice dice : diceArray)
+            {
+                if(checkFrequency(1) >= 3)
+                    resolveDynamite();
+                if(dice.getDiceInt() == 2)
+                    resolveShootOne();
+                if(dice.getDiceInt() == 3)
+                    resolveShootTwo();
+                if(dice.getDiceInt() == 4)
+                    resolveBeer();
+                if(checkFrequency(5) >= 3)
+                    resolveGatling();
+            }
+    }
+    
+    public void rollAllDice(boolean[] diceReroll)
+    {
+        int diceIndex = 1;
+        addTurnResult("Dice Roll");
+        for(Dice dice : diceArray)
+        {
+            if(diceReroll[diceIndex-1])
+                dice.rollDice();
+            addTurnResult("Dice " + diceIndex + ": " + dice.getDiceInt() + " = " + dice.getDiceString());
+            diceIndex++;
+        }
+        addTurnResult("");
+    }
+    
+    //helper functions for dice resolution
+    public int checkFrequency(int diceValue)
+    { 
+        int count = 0;
+        for(Dice dice : diceArray)
+            if(dice.getDiceInt() == diceValue)
+                count++;
+        
+        return count;
+    }
+    
+    public void indiansAttack()
+    {
+        addTurnResult("Indians Attack!");
+        for(Player player : getTableSeating())
+        {
+            addTurnResult(player.getCharacterName() + " took " + player.getArrowCount() + " damage.");
+            player.TakeDamage(player.getArrowCount());
+            player.setArrowCount(0);
+        }
+        
+        setArrowPile(9);
+    }
+    
+    //start resolving dice
+    public void resolveArrow()
+    {
+        currentPlayer.setArrowCount(1);
+        decreaseArrowPile();
+        addTurnResult("Take an arrow. Current arrow pile: " + getArrowPile());
+        if(getArrowPile() == 0)
+            indiansAttack();
+    }
+    
+    public void resolveDynamite()
+    {
+        currentPlayer.TakeDamage(3);
+        addTurnResult("Dynamite! Take 3 damage.");
+    }
+    
+    public void resolveShootOne()
+    {
+        int shootIndex = getTableSeating().indexOf(currentPlayer);
+        if(currentPlayer.getUser()) //allow user to choose
+        {
+            System.out.println("Would you like to shoot who is to your left or right (l or r)");
+            String input = scan.nextLine();
+            if(input.equals("l"))
+            {
+                if(shootIndex-- < 0) //if going to left gives negative index, loop around to start
+                    shootIndex = getTableSeating().size() + (shootIndex - 1);
+                else
+                    shootIndex--;
+            }
+            else
+                shootIndex = (shootIndex + 1) % (getTableSeating().size() - 1);
+            
+            getTableSeating().get(shootIndex).TakeDamage(1);
+        }
+        else //allow AI to choose
+        {
+            
+        }
+        addTurnResult("Shot " + getTableSeating().get(shootIndex).getCharacterName() + " for 1 damage.");
+    }
+    
+    public void resolveShootTwo()
+    {
+        int shootIndex = getTableSeating().indexOf(currentPlayer);
+        if(currentPlayer.getUser()) //allow user to choose
+        {
+            System.out.println("Would you like to shoot who is to your twice left or twice right (l or r)");
+            String input = scan.nextLine();
+            if(input.equals("l"))
+            {
+                if(shootIndex - 2 < 0) //if going to left gives negative index, loop around to start
+                    shootIndex = getTableSeating().size() + (shootIndex - 2);
+                else
+                    shootIndex--;
+            }
+            else
+                shootIndex = (shootIndex + 2) % (getTableSeating().size() - 1);
+            
+            getTableSeating().get(shootIndex).TakeDamage(1);
+        }
+        else //allow AI to choose
+        {
+            
+        }
+        addTurnResult("Shot " + getTableSeating().get(shootIndex).getCharacterName() + " for 1 damage.");
+    }
+    
+    public void resolveBeer()
+    {
+        if(currentPlayer.getUser()) //allow user to choose
+        {
+            for(;;)
+            {
+                System.out.println("What player would you like to heal (0-" + (getTableSeating().size() - 1) + ")");
+                int input = scan.nextInt();
+                if(getTableSeating().get(input).isFullHealth())
+                    System.out.println("That person is full health already, please select someone else");
+                else
+                {
+                    addTurnResult("Healed " + getTableSeating().get(input).getCharacterName() + " for 1 HP.");
+                    getTableSeating().get(input).addHealth();
+                    break;
+                }
+            }            
+        }
+        else //allow AI to choose
+        {
+            
+        }
+    }
+    
+    public void resolveGatling()
+    {
+        for(Player player : getTableSeating())
+        {
+            if(!(player.equals(currentPlayer)))
+                player.TakeDamage(1);
+        }
+        addTurnResult("Gatling! Everyone but " + currentPlayer.getCharacterName() + " takes 1 damage.");
+    }
+    
+    public void printGameStatus()
+    {
+        for(Player player : getTableSeating())
+        {
+            System.out.println("Name: " + player.getCharacterName());
+            System.out.println("Ability: " + player.getAbility());
+            System.out.println("Health: " + player.getHealth());
+            System.out.println("Role: " + player.getRole());
+            System.out.println("Arrows: " + player.getArrowCount());
+            System.out.println("Index: " + player.getPlayerIndex());
+            System.out.println("");
+        }
+    }
+
 }

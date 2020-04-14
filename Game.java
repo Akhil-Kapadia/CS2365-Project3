@@ -10,11 +10,15 @@ public class Game {
     int depu, outl, reneg;  //used for game set up as a decrementing counter
     int roles[] = {sher, reneg, outl, depu};  //used for how many of each role are currently in the game
     
+    ArrayList<Turn> gameResult = new ArrayList<>();
+    
     private ArrayList<String> characterNames;
     
     private int totalPlayers;
     private ArrayList<Player> tableSeating = new ArrayList<>(0);
     private ArrayList<Dice> diceArray;
+    
+    private int arrowPile;
     
     public void setTotalPlayers()
     {
@@ -41,6 +45,11 @@ public class Game {
         return new ArrayList<>(tableSeating);
     }
     
+    public void setTableSeating(ArrayList<Player> newSeating)
+    {
+        this.tableSeating = newSeating;
+    }
+    
     public void setDiceArray()
     {
         diceArray = new ArrayList<>(5);
@@ -54,6 +63,16 @@ public class Game {
     public ArrayList<Dice> getDiceArray()
     {
         return new ArrayList<>(diceArray);
+    }
+    
+    public void setArrowPile(int totalArrows)
+    {
+        this.arrowPile = totalArrows;
+    }
+    
+    public int getArrowPile()
+    {
+        return this.arrowPile;
     }
     
     public void setCharacterNames()
@@ -86,8 +105,42 @@ public class Game {
         return name;
     }
     
+    public void playGame()
+    {
+        gameSetup();
+        boolean gameOver = checkGameOver();
+        int playerTurnIndex = 0;
+        ArrayList<Player> tableSeating = getTableSeating();
+        ArrayList<Dice> diceArray = getDiceArray();
+        for(Player player : getTableSeating())
+        {
+            if(player.getRole().equals("Sheriff"))
+            {
+                playerTurnIndex = player.getPlayerIndex();
+                break;
+            }
+        }
+        Player currentPlayer = tableSeating.get(playerTurnIndex);
+        while(!gameOver)
+        {
+            Turn turn = new Turn(currentPlayer, tableSeating, diceArray, arrowPile);
+            gameResult.add(turn);
+            gameOver = checkGameOver();
+            tableSeating = turn.getTableSeating();
+            setTableSeating(tableSeating);
+            arrowPile = turn.getArrowPile();
+            setArrowPile(arrowPile);
+            playerTurnIndex = (playerTurnIndex + 1) % tableSeating.size();
+            currentPlayer = tableSeating.get(playerTurnIndex);
+        }
+            
+    }
+    
     public void gameSetup()
     {
+        //set arrow pile
+        setArrowPile(9);
+        
         //dice creation
         setDiceArray();
         
@@ -238,8 +291,12 @@ public class Game {
         
         if(role == 0)
             HP = HP + 2; //if sheriff increase HP by 2
+        
+        boolean User = false;
+        if(index == 0)
+            User = true; //first player created is always user
     
-        Player newPlayer = new Player(characterName, roleName, index, HP);
+        Player newPlayer = new Player(characterName, roleName, index, HP, User);
         
         return newPlayer;
     }
@@ -256,7 +313,7 @@ public class Game {
             return 0; //game is not over
     }
     
-    public boolean checkGameOver(Player deadPlayer)
+    public boolean checkGameOver()
     {
         if(winCondition() != 0)
             return true; //game is over

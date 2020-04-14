@@ -10,10 +10,10 @@ class Player
     private int ArrowCount; 
     private int PlayerIndex;
     private int RerollsRemaining;
-    private int[] Favor;
+    private boolean User;
     
     //Needs: CharacterName, Role, Player Index, and Max Health to intialize
-    public Player(String CN, String R, int PI, int MH)
+    public Player(String CN, String R, int PI, int MH, boolean U)
     {
         CharacterName = CN;
         Role = R;
@@ -22,6 +22,7 @@ class Player
         RerollsRemaining = 2;
         MaxHealth = MH;
         CurrentHealth = MaxHealth;
+        User = U;
     }
     
     
@@ -40,9 +41,31 @@ class Player
         }
     }
     
+    public boolean getUser()
+    {
+        return User;
+    }
+    
     public int getHealth()
     {
         return CurrentHealth;
+    }
+    
+    public void addHealth()
+    {
+        if(CurrentHealth < MaxHealth)
+        {
+            CurrentHealth++;
+        }
+    }
+    
+    public boolean isFullHealth()
+    {
+        if(CurrentHealth == MaxHealth)
+        {
+            return true;
+        }
+        return false;
     }
     
     public String getCharacterName()
@@ -160,5 +183,10 @@ class Player
     {
         ArrowCount += A;
     }
- 
+    
+    public boolean equals(Player player2)
+    {
+        return getPlayerIndex() == player2.getPlayerIndex();
+    }
+
 }
