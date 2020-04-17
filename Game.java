@@ -16,7 +16,6 @@ public class Game {
     
     private int totalPlayers;
     private ArrayList<Player> tableSeating = new ArrayList<>(0);
-    private ArrayList<Dice> diceArray;
     
     private int arrowPile;
     
@@ -48,21 +47,6 @@ public class Game {
     public void setTableSeating(ArrayList<Player> newSeating)
     {
         this.tableSeating = newSeating;
-    }
-    
-    public void setDiceArray()
-    {
-        diceArray = new ArrayList<>(5);
-        for(int i = 0; i < 5; i++)
-        {
-            Dice newDice = new Dice();
-            diceArray.add(newDice);
-        }
-    }
-    
-    public ArrayList<Dice> getDiceArray()
-    {
-        return new ArrayList<>(diceArray);
     }
     
     public void setArrowPile(int totalArrows)
@@ -111,7 +95,6 @@ public class Game {
         boolean gameOver = checkGameOver();
         int playerTurnIndex = 0;
         ArrayList<Player> tableSeating = getTableSeating();
-        ArrayList<Dice> diceArray = getDiceArray();
         for(Player player : getTableSeating())
         {
             if(player.getRole().equals("Sheriff"))
@@ -142,7 +125,7 @@ public class Game {
         setArrowPile(9);
         
         //dice creation
-        setDiceArray();
+        DiceController diceController = new DiceController();
         
         //player creation
         setTotalPlayers();
