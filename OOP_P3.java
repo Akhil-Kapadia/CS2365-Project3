@@ -25,7 +25,6 @@ public class OOP_P3 {
 }
 
 
-
 class Player
 {
     private String CharacterName;
@@ -662,7 +661,7 @@ class AIDecisionMaking
     }
     
     //Reroll Stuff
-     public Dice[] RerollHandler(Player CurrentPlayer, Dice[] D, ArrayList<Player> TotP)
+     public ArrayList<Dice> RerollHandler(Player CurrentPlayer, ArrayList<Dice> D, ArrayList<Player> TotP)
     {
         for(int a = 0; a < 2 && CurrentPlayer.CanReroll(); a++)
         {
@@ -713,12 +712,12 @@ class AIDecisionMaking
         return D;
     }
     
-    private int DiceCounter(int Face, Dice[] D)
+    private int DiceCounter(int Face, ArrayList<Dice> D)
     {
         int ret = 0;
-        for(int a = 0; a < D.length; a++)
+        for(int a = 0; a < D.size(); a++)
         {
-            if(D[a].getDiceInt == Face)
+            if(D.get(a).getDiceInt() == Face)
             {
                 ret++;
             }
@@ -727,61 +726,61 @@ class AIDecisionMaking
         return ret;
     }
     
-    private Dice[] Reroll(Dice[] D, int Type, Player CurrentPlayer)
+    private ArrayList<Dice> Reroll(ArrayList<Dice> D, int Type, Player CurrentPlayer)
     {
         if(Type == 1)
         {
             //Health reroll so reroll Arrow, 1 or 2, or Gattling
-            for(int a = 0; a < D.length; a++)
+            for(int a = 0; a < D.size(); a++)
             {
-                if(D[a].getDiceInt() == 0 || D[a].getDiceInt() == 2 || D[a].getDiceInt() == 3 || D[a].getDiceInt() == 5)
+                if(D.get(a).getDiceInt() == 0 || D.get(a).getDiceInt() == 2 || D.get(a).getDiceInt() == 3 || D.get(a).getDiceInt() == 5)
                 {
-                    D[a].rollDice();
+                    D.get(a).setReroll(true);
                     CurrentPlayer.usedReroll();
-                    a += D.length;
+                    a += D.size();
                 }
             }
         }
         else if (Type == 2)
         {
-            for(int a = 0; a < D.length; a++)
+            for(int a = 0; a < D.size(); a++)
             {
-                if(D[a].getDiceInt() == 0 || D[a].getDiceInt() == 2 || D[a].getDiceInt() == 3)
+                if(D.get(a).getDiceInt() == 0 || D.get(a).getDiceInt() == 2 || D.get(a).getDiceInt() == 3)
                 {
-                    D[a].rollDice();
+                    D.get(a).setReroll(true);
                     CurrentPlayer.usedReroll();
-                    a += D.length;
+                    a += D.size();
                 }
-                else if(D[a].getDiceInt() == 4 && CurrentPlayer.isFullHealth())
+                else if(D.get(a).getDiceInt() == 4 && CurrentPlayer.isFullHealth())
                 {
-                    D[a].rollDice();
+                    D.get(a).setReroll(true);
                     CurrentPlayer.usedReroll();
-                    a += D.length;
+                    a += D.size();
                 }
             }
         }
         else if(Type == 3)
         {
-            for(int a = 0; a < D.length; a++)
+            for(int a = 0; a < D.size(); a++)
             {
-                if(D[a].getDiceInt() == 4)
+                if(D.get(a).getDiceInt() == 4)
                 {
-                    D[a].rollDice();
+                    D.get(a).setReroll(true);
                     CurrentPlayer.usedReroll();
-                    a += D.length;
+                    a += D.size();
                 }
             }
         }
         else if(Type == 4)
         {
             
-            for(int a = 0; a < D.length; a++)
+            for(int a = 0; a < D.size(); a++)
             {
-                if(D[a].getDiceInt() == 0 || D[a].getDiceInt() == 4 || D[a].getDiceInt() == 5)
+                if(D.get(a).getDiceInt() == 0 || D.get(a).getDiceInt() == 4 || D.get(a).getDiceInt() == 5)
                 {
-                    D[a].rollDice();
+                    D.get(a).setReroll(true);
                     CurrentPlayer.usedReroll();
-                    a += D.length;
+                    a += D.size();
                 }
             }
         }
