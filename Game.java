@@ -66,13 +66,8 @@ public class Game {
         this.characterNames.add("CALAMITY JANET");
         this.characterNames.add("JESSE JONES");
         this.characterNames.add("PAUL REGRET");
-        this.characterNames.add("PEDRO RAMIREZ");
-        this.characterNames.add("ROSE DOOLAN");
-        this.characterNames.add("SID KETCHUM");
-        this.characterNames.add("SLAB THE KILLER");
         this.characterNames.add("SUZY LAFAYETTE");
         this.characterNames.add("VULTURE SAM");
-        this.characterNames.add("WILLY THE KID");
     }
     
     public String getCharacterName()
