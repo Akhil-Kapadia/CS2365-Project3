@@ -18,9 +18,7 @@ public class Dice {
     //roll the dice, int value 0-5
     public void rollDice()
     {
-        System.out.println("before: " + this.diceValue);
         this.diceValue = rand.nextInt(6);
-        System.out.println("after: " + this.diceValue);
     }
     
     public void setReroll(boolean canReroll)

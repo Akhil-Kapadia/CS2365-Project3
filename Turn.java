@@ -35,6 +35,7 @@ public class Turn {
             this.user = new PlayerDecisionMaking(player);
             this.ai = new AIDecisionMaking();//No construtor?
             this.diceHandler = new DiceController();
+            this.roles = roles;
             playTurn();		
 	}
 	
@@ -62,9 +63,13 @@ public class Turn {
 		{
 			player.get(currentPlayer).setArrowCount(1);
 			arrowStack--;
+                        System.out.println(player.get(currentPlayer).getCharacterName() + " took an arrow, they have " + 
+                                player.get(currentPlayer).getArrowCount() + ". Arrow pile at " + getArrowStack());
+                        System.out.println();
                         if(arrowStack == 0)
                             indianAttack();
 		}
+
 	}
         
         public void setGameOver()
@@ -97,11 +102,13 @@ public class Turn {
             {
                 //addTurnResult(player.getCharacterName() + " took " + player.getArrowCount() + " damage.");
                 p.TakeDamage(p.getArrowCount());
+                System.out.println(p.getCharacterName() + " took " + p.getArrowCount() + " damage. Current HP: " + p.getHealth());
                 p.setArrowCount(0);
                 checkPlayerDeath(p); //check since player took damage
             }
 
             arrowStack = 9;
+            System.out.println();
         }
 	
 	/**
@@ -133,6 +140,8 @@ public class Turn {
 				target = user.chooseShoot(player.get(left),player.get(right));
                         
                     player.get(target).TakeDamage(1);
+                    System.out.println(player.get(currentPlayer).getCharacterName() + " shot " + player.get(target).getCharacterName() 
+                    + ". Current HP: " + player.get(target).getHealth());
                     checkPlayerDeath(player.get(target)); //check since player took damage
 		}
 		else
@@ -144,11 +153,13 @@ public class Turn {
 									    //player.get(leftx2),player.get(rightx2));
 			//}else
                     targetPlayer = ai.getHighestFavor(player.get(currentPlayer), "Shoot person two over left or right", player);
+                    System.out.println(player.get(currentPlayer).getCharacterName() + " shot " + targetPlayer.getCharacterName() 
+                    + ". Current HP: " + targetPlayer.getHealth());
                     targetPlayer.TakeDamage(1);
                     checkPlayerDeath(targetPlayer); //check since player took damage
                                
 		}
-
+                System.out.println();
 
 	}
 	
@@ -182,6 +193,8 @@ public class Turn {
 				target = user.chooseShoot(player.get(left),player.get(right));
                         
                     player.get(target).TakeDamage(1);
+                    System.out.println(player.get(currentPlayer).getCharacterName() + " shot " + player.get(target).getCharacterName() 
+                    + ". Current HP: " + player.get(target).getHealth());
                     checkPlayerDeath(player.get(target)); //check since player took damage
 		}
 		else
@@ -195,8 +208,13 @@ public class Turn {
                         //else
                     targetPlayer = ai.getHighestFavor(player.get(currentPlayer), "Shoot person two over left or right", player);
                     targetPlayer.TakeDamage(1);
+                    System.out.println(player.get(currentPlayer).getCharacterName() + " shot " + targetPlayer.getCharacterName() 
+                    + ". Current HP: " + targetPlayer.getHealth());
                     checkPlayerDeath(targetPlayer); //check since player took damage
 		}
+                
+                
+                System.out.println();
 				
 	}
 	
@@ -226,16 +244,21 @@ public class Turn {
 		targetPlayer.addHealth(2);
             else
                 targetPlayer.addHealth(1);
+            System.out.println(player.get(currentPlayer).getCharacterName() + " healed " + targetPlayer.getCharacterName() 
+                    + ". Current HP: " + targetPlayer.getHealth());
+            System.out.println();
 
 	}
 	
 	public void gatlingGun()
 	{
+            System.out.println("Gatling Gun!");
 		for(Player obj : player)
 		{
 			String person = obj.getCharacterName();
 			if(!person.equals(name) || !person.equals("PAUL REGRET"))
 			{
+                            System.out.println(person + "takes 1 damage. Current HP: " + obj.getHealth());
 				obj.TakeDamage(1);
 			}
                         checkPlayerDeath(obj); //check death since player took damage
@@ -243,6 +266,8 @@ public class Turn {
 		//remove arrows from current player and add them to the stack.
 		arrowStack += player.get(currentPlayer).getArrowCount();
 		player.get(currentPlayer).setArrowCount(-player.get(currentPlayer).getArrowCount());
+                
+                System.out.println();
 	}
 
 	/**
@@ -251,8 +276,13 @@ public class Turn {
 	 */
 	public void setDiceRoll()
 	{
-		//int count =0;
+		int count = 1;
 		//Check if player is the User or an AI
+                diceHandler.rollAllDice();
+                System.out.println("Roll " + count + ": ");
+                diceHandler.printAllDice();
+                count++;
+                
 		if(player.get(currentPlayer).getUser())
 		{
 			//Reroll as many times as possible. If user replies no, breaks loop.
@@ -262,15 +292,19 @@ public class Turn {
 				String input = scan.nextLine();
 				if(input.equals("y"))
 				{
+                                    
 					//Change the flags to roll. Add black Jack Ability in DiceController?
 					diceHandler.setDiceArray(user.chooseReroll(diceHandler.getDiceArray()));
                                         
 					diceHandler.rollAllDice();
+                                        System.out.println("Roll " + count + ": ");
+                                        diceHandler.printAllDice();
+                                        count++;
                                         player.get(currentPlayer).usedReroll();
                                         //need to handle arrows as they come up
                                         for(Dice dice : diceHandler.getDiceArray())
                                         {
-                                            if(dice.getDiceInt() == 1)
+                                            if(dice.getDiceInt() == 0)
                                                 indianArrow();
                                         }
                                         //if three dynamite, cant reroll anymore
@@ -286,11 +320,15 @@ public class Turn {
                     while(player.get(currentPlayer).CanReroll())
                     {
 			diceHandler.setDiceArray(ai.RerollHandler(player.get(currentPlayer), diceHandler.getDiceArray(), player));
+                        diceHandler.rollAllDice();
+                        System.out.println("Roll " + count + ": ");
+                        diceHandler.printAllDice();
+                        count++;
                         player.get(currentPlayer).usedReroll();
                         //need to handle arrows as they come up
                         for(Dice dice : diceHandler.getDiceArray())
                         {
-                            if(dice.getDiceInt() == 1)
+                            if(dice.getDiceInt() == 0)
                                 indianArrow();
                         }
                         //if three dynamite, cant reroll anymore
@@ -309,7 +347,7 @@ public class Turn {
 	{
                 //roll the dice
 		setDiceRoll();
-                diceHandler.printAllDice();
+                //diceHandler.printAllDice();
                 
                 player.get(currentPlayer).setRerolls(2);
 		

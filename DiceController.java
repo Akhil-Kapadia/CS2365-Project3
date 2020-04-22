@@ -75,6 +75,7 @@ public class DiceController {
             System.out.println("Dice " + c + ": " + dice.getDiceString());
             c++;
         }
+        System.out.println();
     }
     
 }
