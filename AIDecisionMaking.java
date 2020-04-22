@@ -1,17 +1,16 @@
 package cs2365_project3;
 
-import java.util.ArrayList;
 import java.util.Random;
+import java.util.ArrayList;
 
 class AIDecisionMaking
 {
     Random rand = new Random();
     
-    public Player getHighestFavor(Player CurrentPlayer, Dice D, ArrayList<Player> TotP)
+    public Player getHighestFavor(Player CurrentPlayer, String GameObject, ArrayList<Player> TotP)
     {
         Player ret = null;
         
-        String GameObject = D.getDiceString();
         String PlayerRole = CurrentPlayer.getRole();
         String CName = CurrentPlayer.getCharacterName();
         int CurrentPIndex = getCurrentPlayerIndex(CName, TotP);
@@ -73,6 +72,86 @@ class AIDecisionMaking
             else if (PlayerRole.equals("Renegade"))
             {
                 return CurrentPlayer;
+            }
+        }
+        else if (CName.equals("CALAMITY JANET"))
+        {
+            //For the special abilities that Janet has
+            if(GameObject.equals("Shoot person one over left or right") || GameObject.equals("Shoot person two over left or right"))
+            {
+                ArrayList<Player> AllP = TotP;
+                
+                int Left1 = 0;
+                int Right1 = 0;
+                
+                if(CurrentPIndex > 0)
+                {
+                    Left1 = CurrentPIndex -1;
+                }
+                else
+                {
+                    Left1 = AllP.size()-1;
+                }
+                
+                if(CurrentPIndex < AllP.size()-1)
+                {
+                    Right1 = CurrentPIndex +1;
+                }
+                else
+                {
+                    Right1 = 0;
+                }
+                
+                int L_Favor1 = FavorSystemShooting(CurrentPlayer, AllP.get(Left1));
+                int R_Favor1 = FavorSystemShooting(CurrentPlayer, AllP.get(Right1));
+                
+                int Left2 = 0;
+                int Right2 = 0;
+                
+                if(CurrentPIndex > 1)
+                {
+                    Left2 = CurrentPIndex -2;
+                }
+                else
+                {
+                    Left2 = AllP.size()-2 + CurrentPIndex;
+                }
+                
+                if(CurrentPIndex < AllP.size()-2)
+                {
+                    Right2 = CurrentPIndex +2;
+                }
+                else if (CurrentPIndex < AllP.size()-1)
+                {
+                    Right2 = 0;
+                }
+                else
+                {
+                    Right2 = 1;
+                }
+                
+                int L_Favor2 = FavorSystemShooting(CurrentPlayer, AllP.get(Left2));
+                int R_Favor2 = FavorSystemShooting(CurrentPlayer, AllP.get(Right2));
+                
+                //Find the highest in favor!
+                
+                if(L_Favor1 >= R_Favor1 && L_Favor1 >= R_Favor2 && L_Favor1 >= L_Favor2)
+                {
+                    return AllP.get(Left1);
+                }
+                else if(L_Favor2 >= R_Favor1 && L_Favor2 >= R_Favor2 && L_Favor2 >= L_Favor1)
+                {
+                    return AllP.get(Left2);
+                }
+                else if(R_Favor1 >= L_Favor1 && R_Favor1 >= R_Favor2 && R_Favor1 >= L_Favor2)
+                {
+                    return AllP.get(Right1);
+                }
+                else if(R_Favor2 >= R_Favor1 && R_Favor2 >= L_Favor2 && R_Favor2 >= L_Favor1)
+                {
+                    return AllP.get(Right2);
+                }
+                
             }
         }
         else if(GameObject.equals("Shoot person one over left or right"))
@@ -416,7 +495,7 @@ class AIDecisionMaking
         }
         
         //Reset rerolls for next turn
-        CurrentPlayer.setRerolls(2);
+        //CurrentPlayer.setRerolls(2);
         
         return D;
     }

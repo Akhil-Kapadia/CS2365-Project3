@@ -18,7 +18,9 @@ public class Dice {
     //roll the dice, int value 0-5
     public void rollDice()
     {
+        System.out.println("before: " + this.diceValue);
         this.diceValue = rand.nextInt(6);
+        System.out.println("after: " + this.diceValue);
     }
     
     public void setReroll(boolean canReroll)
@@ -38,22 +40,29 @@ public class Dice {
     
     public String getDiceString()
     {
+        String value = "error";
         switch(getDiceInt()){
             case 0:
-                return "Arrow";
+                value = "Arrow";
+                break;
             case 1:
-                return "Dynamite";
+                value = "Dynamite";
+                break;
             case 2:
-                return "Shoot person one over left or right";
+                value = "Shoot person one over left or right";
+                break;
             case 3:
-                return "Shoot person two over left or right";
+                value = "Shoot person two over left or right";
+                break;
             case 4:
-                return "Beer";
+                value = "Beer";
+                break;
             case 5:
-                return "Gatling";
+                value = "Gatling";
+                break;
         }
         
-        return "Error";
+        return value;
     }
     
 }

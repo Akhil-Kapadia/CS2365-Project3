@@ -121,7 +121,7 @@ class Player
     
     public void usedReroll()
     {
-        RerollsRemaining--;
+        this.RerollsRemaining--;
     }
     public void setRerolls(int N)
     {

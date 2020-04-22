@@ -44,7 +44,8 @@ public class DiceController {
     
     public void rollAllDice()
     {
-        for(Dice dice : getDiceArray())
+        ArrayList<Dice> array = getDiceArray();
+        for(Dice dice : array)
         {
             if(dice.getReroll())
             {
@@ -52,6 +53,8 @@ public class DiceController {
                 dice.setReroll(false); //resets all reroll flags to false
             }
         }
+        
+        setDiceArray(array);
     }
     
     public int checkFrequency(int diceValue)
@@ -62,6 +65,16 @@ public class DiceController {
                 count++;
         
         return count;
+    }
+    
+    public void printAllDice()
+    {
+        int c = 0;
+        for(Dice dice : getDiceArray())
+        {
+            System.out.println("Dice " + c + ": " + dice.getDiceString());
+            c++;
+        }
     }
     
 }

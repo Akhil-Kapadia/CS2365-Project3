@@ -31,7 +31,7 @@ public class Turn {
             this.player = tableSeating;
             this.arrowStack = arrowPile;
             this.name = player.get(current).getCharacterName();
-		
+                        
             this.user = new PlayerDecisionMaking(player);
             this.ai = new AIDecisionMaking();//No construtor?
             this.diceHandler = new DiceController();
@@ -117,6 +117,7 @@ public class Turn {
 		//Sets the left and right index of currentPlayer. If current is 0, then
 		//left is that last person.
 		int target;
+                Player targetPlayer;
 		int right = (currentPlayer!=player.size()-1) ? currentPlayer+1 : 0 ;
 		int left = (currentPlayer!=0) ? currentPlayer - 1 :  player.size()-1;
 		int rightx2 = (right != player.size()-1) ? right+1 : 0;
@@ -130,6 +131,9 @@ public class Turn {
 										  player.get(leftx2),player.get(rightx2));
 			}else
 				target = user.chooseShoot(player.get(left),player.get(right));
+                        
+                    player.get(target).TakeDamage(1);
+                    checkPlayerDeath(player.get(target)); //check since player took damage
 		}
 		else
 		{
@@ -139,11 +143,12 @@ public class Turn {
 				//target = ai.chooseShoot(player.get(left),player.get(right),
 									    //player.get(leftx2),player.get(rightx2));
 			//}else
-				target = ai.getHighestFavor(player.get(currentPlayer), "Shoot person one over left or right", player);
+                    targetPlayer = ai.getHighestFavor(player.get(currentPlayer), "Shoot person two over left or right", player);
+                    targetPlayer.TakeDamage(1);
+                    checkPlayerDeath(targetPlayer); //check since player took damage
+                               
 		}
-		
-		player.get(target).TakeDamage(1);
-                checkPlayerDeath(player.get(target)); //check since player took damage
+
 
 	}
 	
@@ -160,6 +165,7 @@ public class Turn {
 		//Sets the left and right index of currentPlayer. If current is 0, then
 		//left is that last person.
 		int target;
+                Player targetPlayer;
 		int right = (currentPlayer!=player.size()-1) ? currentPlayer+1 : 0 ;
 		int left = (currentPlayer!=0) ? currentPlayer - 1 :  player.size()-1;
 		int rightx2 = (right != player.size()-1) ? right+1 : 0;
@@ -174,6 +180,9 @@ public class Turn {
 			}
                         else
 				target = user.chooseShoot(player.get(left),player.get(right));
+                        
+                    player.get(target).TakeDamage(1);
+                    checkPlayerDeath(player.get(target)); //check since player took damage
 		}
 		else
 		{
@@ -184,11 +193,11 @@ public class Turn {
 									   // player.get(leftx2),player.get(rightx2));
 			//}
                         //else
-				target = ai.getHighestFavor(player.get(currentPlayer), "Shoot person two over left or right", player);
+                    targetPlayer = ai.getHighestFavor(player.get(currentPlayer), "Shoot person two over left or right", player);
+                    targetPlayer.TakeDamage(1);
+                    checkPlayerDeath(targetPlayer); //check since player took damage
 		}
 				
-		player.get(target).TakeDamage(1);
-                checkPlayerDeath(player.get(target)); //check since player took damage
 	}
 	
 	/**
@@ -300,6 +309,9 @@ public class Turn {
 	{
                 //roll the dice
 		setDiceRoll();
+                diceHandler.printAllDice();
+                
+                player.get(currentPlayer).setRerolls(2);
 		
                 //resolve the dice in correct order, arrows are already handled as they are rolled
                 if(diceHandler.checkFrequency(1) >= 3)

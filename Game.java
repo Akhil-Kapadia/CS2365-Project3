@@ -21,7 +21,7 @@ public class Game {
     
     public void setTotalPlayers()
     {
-        this.totalPlayers = rand.nextInt(5) + 4; //random range 4 to 8
+        this.totalPlayers = 5;
     }
     
     public int getTotalPlayers()
@@ -87,9 +87,10 @@ public class Game {
     public void playGame()
     {
         gameSetup();
+        printGameSetup();
         boolean gameOver = false;
         int playerTurnIndex = 0;
-        ArrayList<Player> tableSeating = getTableSeating();
+        //ArrayList<Player> tableSeating = getTableSeating();
         for(Player player : getTableSeating())
         {
             if(player.getRole().equals("Sheriff"))
@@ -100,7 +101,7 @@ public class Game {
         }
         while(!gameOver)
         {
-            Turn turn = new Turn(tableSeating, playerTurnIndex, arrowPile, roles);
+            Turn turn = new Turn(getTableSeating(), getArrowPile(), playerTurnIndex, roles);
             gameResult.add(turn);
             gameOver = turn.getGameOver();
             setTableSeating(turn.getTableSeating());
@@ -108,6 +109,8 @@ public class Game {
             playerTurnIndex = (playerTurnIndex + 1) % tableSeating.size();
             if(gameOver)
                 System.out.println("Game over on condition" + turn.getWinCond());
+            System.out.println("--------------------------------------------------");
+            //printGameSetup();
         }
             
     }
