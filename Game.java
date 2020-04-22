@@ -62,14 +62,9 @@ public class Game {
     public void setCharacterNames()
     {
         this.characterNames = new ArrayList<>();
-        this.characterNames.add("BART CASSIDY");
         this.characterNames.add("BLACK JACK");
         this.characterNames.add("CALAMITY JANET");
-        this.characterNames.add("EL GRINGO");
         this.characterNames.add("JESSE JONES");
-        this.characterNames.add("JOURDONNAIS");
-        this.characterNames.add("KIT CARLSON");
-        this.characterNames.add("LUCKY DUKE");
         this.characterNames.add("PAUL REGRET");
         this.characterNames.add("PEDRO RAMIREZ");
         this.characterNames.add("ROSE DOOLAN");
@@ -92,7 +87,7 @@ public class Game {
     public void playGame()
     {
         gameSetup();
-        boolean gameOver = checkGameOver();
+        boolean gameOver = false;
         int playerTurnIndex = 0;
         ArrayList<Player> tableSeating = getTableSeating();
         for(Player player : getTableSeating())
@@ -103,18 +98,16 @@ public class Game {
                 break;
             }
         }
-        Player currentPlayer = tableSeating.get(playerTurnIndex);
         while(!gameOver)
         {
-            Turn turn = new Turn(currentPlayer, tableSeating, diceArray, arrowPile);
+            Turn turn = new Turn(tableSeating, playerTurnIndex, arrowPile, roles);
             gameResult.add(turn);
-            gameOver = checkGameOver();
-            tableSeating = turn.getTableSeating();
-            setTableSeating(tableSeating);
-            arrowPile = turn.getArrowPile();
-            setArrowPile(arrowPile);
+            gameOver = turn.getGameOver();
+            setTableSeating(turn.getTableSeating());
+            setArrowPile(turn.getArrowStack());
             playerTurnIndex = (playerTurnIndex + 1) % tableSeating.size();
-            currentPlayer = tableSeating.get(playerTurnIndex);
+            if(gameOver)
+                System.out.println("Game over on condition" + turn.getWinCond());
         }
             
     }
@@ -123,9 +116,6 @@ public class Game {
     {
         //set arrow pile
         setArrowPile(9);
-        
-        //dice creation
-        DiceController diceController = new DiceController();
         
         //player creation
         setTotalPlayers();
@@ -222,53 +212,23 @@ public class Game {
         //set HP based on character name
         int HP = 0;
         switch (characterName){
-            case "BART CASSIDY":
-                HP = 8;
-                break;
             case "BLACK JACK":
                 HP = 8;
                 break;
             case "CALAMITY JANET":
                 HP = 8;
                 break;
-            case "EL GRINGO":
-                HP = 7;
-                break;
             case "JESSE JONES":
                 HP = 9;
                 break;
-            case "JOURDONNAIS":
-                HP = 7;
-                break;
-            case "KIT CARLSON":
-                HP = 7;
-                break;
-            case "LUCKY DUKE":
-                HP = 8;
-                break;
             case "PAUL REGRET":
                 HP = 9;
-                break;
-            case "PEDRO RAMIREZ":
-                HP = 8;
-                break;
-            case "ROSE DOOLAN":
-                HP = 9;
-                break;
-            case "SID KETCHUM":
-                HP = 8;
-                break;
-            case "SLAB THE KILLER":
-                HP = 8;
                 break;
             case "SUZY LAFAYETTE":
                 HP = 8;
                 break;
             case "VULTURE SAM":
                 HP = 9;
-                break;
-            case "WILLY THE KID":
-                HP = 8;
                 break;
         }
         
@@ -283,51 +243,7 @@ public class Game {
         
         return newPlayer;
     }
-    
-    public int winCondition()
-    {
-        if(roles[0] == 0 && roles[1] == 1 && roles[2] == 0 && roles[3] == 0)
-            return 1; //everyone else died, single renegade wins
-        else if(roles[1] == 0 && roles[2] == 0)
-            return 2; //outlaws and renegade(s) died, sheriff wins
-        else if(roles[0] == 0)
-            return 3; //sheriff died, outlaws win
-        else
-            return 0; //game is not over
-    }
-    
-    public boolean checkGameOver()
-    {
-        if(winCondition() != 0)
-            return true; //game is over
-        else
-            return false; //game is not over
-    }
-    
-    public boolean checkPlayerDeath(Player damagedPlayer)
-    {
-        if(damagedPlayer.getHealth() <= 0)
-        {
-            String role = damagedPlayer.getRole();
-            //decrement the current amount of the role of the dead player that exists in the game
-            if(role.equals("Sheriff"))
-                roles[0]--;
-            else if(role.equals("Renegade"))
-                roles[1]--;
-            else if(role.equals("Outlaw"))
-                roles[2]--;
-            else
-                roles[3]--;
-            
-            System.out.println("Player " + damagedPlayer.getPlayerIndex() + " is dead, their role was " + role);
-            
-            tableSeating.remove(damagedPlayer); //remove the player from the seating
-            return true;
-        }
-        else
-            return false;
-    }
-    
+        
     public void printGameSetup()
     {
         System.out.println("There are " + getTotalPlayers() + " players in the game.\n");
@@ -341,17 +257,6 @@ public class Game {
             System.out.println("Arrows: " + player.getArrowCount());
             System.out.println("Index: " + player.getPlayerIndex());
             System.out.println("");
-        }
-    }
-    
-    public void printDiceRolling()
-    { 
-        int c = 0;
-        for(Dice dice : getDiceArray())
-        {
-            dice.rollDice();
-            System.out.println("Dice " + c + ": " + dice.getDiceInt() + " = " + dice.getDiceString());
-            c++;
         }
     }
 }

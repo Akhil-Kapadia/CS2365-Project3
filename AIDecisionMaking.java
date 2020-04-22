@@ -7,24 +7,15 @@ class AIDecisionMaking
 {
     Random rand = new Random();
     
-    Game GameC;
-    Turn TurnC;
-    
-    public AIDecisionMaking(Game G, Turn T)
-    {
-        GameC = G;
-        TurnC = T;
-    }
-    
-    public Player getHighestFavor(Player CurrentPlayer, Dice D)
+    public Player getHighestFavor(Player CurrentPlayer, Dice D, ArrayList<Player> TotP)
     {
         Player ret = null;
         
         String GameObject = D.getDiceString();
         String PlayerRole = CurrentPlayer.getRole();
         String CName = CurrentPlayer.getCharacterName();
-        int CurrentPIndex = getCurrentPlayerIndex(CName);
-        GameObject = UseDifferentShooting(GameObject, CurrentPIndex);
+        int CurrentPIndex = getCurrentPlayerIndex(CName, TotP);
+        GameObject = UseDifferentShooting(GameObject, CurrentPIndex, TotP);
        
         
         //handles who to shoot, who to heal
@@ -33,40 +24,35 @@ class AIDecisionMaking
         {
             if(PlayerRole.equals("Sheriff"))
             {
-                //heal self if not full, else heal the lowest deputy
                 if(!CurrentPlayer.isFullHealth())
                 {
                     return CurrentPlayer;
                 }
                 else
                 {
-                    ArrayList<Player> Deputys = getPlayerType("Deputy", CName);
-                    Deputys = sortPlayersHealth(Deputys, false);
+                    //Sheriff heals the dude with lowest health
+                    ArrayList<Player> sortedByH = sortPlayersHealth(TotP, false);
                     
-                    //if there are no Deputy, then the CurrentPlayer will be the highest favor
-                    if(Deputys.size() > 0)
+                    if(sortedByH.get(0) != null)
                     {
-                        return Deputys.get(0);
+                        return sortedByH.get(0);
                     }
                     else
                     {
                         return CurrentPlayer;
                     }
+                    
                 }
+                
             }
             else if (PlayerRole.equals("Deputy"))
             {
-                if(!CurrentPlayer.isFullHealth())
+                ArrayList<Player> Sheriffs = getPlayerType("Sheriff", CName, TotP);
+                Sheriffs = sortPlayersHealth(Sheriffs, false);   
+                //if there are no Deputy, then the CurrentPlayer will be the highest favor
+                if(Sheriffs.size() > 0)
                 {
-                    return CurrentPlayer;
-                }
-                else
-                {
-                    ArrayList<Player> Sheriffs = getPlayerType("Sheriff", CName);
-                    Sheriffs = sortPlayersHealth(Sheriffs, false);
-                    
-                    //if there are no Deputy, then the CurrentPlayer will be the highest favor
-                    if(Sheriffs.size() > 0)
+                    if(Sheriffs.get(0).getHealth() <= CurrentPlayer.getHealth())
                     {
                         return Sheriffs.get(0);
                     }
@@ -74,6 +60,10 @@ class AIDecisionMaking
                     {
                         return CurrentPlayer;
                     }
+                }
+                else
+                {
+                    return CurrentPlayer;
                 }
             }
             else if (PlayerRole.equals("Outlaw"))
@@ -87,7 +77,7 @@ class AIDecisionMaking
         }
         else if(GameObject.equals("Shoot person one over left or right"))
             {
-                ArrayList<Player> AllP = GameC.getTableSeating();
+                ArrayList<Player> AllP = TotP;
                 
                 int Left = 0;
                 int Right = 0;
@@ -110,8 +100,8 @@ class AIDecisionMaking
                     Right = 0;
                 }
                 
-                int L_Favor = FavorSystemShooting(PlayerRole, AllP.get(Left).getRole());
-                int R_Favor = FavorSystemShooting(PlayerRole, AllP.get(Right).getRole());
+                int L_Favor = FavorSystemShooting(CurrentPlayer, AllP.get(Left));
+                int R_Favor = FavorSystemShooting(CurrentPlayer, AllP.get(Right));
                 
                 if(L_Favor > R_Favor)
                 {
@@ -143,7 +133,7 @@ class AIDecisionMaking
             }
             else if(GameObject.equals("Shoot person two over left or right"))
             {
-                ArrayList<Player> AllP = GameC.getTableSeating();
+                ArrayList<Player> AllP = TotP;
                 int Left = 0;
                 int Right = 0;
                 
@@ -169,8 +159,8 @@ class AIDecisionMaking
                     Right = 1;
                 }
                 
-                int L_Favor = FavorSystemShooting(PlayerRole, AllP.get(Left).getRole());
-                int R_Favor = FavorSystemShooting(PlayerRole, AllP.get(Right).getRole());
+                int L_Favor = FavorSystemShooting(CurrentPlayer, AllP.get(Left));
+                int R_Favor = FavorSystemShooting(CurrentPlayer, AllP.get(Right));
                 
                 if(L_Favor > R_Favor)
                 {
@@ -201,21 +191,21 @@ class AIDecisionMaking
             }
             else if(GameObject.equals("Shoot Other Player"))
             {
-                ArrayList<Player> AllP = GameC.getTableSeating();
+                ArrayList<Player> AllP = TotP;
                 Player P = AllP.get(AllP.size()-1 - CurrentPIndex);
                 
                 return P;
             }
             else if(GameObject.equals("Shoot To Left"))
             {
-                ArrayList<Player> AllP = GameC.getTableSeating();
+                ArrayList<Player> AllP = TotP;
                 Player P = AllP.get(CurrentPIndex - 2);
                 
                 return P;
             }
             else if(GameObject.equals(("Shoot To Right")))
             {
-                ArrayList<Player> AllP = GameC.getTableSeating();
+                ArrayList<Player> AllP = TotP;
                 Player P = AllP.get(CurrentPIndex + 2);
                 
                 return P;
@@ -227,10 +217,50 @@ class AIDecisionMaking
         return ret;
     }
     
-    private ArrayList<Player> getPlayerType(String T, String CN)
+    public int FavorSystemShooting(Player CPlayer, Player OPlayer)
+    {
+        String PlayerRole = CPlayer.getRole();
+        String OtherRole = OPlayer.getRole();
+        
+        if(PlayerRole.equals("Sheriff"))
+        { 
+            //get based on players health
+            return OPlayer.getHealth();
+        }
+        else if (PlayerRole.equals("Deputy"))
+        {
+            if (OtherRole.equals("Sheriff"))
+            {
+                return 0;
+            }
+            else
+            {
+                return OPlayer.getHealth();
+            }
+        }
+        else if (PlayerRole.equals("Outlaw"))
+        {
+            if (OtherRole.equals("Sheriff"))
+            {
+                return 100;
+            }
+            else
+            {
+                return OPlayer.getHealth();
+            }
+        }
+        else if (PlayerRole.equals("Renegade"))
+        {
+            return OPlayer.getHealth();
+        }
+        
+        return -1;
+    }
+    
+    private ArrayList<Player> getPlayerType(String T, String CN, ArrayList<Player> TotP)
     {
         ArrayList<Player> Ret = new ArrayList<Player>();
-        ArrayList<Player> TotalPlayers = GameC.getTableSeating();
+        ArrayList<Player> TotalPlayers = TotP;
         
         for(int a = 0; a < TotalPlayers.size(); a++)
         {
@@ -281,9 +311,9 @@ class AIDecisionMaking
         return Data;
     }
     
-    private int getCurrentPlayerIndex(String CN)
+    private int getCurrentPlayerIndex(String CN, ArrayList<Player> TotP)
     {
-        ArrayList<Player> TotalPlayers = GameC.getTableSeating();
+        ArrayList<Player> TotalPlayers = TotP;
         
         for(int a = 0; a < TotalPlayers.size(); a++)
         {
@@ -298,79 +328,13 @@ class AIDecisionMaking
         return -1;
     }
     
-    private int FavorSystemShooting(String PlayerRole, String OtherRole)
-    {
-        if(PlayerRole.equals("Sheriff"))
-        { 
-            if (OtherRole.equals("Deputy"))
-            {
-                return 1;
-            }
-            else if (OtherRole.equals("Outlaw"))
-            {
-                return 2;
-            }
-            else if (OtherRole.equals("Renegade"))
-            {
-                return 2;
-            }
-        }
-        else if (PlayerRole.equals("Deputy"))
-        {
-            if (OtherRole.equals("Sheriff"))
-            {
-                return 1;
-            }
-            else if (OtherRole.equals("Outlaw"))
-            {
-                return 2;
-            }
-            else if (OtherRole.equals("Renegade"))
-            {
-                return 2;
-            }
-        }
-        else if (PlayerRole.equals("Outlaw"))
-        {
-            if (OtherRole.equals("Deputy"))
-            {
-                return 2;
-            }
-            else if (OtherRole.equals("Sheriff"))
-            {
-                return 3;
-            }
-            else if (OtherRole.equals("Renegade"))
-            {
-                return 1;
-            }
-        }
-        else if (PlayerRole.equals("Renegade"))
-        {
-            if (OtherRole.equals("Deputy"))
-            {
-                return 1;
-            }
-            else if (OtherRole.equals("Outlaw"))
-            {
-                return 3;
-            }
-            else if (OtherRole.equals("Sheriff"))
-            {
-                return 2;
-            }
-        }
-        
-        return 0;
-    }
-    
-    private String UseDifferentShooting(String CurrentMove, int PlayerI)
+    private String UseDifferentShooting(String CurrentMove, int PlayerI, ArrayList<Player> TotP)
     {
         String ret = CurrentMove;
         
         if(CurrentMove.equals("Shoot person one over left or right"))
         {
-            if(GameC.getTableSeating().size() == 2)
+            if(TotP.size() == 2)
             {
                 ret = "Shoot Other Player";
             }
@@ -378,7 +342,7 @@ class AIDecisionMaking
         }
         else if(CurrentMove.equals("Shoot person two over left or right"))
         {
-           if(GameC.getTableSeating().size() == 4)
+           if(TotP.size() == 4)
             {
                 int DiffL = PlayerI - 2;
                 int DiffR = PlayerI + 2;
@@ -392,17 +356,146 @@ class AIDecisionMaking
                     ret = "Shoot To Right";
                 }
             }
-           else if(GameC.getTableSeating().size() == 3)
+           else if(TotP.size() == 3)
            {
                ret = "Shoot person one over left or right";
            }
-           else if(GameC.getTableSeating().size() == 2)
+           else if(TotP.size() == 2)
            {
                 ret = "Shoot Other Player";
            }
         }
         
         return ret;
+    }
+    
+    //Reroll Stuff
+     public ArrayList<Dice> RerollHandler(Player CurrentPlayer, ArrayList<Dice> D, ArrayList<Player> TotP)
+    {
+        for(int a = 0; a < 2 && CurrentPlayer.CanReroll(); a++)
+        {
+            int TNT = DiceCounter(1, D);
+            int GAT = DiceCounter(5, D);
+            if(TNT == 3 || GAT == 3)
+            {
+                //If you have 3 TNT sticks or Gattling gun, no more rerolls
+                CurrentPlayer.setRerolls(0);
+            }
+            else if(CurrentPlayer.getHealth() < 2)
+            {
+                //if health < 2, roll for Beer
+                D = Reroll(D, 1, CurrentPlayer);
+            }
+            else if(GAT == 2)
+            {
+                //reroll for Gattling gun
+                D = Reroll(D, 2, CurrentPlayer);
+            }
+            else if (CurrentPlayer.isFullHealth())
+            {
+                //if full Health, reroll Beer
+                D = Reroll(D, 3, CurrentPlayer);
+            }
+            else if(CurrentPlayer.getRole().equals("Outlaw"))
+            {
+                //outlaws reroll for 2 or 3 Dice
+                D = Reroll(D, 4, CurrentPlayer);
+            }
+            else if(CurrentPlayer.getRole().equals("Renegade"))
+            {
+                //renegade reroll for beer
+                D = Reroll(D, 1, CurrentPlayer);
+            }
+            else if(CurrentPlayer.getRole().equals("Deputy"))
+            {
+                //deputy rerolls for beer
+                D = Reroll(D, 1, CurrentPlayer);
+            }
+            
+            
+        }
+        
+        //Reset rerolls for next turn
+        CurrentPlayer.setRerolls(2);
+        
+        return D;
+    }
+    
+    private int DiceCounter(int Face, ArrayList<Dice> D)
+    {
+        int ret = 0;
+        for(int a = 0; a < D.size(); a++)
+        {
+            if(D.get(a).getDiceInt() == Face)
+            {
+                ret++;
+            }
+        }
+        
+        return ret;
+    }
+    
+    private ArrayList<Dice> Reroll(ArrayList<Dice> D, int Type, Player CurrentPlayer)
+    {
+        if(Type == 1)
+        {
+            //Health reroll so reroll Arrow, 1 or 2, or Gattling
+            for(int a = 0; a < D.size(); a++)
+            {
+                if(D.get(a).getDiceInt() == 0 || D.get(a).getDiceInt() == 2 || D.get(a).getDiceInt() == 3 || D.get(a).getDiceInt() == 5)
+                {
+                    D.get(a).setReroll(true);
+                    //CurrentPlayer.usedReroll(); will be changed in the turn class
+                    a += D.size();
+                }
+            }
+        }
+        else if (Type == 2)
+        {
+            for(int a = 0; a < D.size(); a++)
+            {
+                if(D.get(a).getDiceInt() == 0 || D.get(a).getDiceInt() == 2 || D.get(a).getDiceInt() == 3)
+                {
+                    D.get(a).setReroll(true);
+                    //CurrentPlayer.usedReroll();
+                    a += D.size();
+                }
+                else if(D.get(a).getDiceInt() == 4 && CurrentPlayer.isFullHealth())
+                {
+                    D.get(a).setReroll(true);
+                    //CurrentPlayer.usedReroll();
+                    a += D.size();
+                }
+            }
+        }
+        else if(Type == 3)
+        {
+            for(int a = 0; a < D.size(); a++)
+            {
+                if(D.get(a).getDiceInt() == 4)
+                {
+                    D.get(a).setReroll(true);
+                    //CurrentPlayer.usedReroll();
+                    a += D.size();
+                }
+            }
+        }
+        else if(Type == 4)
+        {
+            
+            for(int a = 0; a < D.size(); a++)
+            {
+                if(D.get(a).getDiceInt() == 0 || D.get(a).getDiceInt() == 4 || D.get(a).getDiceInt() == 5)
+                {
+                    D.get(a).setReroll(true);
+                    //CurrentPlayer.usedReroll();
+                    a += D.size();
+                }
+            }
+        }
+        
+        
+        return D;
     }
     
 }

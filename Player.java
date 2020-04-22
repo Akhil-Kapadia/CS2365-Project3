@@ -51,11 +51,14 @@ class Player
         return CurrentHealth;
     }
     
-    public void addHealth()
+    public void addHealth(int h)
     {
-        if(CurrentHealth < MaxHealth)
+        for(int i = h; i > 0; i--)
         {
-            CurrentHealth++;
+            if(CurrentHealth < MaxHealth)
+            {
+                CurrentHealth++;
+            }
         }
     }
     
@@ -87,11 +90,7 @@ class Player
     {
         String ret = "NONE";
         
-        if(CharacterName.equals("BART CASSIDY"))
-        {
-            ret = "Take Arrow, not lose Life";
-        }
-        else if(CharacterName.equals("BLACK JACK"))
+        if(CharacterName.equals("BLACK JACK"))
         {
             ret = "Reroll Dynamite";
         }
@@ -99,45 +98,13 @@ class Player
         {
             ret = "Use 3A as 3B, vise versa";
         }
-        else if(CharacterName.equals("EL GRINGO"))
-        {
-            ret = "Lose 1 or more health, Take Arrow";
-        }
         else if(CharacterName.equals("JESSE JONES"))
         {
             ret = "If 4 health or less and use Beer, Add 2 Health";
         }
-        else if(CharacterName.equals("JOURDONNAIS"))
-        {
-            ret = "Never lose 1 or more health to Indians";
-        }
-        else if(CharacterName.equals("KIT CARLSON"))
-        {
-            ret = "For each Gattling, you can discard player Arrows";
-        }
-        else if(CharacterName.equals("LUCKY DUKE"))
-        {
-            ret = "Extra reroll";
-        }
         else if(CharacterName.equals("PAUL REGRET"))
         {
             ret = "Never lose Health to Gattling";
-        }
-        else if(CharacterName.equals("PEDRO RAMIREZ"))
-        {
-            ret = "Loss of Health, you can discard 1 Arrow";
-        }
-        else if(CharacterName.equals("ROSE DOOLAN"))
-        {
-            ret = "Can use 3A or 3B for players one further away";
-        }
-        else if(CharacterName.equals("SID KETCHUM"))
-        {
-            ret = "Start of turn, any player gains 1 health";
-        }
-        else if(CharacterName.equals("SLAB THE KILLER"))
-        {
-            ret = "Per turn, can use Beer to 3A or 3B";
         }
         else if(CharacterName.equals("SUZY LAFAYETTE"))
         {
@@ -146,10 +113,6 @@ class Player
         else if(CharacterName.equals("VULTURE SAM"))
         {
             ret = "Each time Player dies, Add 2 health";
-        }
-        else if(CharacterName.equals("WILLY THE KID"))
-        {
-            ret = "One need 2 points to use Gattling";
         }
         
         

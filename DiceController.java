@@ -17,6 +17,11 @@ public class DiceController {
         }
     }
     
+    public void setDiceArray(ArrayList<Dice> DA)
+    {
+        this.diceArray = DA;
+    }
+    
     public ArrayList<Dice> getDiceArray()
     {
         return new ArrayList<>(diceArray);
@@ -37,7 +42,7 @@ public class DiceController {
         return diceArray;
     }
     
-    public void rollAllDice(boolean[] diceReroll)
+    public void rollAllDice()
     {
         for(Dice dice : getDiceArray())
         {
