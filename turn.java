@@ -1,9 +1,12 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Turn {
 
 	//Arraylist of all players in the game for this turn.
 	private ArrayList player = new ArrayList();
+	//ArrayList of all the dices that are set for this round.
+	private ArrayList<Dice> dices;
 	//Index of the player's whose turn it is in the arraylist.
 	private int currentPlayer;
 	//The total amount of arrows left in the stack
@@ -12,6 +15,28 @@ public class Turn {
 	private int diceRoll[];
 	//Name of current Player from player class.
 	private String name;
+	
+	Scanner scan = new Scanner(System.in);
+	
+	//Are these objs passed in from Game class??
+	PlayerDecisionMaking user = new PlayerDecisionMaking(player);
+	AIDecisionMakin ai = new AIDecisionMaking();//No construtor?
+	
+	public Turn(ArrayList<Player> tableSeating, ArrayList<Dice> dices, int arrowPile, int current)
+	{
+		setCurrentPlayer(current);
+		setPlayers(tableSeating);
+		setArrowStack(arrowPile);
+		name = getName(current);
+		this.dices = dices;
+		
+		user = new PlayerDecisionMaking(player);
+		ai = new AIDecisionMaking();//No construtor?
+		playTurn();
+		
+		
+	}
+	
 	
 	/**
 	 * Method sets the local player Arraylist equal to the ArrayList of Player
@@ -80,44 +105,39 @@ public class Turn {
 	 * 
 	 * @param jack boolean Used to tell if his ability has been used.
 	 */
-	public void bullsEyex1(boolean jack)
+	public void bullsEyex1()
 	{
 		//Sets the left and right index of currentPlayer. If current is 0, then
 		//left is that last person.
 		int target;
-		int right = (currentPlayer!=player.size()-1) ? right+1 : 0 ;
+		int right = (currentPlayer!=player.size()-1) ? currentPlayer+1 : 0 ;
 		int left = (currentPlayer!=0) ? currentPlayer - 1 :  player.size()-1;
-		int rightx2 = (currentPlayer < player.size()-2) ? currentPlayer +2:
-			(currentPlayer == player.size()-1) ? 0 : 1;
-		int leftx2 = (currentPlayer>1) ? currentPlayer - 2 :  
-		   (currentPlayer==1) ? player.size()-1 : player.size()-2 ;
+		int rightx2 = (right != player.size()-1) ? right+1 : 0;
+		int leftx2 = (left !=0 ) ? left - 1 :  player.size() -1;
 		
-		if (name == "ROSE DOOLAN" || name == "CALAMITY JANET")
+		if(player.get(currentPlayer).getUser())
 		{
-
-			/*Choose which ever has the worst favor here.
-			 * Choose between left and leftx2,
-			 * Choose between right and rightx2
-			 * then set left or right equal to it. 
-			 */
+			if ( name == "CALAMITY JANET")
+			{
+				target = user.chooseShoot(player.get(left),player.get(right),
+										  player.get(leftx2),player.get(rightx2));
+			}else
+				target = user.chooseShoot(player.get(left),player.get(right));
+		}
+		else
+		{
+			//AI...IDK what demetrios code is doing, so I based it off Jacobs.
+		}
+			if ( name == "CALAMITY JANET")
+			{
+				target = ai.chooseShoot(player.get(left),player.get(right),
+									    player.get(leftx2),player.get(rightx2));
+			}else
+				target = ai.chooseShoot(player.get(left),player.get(right));
 		}
 		
-		/*
-		 * Put code Determing whether left/right has better favor here.
-		 * Then set target equal to that.
-		 */
+		player.get(target).TakeDamage(1);
 
-		if (name == "SLAB THE KILLER")
-		{
-			int beer=0;
-			for (int i : diceRoll)
-				 beer = (diceRoll[i]==5) ? beer+1 : beer;
-			if(beer!=0 && !jack)
-				player.get(target).TakeDamage(2);
-		}else
-		{
-			player.get(target).TakeDamage(1);
-		}
 	}
 	
 	/**
@@ -128,58 +148,38 @@ public class Turn {
 	 * 
 	 * @param jack boolean Used to tell if his ability has been used.
 	 */
-	public void bullsEyex2(boolean jack)
+	public void bullsEyex2()
 	{
-		String character = player.get(currentPlayer).getCharacterName();
 		//Sets the left and right index of currentPlayer. If current is 0, then
 		//left is that last person.
 		int target;
-		int right = (currentPlayer!=player.size()-1) ? rightx1+1 : 0;
+		int right = (currentPlayer!=player.size()-1) ? currentPlayer+1 : 0 ;
 		int left = (currentPlayer!=0) ? currentPlayer - 1 :  player.size()-1;
-		int rightx2 = (currentPlayer < player.size()-2) ? currentPlayer + 2 :
-					(currentPlayer == player.size()-1) ? 0 : 1;
-		int leftx2 = (currentPlayer>1) ? currentPlayer - 2 :  
-				   (currentPlayer==1) ? player.size()-1 : player.size()-2 ;
-		int rightx3 = (rightx2!=player.size()-1) ? rightx2+1 : 0;
-		int leftx3 = (leftx2!=0) ? leftx2-1 : player.size()-1;
-
-		if( name == "CALAMITY JANET")
+		int rightx2 = (right != player.size()-1) ? right+1 : 0;
+		int leftx2 = (left !=0 ) ? left - 1 :  player.size() -1;
+				
+		if(player.get(currentPlayer).getUser())
 		{
-			/*Choose which ever has the worst favor here.
-			 * Choose between left and leftx2,
-			 * Choose between right and rightx2
-			 * then set left or right equal to it. 
-			 */
+			if ( name == "CALAMITY JANET")
+			{
+				target = user.chooseShoot(player.get(left),player.get(right),
+										  player.get(leftx2),player.get(rightx2));
+			}else
+				target = user.chooseShoot(player.get(left),player.get(right));
 		}
-		
-		if(name == "ROSE DOOLAN")
+		else
 		{
-			/*Choose which ever has the worst favor here.
-			 * Choose between leftx2 and leftx3,
-			 * Choose between rightx2 and rightx3
-			 * then set left or right equal to it. 
-			 */
+			//AI...IDK what demetrios code is doing, so I based it off Jacobs.
 		}
-		
-		/*
-		 * Put code Determing whether left/right has better favor here.
-		 * Then set target equal to that.
-		 */
-				   
-		if (name == "SLAB THE KILLER")
-		{
-			int beer =0;
-			for (int i : diceRoll)
-				beer = (diceRoll[i]==5) ? beer+1 :beer;
-			if(beer!=0 && !jack)
-				player.get(target).TakeDamage(4);
-		}else
-		{
-			player.get(target).TakeDamage(2);
+			if ( name == "CALAMITY JANET")
+			{
+				target = ai.chooseShoot(player.get(left),player.get(right),
+									    player.get(leftx2),player.get(rightx2));
+			}else
+				target = ai.chooseShoot(player.get(left),player.get(right));
 		}
-		
-		if(player.get(target).getCharacterName().equals("EL GRINGO"))
-			indianArrow();
+				
+		player.get(target).TakeDamage(1);
 	}
 	
 	/**
@@ -189,22 +189,22 @@ public class Turn {
 	 */
 	public void beer()
 	{
+		int target;
 		int health = player.get(currentPlayer).getHealth();
 		int target;
 		if(health < player.get(currentPlayer).getMaxHealth())
 		{
 			if (name == "JESSE JONES" && health < 4)
-				player.get(currentPlayer).setHealth(2);
-			player.get(currentPlayer).setHealth(1);
+				player.get(currentPlayer).addHealth(2);	//change addhealth to include integer please.
+			player.get(currentPlayer).addHealth(1);
 		}
 		else
 		{
-			/*
-			 * Find whoever has the most favor and give them health.
-			 * Set target = to the index position.
-			 */
-			player.get(target).setHealth(1);
-		}
+			if(player.getUser())
+				target=user.chooseHeal();
+			else
+				target=ai.chooseHeal();
+		player.get(target).addHealth(1);
 	}
 	
 	public void gatlingGun()
@@ -221,25 +221,58 @@ public class Turn {
 		arrowStack += player.getArrowCount();
 		player.setArrowCount(-player.getArrowCount());
 	}
+
+	/**
+	 * Method determing roll of dice for this turn. Sets an arrayList of dice 
+	 * indexes to what the final roll should look like for this turn.
+	 */
+	public void setDiceRoll()
+	{
+		int count =0;
+		//Check if player is the User or an AI
+		if(player.getUser())
+		{
+			//Reroll as many times as possible. If user replies no, breaks loop.
+			while(player.CanReroll())
+			{
+				System.out.println("Would you like to reroll any dice? (y or n)");
+				String input = scan.nextLine();
+				if(input.equals("y"))
+				{
+					//Change the flags to roll. Add black Jack Ability in DiceController?
+					dices = user.chooseReroll(dices);
+					for(Dice x : dices)
+						x.RollDice();//Roll the dices.
+				}else
+					break;
+			}
+		}else	//AI handles the rerolls.
+		{
+			dices = ai.RerollHandler(player.get(currentPlayer), dices, player);
+		}
+		
+		for(Dice x : dices)
+		{
+			diceRoll[count] = x.getDiceInt();	//set the diceroll to dice values.
+			count++;
+			//I would also sort the dice array here, but I can't call DiceController
+			//if you're doing that from Game.
+		}
+	}
 	
 	/**
-	 * Constructor. Create Dice and rolls. Execute dice actions.
+	 * Handles the actual play of the turn.
 	 */
-	public Turn()
+	public void playTurn()
 	{
-		//Object of Dice class. Contains the roll for this turn.
-		Dice dices = new Dice();
-		name = getName(currentPlayer);
-		//Count of dynamite dices.
+	
+		//Count of dynamite.
 		int dynamite = 0;
 		//Count of gatling dices.
 		int gatling = 0;
-		//See if Jack used his ability yet.
-		boolean jack=false;
-		//Sends player obj over. Check for Black Jack here.
-		dices.setPlayer();
-		//Sends sorted array of Dice values.
-		diceRoll = dices.getRoll();
+
+
+		setDiceRoll();
 		
 		endTurn:
 		for(int die : diceRoll)
@@ -258,21 +291,17 @@ public class Turn {
 				}
 				break;
 			case 3:	//Bull's Eye x1
-				bullsEyex1(jack);
-				jack=true;
+				bullsEyex2();
 				break;
 			case 4:
-				bullsEyex2(jack);
-				jack=true;
+				bullsEyex2();
 				break;
 			case 5: 
 				beer();
 				break;
 			case 6:
 				gatling++;
-				if(name == "WILLY THE KID" && gatling == 2)
-					gatlingGun();
-				else if(gatling>=3)
+				if(gatling>=3)
 					gatlingGun();
 				break;
 			}
