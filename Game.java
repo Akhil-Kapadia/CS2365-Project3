@@ -105,7 +105,7 @@ public class Game {
             if(gameOver)
                 System.out.println("Game over on condition" + turn.getWinCond());
             System.out.println("--------------------------------------------------");
-            //printGameSetup();
+            printGameStatus();
         }
             
     }
@@ -242,6 +242,7 @@ public class Game {
         return newPlayer;
     }
         
+    
     public void printGameSetup()
     {
         System.out.println("There are " + getTotalPlayers() + " players in the game.\n");
@@ -256,5 +257,16 @@ public class Game {
             System.out.println("Index: " + player.getPlayerIndex());
             System.out.println("");
         }
+    }
+    
+    public void printGameStatus()
+    {
+        System.out.println("There are " + getTotalPlayers() + " players left");
+        for(Player player : getTableSeating())
+        {
+            System.out.println(player.getCharacterName() + " (" + player.getRole() + ") : HP - " + player.getHealth() + ",  Arrows: " + player.getArrowCount());
+        }
+        
+        System.out.println();
     }
 }
