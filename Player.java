@@ -10,10 +10,10 @@ class Player
     private int ArrowCount; 
     private int PlayerIndex;
     private int RerollsRemaining;
-    private int[] Favor;
+    private boolean User;
     
     //Needs: CharacterName, Role, Player Index, and Max Health to intialize
-    public Player(String CN, String R, int PI, int MH)
+    public Player(String CN, String R, int PI, int MH, boolean U)
     {
         CharacterName = CN;
         Role = R;
@@ -22,6 +22,7 @@ class Player
         RerollsRemaining = 2;
         MaxHealth = MH;
         CurrentHealth = MaxHealth;
+        User = U;
     }
     
     
@@ -40,9 +41,34 @@ class Player
         }
     }
     
+    public boolean getUser()
+    {
+        return User;
+    }
+    
     public int getHealth()
     {
         return CurrentHealth;
+    }
+    
+    public void addHealth(int h)
+    {
+        for(int i = h; i > 0; i--)
+        {
+            if(CurrentHealth < MaxHealth)
+            {
+                CurrentHealth++;
+            }
+        }
+    }
+    
+    public boolean isFullHealth()
+    {
+        if(CurrentHealth == MaxHealth)
+        {
+            return true;
+        }
+        return false;
     }
     
     public String getCharacterName()
@@ -64,11 +90,7 @@ class Player
     {
         String ret = "NONE";
         
-        if(CharacterName.equals("BART CASSIDY"))
-        {
-            ret = "Take Arrow, not lose Life";
-        }
-        else if(CharacterName.equals("BLACK JACK"))
+        if(CharacterName.equals("BLACK JACK"))
         {
             ret = "Reroll Dynamite";
         }
@@ -76,45 +98,13 @@ class Player
         {
             ret = "Use 3A as 3B, vise versa";
         }
-        else if(CharacterName.equals("EL GRINGO"))
-        {
-            ret = "Lose 1 or more health, Take Arrow";
-        }
         else if(CharacterName.equals("JESSE JONES"))
         {
             ret = "If 4 health or less and use Beer, Add 2 Health";
         }
-        else if(CharacterName.equals("JOURDONNAIS"))
-        {
-            ret = "Never lose 1 or more health to Indians";
-        }
-        else if(CharacterName.equals("KIT CARLSON"))
-        {
-            ret = "For each Gattling, you can discard player Arrows";
-        }
-        else if(CharacterName.equals("LUCKY DUKE"))
-        {
-            ret = "Extra reroll";
-        }
         else if(CharacterName.equals("PAUL REGRET"))
         {
             ret = "Never lose Health to Gattling";
-        }
-        else if(CharacterName.equals("PEDRO RAMIREZ"))
-        {
-            ret = "Loss of Health, you can discard 1 Arrow";
-        }
-        else if(CharacterName.equals("ROSE DOOLAN"))
-        {
-            ret = "Can use 3A or 3B for players one further away";
-        }
-        else if(CharacterName.equals("SID KETCHUM"))
-        {
-            ret = "Start of turn, any player gains 1 health";
-        }
-        else if(CharacterName.equals("SLAB THE KILLER"))
-        {
-            ret = "Per turn, can use Beer to 3A or 3B";
         }
         else if(CharacterName.equals("SUZY LAFAYETTE"))
         {
@@ -124,10 +114,6 @@ class Player
         {
             ret = "Each time Player dies, Add 2 health";
         }
-        else if(CharacterName.equals("WILLY THE KID"))
-        {
-            ret = "One need 2 points to use Gattling";
-        }
         
         
         return ret;
@@ -135,7 +121,7 @@ class Player
     
     public void usedReroll()
     {
-        RerollsRemaining--;
+        this.RerollsRemaining--;
     }
     public void setRerolls(int N)
     {
@@ -160,5 +146,10 @@ class Player
     {
         ArrowCount += A;
     }
- 
+    
+    public boolean equals(Player player2)
+    {
+        return getPlayerIndex() == player2.getPlayerIndex();
+    }
+
 }
