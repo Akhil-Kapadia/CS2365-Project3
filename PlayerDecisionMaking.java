@@ -51,17 +51,12 @@ public class PlayerDecisionMaking {
     
     public ArrayList<Dice> chooseReroll(ArrayList<Dice> diceArray)
     {
-        //System.out.println("Would you like to reroll any dice? (y or n)");
-        //String input = scan.nextLine();
-        //if(input.equals("y"))
-        //{
-            System.out.println("Please enter the dice you would like to reroll (ex: 1345):");
-            for(int i = 0; i < diceArray.size(); i++)
-                System.out.println(i + ": " + diceArray.get(i).getDiceString());
-            String input = scan.nextLine();
-            for(int j = 0; j < input.length(); j++)
-                diceArray.get((int)input.charAt(j)-48).setReroll(true);
-        //}
+        System.out.println("Please enter the dice you would like to reroll (ex: 1345):");
+        for(int i = 0; i < diceArray.size(); i++)
+            System.out.println(i + ": " + diceArray.get(i).getDiceString());
+        String input = scan.nextLine();
+        for(int j = 0; j < input.length(); j++)
+            diceArray.get((int)input.charAt(j)-48).setReroll(true);
         return diceArray;
     }
     
