@@ -27,6 +27,24 @@ public class OOP_P3 {
     
 }
 
+class ChiefIndianArrow
+{
+    private String Owner;
+    
+    public void TakeArrow(String Name)
+    {
+        if(Owner.equals(""))
+        {
+            Owner = Name;
+        }
+    }
+    
+    public void UseArrow()
+    {
+        Owner = "";
+    }
+}
+
 
 
 class Player
