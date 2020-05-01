@@ -85,7 +85,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="Player7Arrow" min="-2" pref="20" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
-                                  <Component id="CardPile" min="-2" max="-2" attributes="0"/>
+                                  <Component id="CardPile" min="-2" pref="68" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -99,9 +99,9 @@
                               <Group type="102" attributes="0">
                                   <Component id="Player7Roll" min="-2" pref="80" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jScrollPane1" min="-2" pref="193" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-                                  <Component id="ArrowPile" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane1" min="-2" pref="199" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                                  <Component id="ArrowPile" min="-2" pref="68" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
@@ -213,24 +213,24 @@
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="Player5Zombie" alignment="1" pref="80" max="32767" attributes="0"/>
-                                  <Component id="Player5Roll" alignment="1" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="WhoToShoot" min="-2" pref="249" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
+                                  <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="ShootPerson" min="-2" pref="95" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
-                          <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="62" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                              </Group>
                               <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
@@ -239,28 +239,48 @@
                                   </Group>
                                   <Component id="Player1Char" alignment="1" min="-2" pref="80" max="-2" attributes="0"/>
                               </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="Player5Arrow" min="-2" pref="20" max="-2" attributes="0"/>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
+                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="Player1Arrow" min="-2" pref="20" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="Player1Roll" min="-2" pref="80" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel31" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                  <Component id="IndianChiefArrow" min="-2" pref="111" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="Player1Arrow" min="-2" pref="20" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="Player1Roll" min="-2" pref="80" max="-2" attributes="0"/>
+                                      <Component id="Player5Zombie" alignment="1" pref="80" max="32767" attributes="0"/>
+                                      <Component id="Player5Roll" alignment="1" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
+                              <Component id="Player5Arrow" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="86" max="32767" attributes="0"/>
+                  <EmptySpace pref="58" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -285,8 +305,18 @@
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
+                          <Component id="WhoToHeal" min="-2" pref="249" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
                           <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="jLabel30" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="HealPerson" min="-2" pref="95" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -296,10 +326,31 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace pref="12" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="WhoToShoot" min="-2" pref="25" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel29" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="ShootPerson" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="WhoToHeal" min="-2" pref="25" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel30" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="HealPerson" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="174" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel5" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -374,10 +425,7 @@
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel28" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="Player1Char" min="-2" pref="25" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -423,7 +471,7 @@
                                       <Component id="Player2Roll" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                                       <Component id="Player8Roll" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="297" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                               <Component id="jScrollPane1" max="32767" attributes="0"/>
                           </Group>
@@ -457,9 +505,13 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="Player5Arrow" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                       <Component id="jLabel23" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel31" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="Player5Roll" min="-2" pref="25" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="Player5Roll" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="IndianChiefArrow" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="Player5Zombie" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
@@ -480,31 +532,26 @@
         <Component class="javax.swing.JTextField" name="Player1Char">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player1Health">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player1Arrow">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player1Roll">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player1Zombie">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
@@ -515,31 +562,26 @@
         <Component class="javax.swing.JTextField" name="Player2Char">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player2Health">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player2Arrow">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player2Roll">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player2Zombie">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
@@ -550,31 +592,26 @@
         <Component class="javax.swing.JTextField" name="Player3Char">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player3Health">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player3Arrow">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player3Roll">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player3Zombie">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
@@ -585,31 +622,26 @@
         <Component class="javax.swing.JTextField" name="Player8Char">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player8Health">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player8Arrow">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player8Roll">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player8Zombie">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
@@ -620,31 +652,26 @@
         <Component class="javax.swing.JTextField" name="Player7Char">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player7Health">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player7Arrow">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player7Roll">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player7Zombie">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player4Char">
@@ -655,7 +682,6 @@
         <Component class="javax.swing.JTextField" name="Player6Char">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
@@ -671,49 +697,41 @@
         <Component class="javax.swing.JTextField" name="Player6Health">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player4Health">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player6Arrow">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player4Arrow">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player6Roll">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player6Zombie">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player4Roll">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player4Zombie">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
@@ -724,31 +742,26 @@
         <Component class="javax.swing.JTextField" name="Player5Char">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player5Health">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player5Arrow">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player5Roll">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Player5Zombie">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="jButton1">
@@ -761,7 +774,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="ArrowPile">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField41"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
@@ -776,7 +789,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="CardPile">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField41"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel11">
@@ -892,6 +905,46 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JTextField" name="WhoToShoot">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel29">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Shoot:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="ShootPerson">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="WhoToHeal">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel30">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Heal:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="HealPerson">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel31">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Indian Chief Arrow Held by: "/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="IndianChiefArrow">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>
