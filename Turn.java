@@ -15,42 +15,54 @@ public class Turn {
 	private String name;
         
         private boolean gameOver = false;
-        int[] roles = {0,0,0,0};
+        int[] roles = {0,0,0,0}; //used to keep track of how many of each role is left alive for checking game over
         private int winCond;
+        
+        boolean expansion;
+        boolean DoA;
 	
+        private ArrayList<Player> deadList = new ArrayList(0); //arraylist of dead players
+        
 	Scanner scan = new Scanner(System.in);
 	
-	//Are these objs passed in from Game class??
 	PlayerDecisionMaking user;
 	AIDecisionMaking ai;
         DiceController diceHandler;
 	
-	public Turn(ArrayList<Player> tableSeating, int arrowPile, int current, int[] roles)
+	public Turn(ArrayList<Player> tableSeating, ArrayList<Player> deadList, int arrowPile, int current, int[] roles, boolean expansion, boolean DoA)
 	{
             this.currentPlayer = current;
             this.player = tableSeating;
+            this.deadList = deadList;
             this.arrowStack = arrowPile;
             this.name = player.get(current).getCharacterName();
+            
+            this.expansion = expansion;
+            this.DoA = DoA;
                         
             this.user = new PlayerDecisionMaking(player);
-            this.ai = new AIDecisionMaking();//No construtor?
+            this.ai = new AIDecisionMaking();
             this.diceHandler = new DiceController();
             this.roles = roles;
-            playTurn();		
-	}
-	
+        }
+        	
 	/**
 	 * Method returns the amount of arrows left over after the turn ends.
 	 * @return	Integer	Arrows left over after turn ends.
 	 */
 	public int getArrowStack()
 	{
-		return arrowStack;
+            return arrowStack;
 	}
         
         public ArrayList<Player> getTableSeating()
         {
             return new ArrayList<>(player);
+        }
+        
+        public ArrayList<Player> getDeadList()
+        {
+            return new ArrayList<>(deadList);
         }
 	
 	/**
@@ -59,14 +71,14 @@ public class Turn {
 	 */
 	public void indianArrow()
 	{
-		if(arrowStack>1)
+		if(arrowStack > 1) //if there is an arrow left to take
 		{
-			player.get(currentPlayer).setArrowCount(1);
-			arrowStack--;
+			player.get(currentPlayer).setArrowCount(1); //add an arrow to the player
+			arrowStack--; //decrease arrow stack by one
                         System.out.println(player.get(currentPlayer).getCharacterName() + " took an arrow, they have " + 
                                 player.get(currentPlayer).getArrowCount() + ". Arrow pile at " + getArrowStack());
                         System.out.println();
-                        if(arrowStack == 0)
+                        if(arrowStack == 0) //if that taken arrow was last one in pile, start indian attack
                             indianAttack();
 		}
 
@@ -97,17 +109,15 @@ public class Turn {
         
         public void indianAttack()
         {
-            //addTurnResult("Indians Attack!");
             for(Player p : player)
             {
-                //addTurnResult(player.getCharacterName() + " took " + player.getArrowCount() + " damage.");
-                p.TakeDamage(p.getArrowCount());
+                p.TakeDamage(p.getArrowCount()); //player takes damaged based on number of arrows they have
                 System.out.println(p.getCharacterName() + " took " + p.getArrowCount() + " damage. Current HP: " + p.getHealth());
-                p.setArrowCount(0);
+                p.setArrowCount(0); //reset players arrow count to zero
                 checkPlayerDeath(p); //check since player took damage
             }
 
-            arrowStack = 9;
+            arrowStack = 9; //reset arrow pile to 9
             System.out.println();
         }
 	
@@ -146,12 +156,6 @@ public class Turn {
 		}
 		else
 		{
-			//AI...IDK what demetrios code is doing, so I based it off Jacobs.
-			//if ( name.equals("CALAMITY JANET"))
-			//{
-				//target = ai.chooseShoot(player.get(left),player.get(right),
-									    //player.get(leftx2),player.get(rightx2));
-			//}else
                     targetPlayer = ai.getHighestFavor(player.get(currentPlayer), "Shoot person two over left or right", player);
                     System.out.println(player.get(currentPlayer).getCharacterName() + " shot " + targetPlayer.getCharacterName() 
                     + ". Current HP: " + targetPlayer.getHealth());
@@ -199,13 +203,6 @@ public class Turn {
 		}
 		else
 		{
-			//AI...IDK what demetrios code is doing, so I based it off Jacobs.
-			//if ( name.equals("CALAMITY JANET"))
-			//{
-				//target = ai.chooseShoot(player.get(left),player.get(right),
-									   // player.get(leftx2),player.get(rightx2));
-			//}
-                        //else
                     targetPlayer = ai.getHighestFavor(player.get(currentPlayer), "Shoot person two over left or right", player);
                     targetPlayer.TakeDamage(1);
                     System.out.println(player.get(currentPlayer).getCharacterName() + " shot " + targetPlayer.getCharacterName() 
@@ -242,18 +239,21 @@ public class Turn {
             //handle jesse jones (if less than or equal to 4 hp and healing self, double healing)
             if (name.equals("JESSE JONES") && targetPlayer.equals(player.get(currentPlayer)) && player.get(currentPlayer).getHealth() <= 4)
 		targetPlayer.addHealth(2);
-            else
+            else if(!(targetPlayer.getRole().equals("Zombie"))) //zombies cannot be healed
                 targetPlayer.addHealth(1);
-            System.out.println(player.get(currentPlayer).getCharacterName() + " healed " + targetPlayer.getCharacterName() 
-                    + ". Current HP: " + targetPlayer.getHealth());
-            System.out.println();
+            if(!(targetPlayer.getRole().equals("Zombie"))) //only print out the message if someone was actually healed
+            {
+                System.out.println(player.get(currentPlayer).getCharacterName() + " healed " + targetPlayer.getCharacterName() 
+                        + ". Current HP: " + targetPlayer.getHealth());
+                System.out.println();
+            }
 
 	}
 	
 	public void gatlingGun()
 	{
             System.out.println("Gatling Gun!");
-		for(Player obj : player)
+		for(Player obj : player) //each player takes one damage unless paul regret
 		{
 			String person = obj.getCharacterName();
 			if(!person.equals(name) || !person.equals("PAUL REGRET"))
@@ -337,7 +337,7 @@ public class Turn {
                     }
 		}
 		
-                diceHandler.sortDiceArray();
+                diceHandler.setDiceArray(diceHandler.sortDiceArray());
 	}
 	
 	/**
@@ -347,7 +347,6 @@ public class Turn {
 	{
                 //roll the dice
 		setDiceRoll();
-                //diceHandler.printAllDice();
                 
                 player.get(currentPlayer).setRerolls(2);
 		
@@ -431,6 +430,7 @@ public class Turn {
             
             System.out.println("Player " + damagedPlayer.getPlayerIndex() + " is dead, their role was " + role);
             
+            deadList.add(damagedPlayer);
             player.remove(damagedPlayer); //remove the player from the seating
             setGameOver();
             

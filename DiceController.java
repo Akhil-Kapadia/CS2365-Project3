@@ -27,7 +27,7 @@ public class DiceController {
         return new ArrayList<>(diceArray);
     }
     
-    public ArrayList<Dice> sortDiceArray()
+    public ArrayList<Dice> sortDiceArray() //sort the dice array by order of how you resolve
     {
         ArrayList<Dice> sortDiceArray = getDiceArray();
         for(int i = 0; i < sortDiceArray.size()-1; i++)

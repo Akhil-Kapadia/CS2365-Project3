@@ -114,9 +114,16 @@ class Player
         {
             ret = "Each time Player dies, Add 2 health";
         }
+        else //handle zombie
+            ret = "No ability";
         
         
         return ret;
+    }
+    
+    public void setRole(String role)
+    {
+        this.Role = role;
     }
     
     public void usedReroll()
