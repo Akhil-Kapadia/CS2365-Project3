@@ -73,6 +73,31 @@ class AIDecisionMaking
             {
                 return CurrentPlayer;
             }
+            else if(PlayerRole.equals("Zombie"))
+            {
+                ArrayList<Player> DeadM = getPlayerType("Zombie Master", CName, TotP);
+                DeadM = sortPlayersHealth(DeadM, false); 
+                
+                return DeadM.get(0);
+            }
+            else if(PlayerRole.equals("Zombie Master"))
+            {
+                return CurrentPlayer;
+            }
+            else if (PlayerRole.equals("Alive"))
+            {
+                ArrayList<Player> AL = getPlayerType("Alive", CName, TotP);
+                AL = sortPlayersHealth(AL, false);   
+                //if there are no Deputy, then the CurrentPlayer will be the highest favor
+                    if(AL.get(0) != null)
+                    {
+                        return AL.get(0);
+                    }
+                    else
+                    {
+                        return CurrentPlayer;
+                    }
+            }
         }
         else if (CName.equals("CALAMITY JANET"))
         {
@@ -332,6 +357,29 @@ class AIDecisionMaking
         {
             return OPlayer.getHealth();
         }
+        else if(PlayerRole.equals("Alive"))
+        {
+            if(OtherRole.equals("Zombie") || OtherRole.equals("Zombie Master"))
+            {
+                return 100;
+            }
+            else
+            {
+                return 0;
+            }
+                
+        }
+        else if(PlayerRole.equals("Zombie") || PlayerRole.equals("Zombie Master"))
+        {
+            if(OtherRole.equals("Alive"))
+            {
+                return 100;
+            }
+            else
+            {
+                return 0;
+            }
+        }
         
         return -1;
     }
@@ -490,6 +538,19 @@ class AIDecisionMaking
                 //deputy rerolls for beer
                 D = Reroll(D, 1, CurrentPlayer);
             }
+            else if(CurrentPlayer.getRole().equals("Alive") || CurrentPlayer.getRole().equals("Zombie") || CurrentPlayer.getRole().equals("Zombie Master"))
+            {
+                String Act = DOAReroll(TotP, CurrentPlayer);
+                if(Act.equals("Reroll 2"))
+                {
+                    D = Reroll(D, 6, CurrentPlayer);
+                }
+                else if (Act.equals("Reroll 1"))
+                {
+                    D = Reroll(D, 5, CurrentPlayer);
+                }
+            }
+
             
             
         }
@@ -533,13 +594,14 @@ class AIDecisionMaking
         {
             for(int a = 0; a < D.size(); a++)
             {
-                if(D.get(a).getDiceInt() == 0 || D.get(a).getDiceInt() == 2 || D.get(a).getDiceInt() == 3)
+                
+                if(D.get(a).getDiceInt() == 4 && CurrentPlayer.isFullHealth())
                 {
                     D.get(a).setReroll(true);
                     //CurrentPlayer.usedReroll();
                     a += D.size();
                 }
-                else if(D.get(a).getDiceInt() == 4 && CurrentPlayer.isFullHealth())
+                else if(D.get(a).getDiceInt() == 0 || D.get(a).getDiceInt() == 2 || D.get(a).getDiceInt() == 3)
                 {
                     D.get(a).setReroll(true);
                     //CurrentPlayer.usedReroll();
@@ -572,9 +634,140 @@ class AIDecisionMaking
                 }
             }
         }
+        else if(Type == 5)
+        {
+            for(int a = 0; a < D.size(); a++)
+            {
+                if(D.get(a).getDiceInt() == 2)
+                {
+                    D.get(a).setReroll(true);
+                    //CurrentPlayer.usedReroll();
+                    a += D.size();
+                }
+            }
+        }
+        else if(Type == 6)
+        {
+            for(int a = 0; a < D.size(); a++)
+            {
+                if(D.get(a).getDiceInt() == 3)
+                {
+                    D.get(a).setReroll(true);
+                    //CurrentPlayer.usedReroll();
+                    a += D.size();
+                }
+            }
+        }
+        
         
         
         return D;
+    }
+    
+    private String DOAReroll(ArrayList<Player> TotP, Player CurrentPlayer)
+    {
+        String PlayerRole = CurrentPlayer.getRole();
+        
+        if(PlayerRole.equals("Zombie Master"))
+        {
+            PlayerRole = "Zombie";
+        }
+        
+        String Ret = "";
+        int PIndex = 0;
+        for(int a = 0; a < TotP.size(); a++)
+        {
+            if(TotP.get(a).getCharacterName().equals(CurrentPlayer.getCharacterName()))
+            {
+                PIndex = a;
+                a+= TotP.size();
+            }
+        }
+        //Make a table with an array of 5, you're in the middle
+        Player[] Table = new Player[5];
+        if(TotP.size() >= 5)
+        {
+            if(PIndex == 1)
+            {
+                Table[0] = TotP.get(TotP.size()-1);
+                Table[1] = TotP.get(0);
+                Table[2] = CurrentPlayer;
+                Table[3] = TotP.get(PIndex+1);
+                Table[4] = TotP.get(PIndex+2);
+            }
+            else if(PIndex == 0)
+            {
+                Table[0] = TotP.get(TotP.size()-2);
+                Table[1] = TotP.get(TotP.size()-1);
+                Table[2] = CurrentPlayer;
+                Table[3] = TotP.get(PIndex+1);
+                Table[4] = TotP.get(PIndex+2);
+            }
+            else if(PIndex == TotP.size()-2)
+            {
+                Table[0] = TotP.get(PIndex-2);
+                Table[1] = TotP.get(PIndex-1);
+                Table[2] = CurrentPlayer;
+                Table[3] = TotP.get(TotP.size()-1);
+                Table[4] = TotP.get(0);
+            }
+            else if (PIndex == TotP.size()-1)
+            {
+                Table[0] = TotP.get(PIndex-2);
+                Table[1] = TotP.get(PIndex-1);
+                Table[2] = CurrentPlayer;
+                Table[3] = TotP.get(0);
+                Table[4] = TotP.get(1);
+            }
+            else
+            {
+                Table[0] = TotP.get(PIndex-2);
+                Table[1] = TotP.get(PIndex-1);
+                Table[2] = CurrentPlayer;
+                Table[3] = TotP.get(PIndex+1);
+                Table[4] = TotP.get(PIndex+2);
+            }
+            
+            if(Table[0].getRole().equals(PlayerRole) && Table[4].getRole().equals(PlayerRole))
+            {
+                Ret = "Reroll 2";
+            }
+             
+        }
+        else if(TotP.size() >= 3)
+        {
+            Player L = null;
+            Player R = null;
+            if(PIndex == 0)
+            {
+                L = TotP.get(TotP.size() -1);
+                R = TotP.get(1);
+            }
+            else if (PIndex == TotP.size()-1)
+            {
+                L = TotP.get(PIndex -1);
+                R = TotP.get(0);
+            }
+            else
+            {
+                L = TotP.get(PIndex - 1);
+                R = TotP.get(PIndex + 1);
+            }
+            
+            if(L.getRole().equals(PlayerRole) && R.getRole().equals(PlayerRole))
+            {
+                Ret = "Reroll 1";
+            }
+        }
+        else
+        {
+            Ret = "None";
+        }
+        
+        
+        
+        
+        return Ret;
     }
     
 }
