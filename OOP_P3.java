@@ -29,8 +29,18 @@ public class OOP_P3 {
 
 class ChiefIndianArrow
 {
+    /**
+     * Chief Indian Arrow class just tracks who holds the Chief Indian Arrow
+     * @author Demetrios Mihaltses
+     */
+    
+    //A String for the character Name of who holds the Chief Indian Arrow
     private String Owner;
     
+    /**
+    * Method that set's the ownership of the Arrow
+    * @param Name String, The Name of the New Owner
+    */
     public void TakeArrow(String Name)
     {
         if(Owner.equals(""))
@@ -39,6 +49,10 @@ class ChiefIndianArrow
         }
     }
     
+    /**
+    * Method for when the Chief Indian Arrow is used, this method clears the 
+    * Ownership
+    */
     public void UseArrow()
     {
         Owner = "";
@@ -49,17 +63,35 @@ class ChiefIndianArrow
 
 class Player
 {
+    
+    /**
+     * The Player Class provides the essential data that all Players in the game
+     * will need.
+     * Included is a series of getter and setter methods for other classes to 
+     * retrieve and alter the data.
+     * @author Demetrios Mihaltses
+     */
+    
+    //A String for the Character Name of the Player
     private String CharacterName;
+    //A String for the Role of the Player
     private String Role;
     
+    //An Integer for the Current Health of the Player
     private int CurrentHealth;
+    //An Integer for the Max Health of the Player
     private int MaxHealth;
+    //An Integer for the amount of Arrows the Player has
     private int ArrowCount; 
+    //An Integer for the Player Index at the Table
     private int PlayerIndex;
+    //An Integer for the amount of Rerolls a Player has left
     private int RerollsRemaining;
+    
+    //A Boolean to tell if the Player is an AI or not
     private boolean User;
     
-    //Needs: CharacterName, Role, Player Index, and Max Health to intialize
+    
     public Player(String CN, String R, int PI, int MH, boolean U)
     {
         CharacterName = CN;
@@ -73,7 +105,11 @@ class Player
     }
     
     
-    //When player gets hit with Damage, the function will check if dead or not after the Damage takes place. If Dead will return true
+    /**
+    * Method that applies Damage to the Player
+    * @param D Integer, amount of Damage done to Player
+    * @return Boolean, whether or not the Player is dead or not
+    */
     public boolean TakeDamage(int D)
     {
         CurrentHealth -= D;
@@ -88,16 +124,28 @@ class Player
         }
     }
     
+    /**
+    * Method that gets whether or not the Player is AI or not
+    * @return Boolean, whether or not the Player is AI or not
+    */
     public boolean getUser()
     {
         return User;
     }
     
+    /**
+    * Method that gets the Players Health
+    * @return Integer, the Player's health
+    */
     public int getHealth()
     {
         return CurrentHealth;
     }
     
+    /**
+    * Method that adds to the Players Health
+    * @param h Integer, number of Health that will be added
+    */
     public void addHealth(int h)
     {
         for(int i = h; i > 0; i--)
@@ -109,6 +157,11 @@ class Player
         }
     }
     
+    
+    /**
+    * Method that checks if the Player is at Max Health
+    * @return Boolean, whether or not the Player is at Max Health
+    */
     public boolean isFullHealth()
     {
         if(CurrentHealth == MaxHealth)
@@ -118,21 +171,37 @@ class Player
         return false;
     }
     
+    /**
+    * Method that gets the Character Name of the Player
+    * @return String, The Character Name of the Player
+    */
     public String getCharacterName()
     {
         return CharacterName;
     }
     
+    /**
+    * Method that gets the Player Index of the Player
+    * @return Integer, The Player Index of the Player
+    */
     public int getPlayerIndex()
     {
         return PlayerIndex;
     }
     
+    /**
+    * Method that gets the Role of the Player
+    * @return String, Role of the Player
+    */
     public String getRole()
     {
         return Role;
     }
     
+    /**
+    * Method that gets the Players special ability
+    * @return String, a description of the Players special ability
+    */
     public String getAbility()
     {
         String ret = "NONE";
@@ -168,20 +237,36 @@ class Player
         return ret;
     }
     
+    /**
+    * Method that sets the Role of the Player
+    * @param role String, The Role that will be set for the Player
+    */
     public void setRole(String role)
     {
         this.Role = role;
     }
     
+    /**
+    * Method that subtracts a Reroll from the Player
+    */
     public void usedReroll()
     {
         this.RerollsRemaining--;
     }
+    
+    /**
+    * Method that sets the amount of Rerolls a Player has
+    * @param N Integer, Amount of Rerolls the Player will have
+    */
     public void setRerolls(int N)
     {
         RerollsRemaining = N;
     }
     
+    /**
+    * Method that checks if the Player can Reroll
+    * @return Boolean, whether or not the Player has Rerolls left
+    */
     public boolean CanReroll()
     {
         if(RerollsRemaining >0)
@@ -191,16 +276,30 @@ class Player
         return false;
     }
     
+    /**
+    * Method that gets the amount of Arrows the Player has
+    * @return Integer, the Arrow Count of the Player
+    */
     public int getArrowCount()
     {
         return ArrowCount;
     }
     
+    /**
+    * Method that sets the amount of Arrows the Player has
+    * @param A Integer, Amount of Arrows that will be added to the Players Count
+    */
     public void setArrowCount(int A)
     {
         ArrowCount += A;
     }
     
+    /**
+    * Method that compares this Player object, with another Player object
+    * @param player2 Player, another Player object that you want to be compared
+    * with
+    * @return Boolean, whether or not the two Player objects are equal
+    */
     public boolean equals(Player player2)
     {
         return getPlayerIndex() == player2.getPlayerIndex();
@@ -211,8 +310,29 @@ class Player
 
 class AIDecisionMaking
 {
+    
+    /**
+     * The AIDecisionMaking class is responsible for any tactical decisions made
+     * by AI Players within the game.
+     * Responsibilities include, choosing who to Shoot or Heal as well as which 
+     * Dice to Reroll.
+     * @author Demetrios Mihaltses
+     */
+    
+    //A Random number generator
     Random rand = new Random();
     
+    
+    /**
+    * Method that gets the Player with Highest Favor to be targeted by the
+    * Current Player in the turn.
+    * @param CurrentPlayer Player, Player who is currently making a move
+    * @param GameObject String, The String of the Dice Value in which the Player
+    * is acting upon.
+    * @param TotP ArrayList<Player>, ArrayList of the all the Players objects 
+    * at the table.
+    * @return Player, returns the Targeted Player with the Highest Favor
+    */
     public Player getHighestFavor(Player CurrentPlayer, String GameObject, ArrayList<Player> TotP)
     {
         Player ret = null;
@@ -527,6 +647,13 @@ class AIDecisionMaking
         return ret;
     }
     
+    /**
+    * Method that gets a numeric value to decide who holds a Higher Favor
+    * @param CPlayer Player, the Current Player who is making moves
+    * @param  OPlayer Player, another Player being assessed for a favor value
+    * @return Integer, The numeric Value to determine ranking. If the Number is 
+    * higher, the More Favorable the Player is to be Targeted.
+    */
     public int FavorSystemShooting(Player CPlayer, Player OPlayer)
     {
         String PlayerRole = CPlayer.getRole();
@@ -590,6 +717,15 @@ class AIDecisionMaking
         return -1;
     }
     
+    /**
+    * Method that gets all the Players who hold a specific role
+    * @param T String, The Role that you want to retrieve
+    * @param CN String, The Character Name of the Current Player making moves
+    * @param TotP ArrayList<Player>, ArrayList of the all the Players objects at
+    * the table.
+    * @return ArrayList<Player> , a List of all Player Objects who have the
+    * designated Role.
+    */
     private ArrayList<Player> getPlayerType(String T, String CN, ArrayList<Player> TotP)
     {
         ArrayList<Player> Ret = new ArrayList<Player>();
@@ -608,6 +744,15 @@ class AIDecisionMaking
         return Ret;
     }
     
+    /**
+    * Method that Sorts a List of Players by their Current Health
+    * @param Data ArrayList<Player>, ArrayList of the all the Players objects at
+    * the table.
+    * @param GreatestToSmallest Boolean, whether or not you want it to sort 
+    * Greatest to Smallest or vice versa.
+    * @return ArrayList<Player> , a List of all Player Objects who have been
+    * sorted via their Current Health.
+    */
     private ArrayList<Player> sortPlayersHealth(ArrayList<Player> Data, boolean GreatestToSmallest)
     {
         if(GreatestToSmallest)
@@ -644,6 +789,13 @@ class AIDecisionMaking
         return Data;
     }
     
+    /**
+    * Method that gets the exact index where the Current Player is at the Table
+    * @param CN String, The Character Name of the Current Player making moves
+    * @param TotP ArrayList<Player>, ArrayList of the all the Players objects at
+    * the table.
+    * @return Integer, the Index where the Current Player is at the Table
+    */
     private int getCurrentPlayerIndex(String CN, ArrayList<Player> TotP)
     {
         ArrayList<Player> TotalPlayers = TotP;
@@ -661,6 +813,17 @@ class AIDecisionMaking
         return -1;
     }
     
+    /**
+    * Method that checks if it is even possible for a Player to shoot 2 to left 
+    * or right.
+    * @param CurrentMove String, The Action that the Player is looking to apply
+    * @param PlayerI Integer, The Index where the Current Player is located at 
+    * the table.
+    * @param TotP ArrayList<Player>, ArrayList of the all the Players objects at
+    * the table.
+    * @return String, An adjusted Action based upon the Players positioning at 
+    * the Table and the size of the Table.
+    */
     private String UseDifferentShooting(String CurrentMove, int PlayerI, ArrayList<Player> TotP)
     {
         String ret = CurrentMove;
@@ -702,7 +865,15 @@ class AIDecisionMaking
         return ret;
     }
     
-    //Reroll Stuff
+    /**
+    * Method that handles all of the Rerolling Decisions
+    * @param CurrentPlayer Player, the Current Player who is making moves
+    * @param D ArrayList<Dice>, The ArrayList of Dice objects that will be 
+    * checked for Rerolling.
+    * @param TotP ArrayList<Player>, ArrayList of the all the Players objects at
+    * the table.
+    * @return ArrayList<Dice> , will return an ArrayList of all the Dice Objects
+    */
      public ArrayList<Dice> RerollHandler(Player CurrentPlayer, ArrayList<Dice> D, ArrayList<Player> TotP)
     {
         for(int a = 0; a < 2 && CurrentPlayer.CanReroll(); a++)
@@ -762,11 +933,19 @@ class AIDecisionMaking
         }
         
         //Reset rerolls for next turn
-        CurrentPlayer.setRerolls(2);
+        //CurrentPlayer.setRerolls(2);
         
         return D;
     }
     
+    /**
+    * Method that counts how many Dice have been rolled with a selected face
+    * @param Face Integer, the numeric value of the Face that you are trying to
+    * check for.
+    * @param D ArrayList<Dice>, The ArrayList of Dice objects that will be 
+    * checked for Rerolling.
+    * @return Integer, will return the number of Dice with the selected face
+    */
     private int DiceCounter(int Face, ArrayList<Dice> D)
     {
         int ret = 0;
@@ -781,6 +960,15 @@ class AIDecisionMaking
         return ret;
     }
     
+    /**
+    * Method that sets dice with certain faces to be Rerolled
+    * @param D ArrayList<Dice>, The ArrayList of Dice objects that will be 
+    * checked for Rerolling.
+    * @param Type Integer, is a numeric value that will tell the method which 
+    * dice could be rerolled.
+    * @param CurrentPlayer Player, the Current Player who is making moves
+    * @return ArrayList<Dice> , will return an ArrayList of all the Dice Objects
+    */
     private ArrayList<Dice> Reroll(ArrayList<Dice> D, int Type, Player CurrentPlayer)
     {
         if(Type == 1)
@@ -870,6 +1058,15 @@ class AIDecisionMaking
         return D;
     }
     
+    /**
+    * Method that handles Dice Rerolling if the Game Mode has been changed to 
+    * Dead Or Alive.
+    * @param TotP ArrayList<Player>, ArrayList of the all the Players objects at
+    * the table.
+    * @param @param CurrentPlayer Player, the Current Player who is making moves
+    * @return String, An adjusted Action based upon the Players role at and the 
+    * size of the Table.
+    */
     private String DOAReroll(ArrayList<Player> TotP, Player CurrentPlayer)
     {
         String PlayerRole = CurrentPlayer.getRole();
