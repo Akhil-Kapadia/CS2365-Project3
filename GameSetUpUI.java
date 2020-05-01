@@ -109,7 +109,7 @@ public class GameSetUpUI extends javax.swing.JFrame {
         int num_players, expansions;
         num_players = (int)Float.parseFloat(jTextField1.getText());
         expansions = (int)Float.parseFloat(jTextField2.getText());
-        
+        System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
