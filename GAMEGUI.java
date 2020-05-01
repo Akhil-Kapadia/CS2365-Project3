@@ -675,6 +675,8 @@ public class GAMEGUI extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here: // Button is used to update all the players variables
         int Num = 5;
+        ShootTarget; // variable String of who to shoot
+        HealPlayer; // variable String of who to heal
         Player1Char.setText(String.valueOf(Num)); //How to Enter a number into the jTextField1 (Replace with string)
         Player1Health.setText(String.valueOf()); //Health of players
         Player1Arrow.setText(String.valueOf()); //Number of Arrow of players
@@ -724,10 +726,10 @@ public class GAMEGUI extends javax.swing.JFrame {
         Player8Zombie.setText(); //If Player is a zombie
         
         WhoToShoot.setText(); //For the string that will tell the user who they can shoot
-        ShootPerson.setText(); //Take the users input and send to class to shoot person
+        ShootTarget; // Used to send who to shoot
         
         WhoToHeal.setText(); //For the string that tells the user that they can heal
-        HealPerson.setText(); //Take the users input and send to class to heal person
+        HealPlayer; // Used to send who to heal
         
         IndianChiefArrow.setText(); //Send the name of holder of the indian chief arrow
         
