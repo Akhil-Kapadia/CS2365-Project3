@@ -101,6 +101,14 @@ public class GAMEGUI extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         EventArea = new javax.swing.JTextArea();
+        WhoToShoot = new javax.swing.JTextField();
+        jLabel29 = new javax.swing.JLabel();
+        ShootPerson = new javax.swing.JTextField();
+        WhoToHeal = new javax.swing.JTextField();
+        jLabel30 = new javax.swing.JLabel();
+        HealPerson = new javax.swing.JTextField();
+        jLabel31 = new javax.swing.JLabel();
+        IndianChiefArrow = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,137 +117,98 @@ public class GAMEGUI extends javax.swing.JFrame {
         jLabel1.setText("Player 1");
 
         Player1Char.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player1Char.setText("jTextField1");
 
         Player1Health.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player1Health.setText("jTextField1");
 
         Player1Arrow.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player1Arrow.setText("jTextField1");
 
         Player1Roll.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player1Roll.setText("jTextField1");
 
         Player1Zombie.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player1Zombie.setText("jTextField1");
 
         jLabel2.setText("Player 2");
 
         Player2Char.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player2Char.setText("jTextField1");
 
         Player2Health.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player2Health.setText("jTextField1");
 
         Player2Arrow.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player2Arrow.setText("jTextField1");
 
         Player2Roll.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player2Roll.setText("jTextField1");
 
         Player2Zombie.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player2Zombie.setText("jTextField1");
 
         jLabel3.setText("Player 3");
 
         Player3Char.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player3Char.setText("jTextField1");
 
         Player3Health.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player3Health.setText("jTextField1");
 
         Player3Arrow.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player3Arrow.setText("jTextField1");
 
         Player3Roll.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player3Roll.setText("jTextField1");
 
         Player3Zombie.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player3Zombie.setText("jTextField1");
 
         jLabel4.setText("Player 8");
 
         Player8Char.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player8Char.setText("jTextField1");
 
         Player8Health.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player8Health.setText("jTextField1");
 
         Player8Arrow.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player8Arrow.setText("jTextField1");
 
         Player8Roll.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player8Roll.setText("jTextField1");
 
         Player8Zombie.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player8Zombie.setText("jTextField1");
 
         jLabel5.setText("Player 7");
 
         Player7Char.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player7Char.setText("jTextField1");
 
         Player7Health.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player7Health.setText("jTextField1");
 
         Player7Arrow.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player7Arrow.setText("jTextField1");
 
         Player7Roll.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player7Roll.setText("jTextField1");
 
         Player7Zombie.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player7Zombie.setText("jTextField1");
 
         Player4Char.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         Player6Char.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player6Char.setText("jTextField1");
 
         jLabel6.setText("Player 6");
 
         jLabel7.setText("Player 4");
 
         Player6Health.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player6Health.setText("jTextField1");
 
         Player4Health.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player4Health.setText("jTextField1");
 
         Player6Arrow.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player6Arrow.setText("jTextField1");
 
         Player4Arrow.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player4Arrow.setText("jTextField1");
 
         Player6Roll.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player6Roll.setText("jTextField1");
 
         Player6Zombie.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player6Zombie.setText("jTextField1");
 
         Player4Roll.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player4Roll.setText("jTextField1");
 
         Player4Zombie.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player4Zombie.setText("jTextField1");
 
         jLabel8.setText("Player 5");
 
         Player5Char.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player5Char.setText("jTextField1");
 
         Player5Health.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player5Health.setText("jTextField1");
 
         Player5Arrow.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player5Arrow.setText("jTextField1");
 
         Player5Roll.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player5Roll.setText("jTextField1");
 
         Player5Zombie.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Player5Zombie.setText("jTextField1");
 
         jButton1.setText("Update");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -248,13 +217,13 @@ public class GAMEGUI extends javax.swing.JFrame {
             }
         });
 
-        ArrowPile.setText("jTextField41");
+        ArrowPile.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel9.setText("Arrow Pile");
 
         jLabel10.setText("Card Pile");
 
-        CardPile.setText("jTextField41");
+        CardPile.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel11.setText("Health");
 
@@ -303,6 +272,22 @@ public class GAMEGUI extends javax.swing.JFrame {
         EventArea.setRows(5);
         jScrollPane1.setViewportView(EventArea);
 
+        WhoToShoot.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        jLabel29.setText("Shoot:");
+
+        ShootPerson.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        WhoToHeal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        jLabel30.setText("Heal:");
+
+        HealPerson.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        jLabel31.setText("Indian Chief Arrow Held by: ");
+
+        IndianChiefArrow.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -334,7 +319,7 @@ public class GAMEGUI extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(Player7Arrow, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(67, 67, 67)
-                                .addComponent(CardPile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(CardPile, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -344,9 +329,9 @@ public class GAMEGUI extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(Player7Roll, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(60, 60, 60)
-                                .addComponent(ArrowPile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(54, 54, 54)
+                                .addComponent(ArrowPile, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(53, 53, 53)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Player3Char, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
@@ -429,40 +414,55 @@ public class GAMEGUI extends javax.swing.JFrame {
                                     .addGap(82, 82, 82)
                                     .addComponent(Player1Zombie, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel23)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(Player5Zombie, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                                .addComponent(Player5Roll, javax.swing.GroupLayout.Alignment.TRAILING))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addComponent(jLabel27)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(WhoToShoot, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(106, 106, 106)
+                                .addComponent(jLabel27))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel29)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(ShootPerson, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(24, 24, 24))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel11)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(Player1Health, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(Player1Char, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(Player1Char, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(24, 24, 24))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(Player5Arrow, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4)
+                        .addGap(104, 104, 104)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(104, 104, 104)
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Player1Arrow, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Player1Roll, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel31)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(IndianChiefArrow, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel23)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel12)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(Player1Arrow, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(Player1Roll, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                                    .addComponent(Player5Zombie, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                                    .addComponent(Player5Roll, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(Player5Arrow, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -482,17 +482,41 @@ public class GAMEGUI extends javax.swing.JFrame {
                         .addComponent(jButton2)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(WhoToHeal, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel28)
-                        .addGap(74, 74, 74))))
+                        .addGap(114, 114, 114))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel30)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(HealPerson, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel27)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(12, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel27)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(WhoToShoot, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel29)
+                                    .addComponent(ShootPerson, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel28)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(WhoToHeal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel30)
+                                    .addComponent(HealPerson, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(174, 174, 174)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -550,9 +574,7 @@ public class GAMEGUI extends javax.swing.JFrame {
                             .addComponent(jLabel17)
                             .addComponent(jLabel16)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel28))
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Player1Char, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -591,7 +613,7 @@ public class GAMEGUI extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(Player2Roll, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(Player8Roll, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 297, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jScrollPane1))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -616,9 +638,12 @@ public class GAMEGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Player5Arrow, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel23))
+                    .addComponent(jLabel23)
+                    .addComponent(jLabel31))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Player5Roll, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Player5Roll, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(IndianChiefArrow, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Player5Zombie, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -698,6 +723,14 @@ public class GAMEGUI extends javax.swing.JFrame {
         Player8Roll.setText(); //Player's roll when dead or Sheirff
         Player8Zombie.setText(); //If Player is a zombie
         
+        WhoToShoot.setText(); //For the string that will tell the user who they can shoot
+        ShootPerson.setText(); //Take the users input and send to class to shoot person
+        
+        WhoToHeal.setText(); //For the string that tells the user that they can heal
+        HealPerson.setText(); //Take the users input and send to class to heal person
+        
+        IndianChiefArrow.setText(); //Send the name of holder of the indian chief arrow
+        
         EventArea.setText(); //To get the Events of the last turn
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -745,6 +778,8 @@ public class GAMEGUI extends javax.swing.JFrame {
     private javax.swing.JTextField ArrowPile;
     private javax.swing.JTextField CardPile;
     private javax.swing.JTextArea EventArea;
+    private javax.swing.JTextField HealPerson;
+    private javax.swing.JTextField IndianChiefArrow;
     private javax.swing.JTextField Player1Arrow;
     private javax.swing.JTextField Player1Char;
     private javax.swing.JTextField Player1Health;
@@ -785,6 +820,9 @@ public class GAMEGUI extends javax.swing.JFrame {
     private javax.swing.JTextField Player8Health;
     private javax.swing.JTextField Player8Roll;
     private javax.swing.JTextField Player8Zombie;
+    private javax.swing.JTextField ShootPerson;
+    private javax.swing.JTextField WhoToHeal;
+    private javax.swing.JTextField WhoToShoot;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -808,7 +846,10 @@ public class GAMEGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
