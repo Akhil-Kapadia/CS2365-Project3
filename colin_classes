@@ -1,0 +1,101 @@
+import java.util.Random;
+
+int ArrowPile;
+int ArrowCount;
+
+public void setArrow()
+{
+    ArrowCount = 0;
+}
+
+public void addArrow()
+{
+    if(ArrowPile <= 9)
+    {
+        ArrowCount ++;
+    }
+    else if(ArrowPile >= 9)
+    {
+        system.out.println("The Indians Have Attacked!");
+        while(ArrowCount != 0)
+        {
+            CurrentHealth --;
+            ArrowCount --;
+            ArrowPile --;
+            //display player name has been shot by an arrow
+        }
+        //go through players with while loop 
+            while(ArrowCount != 0)
+            {
+                CurrrentHealth --;
+                ArrowCount --;
+                ArrowPile --;
+                #display player name has been shot by arrow
+            }
+
+    }
+
+
+}
+
+
+
+public void beer()
+{
+    if(CurrentHealth < MaxHealth)
+    {
+       CurrentHealth ++;
+       // display player drank beer
+    }
+}
+
+public void gattling()
+{
+    while(ArrowCount != 0)//set player aarrows to zero
+    {
+        ArrowCount = 0;
+    }
+    //while loop to go through all players
+    CurrentHealth --;
+    //diplay player name shot by gattling 
+}
+
+public void shoot()
+{
+    random rand = new Random();
+    int rand_int = rand.nextInt(2);
+    
+    if(rand_int == 0)
+    {
+        //player to the right or next is chosen
+        CurrentHealth --;
+        //display payer was shot
+    }
+    else
+    {
+        //player to the left or previous is chosen 
+        CurrentHealth --;
+        //display player was shot
+    }
+}
+
+public void shoot2()
+{
+    random rand = new Random();
+    int rand_int = rand.nextInt(2);
+    
+    if(rand_int == 0)
+    {
+        //player to the right or next is chosen
+        CurrentHealth --;
+        //display payer was shot
+    }
+    else
+    {
+        //player to the left or previous is chosen 
+        CurrentHealth --;
+        //display player was shot
+    }
+}
+
+//still need gatling 
