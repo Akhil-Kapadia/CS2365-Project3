@@ -7,12 +7,14 @@ public class Dice {
     
     private int diceValue;
     private int diceIndex;
+    private int diceType;
     private boolean reroll = false;
     
-    public Dice(int index, boolean reroll)
+    public Dice(int index, boolean reroll, int type)
     {
         this.diceIndex = index; //give each dice an index to reference it by
         this.reroll = reroll; //set the reroll flag
+        this.diceType = type;
     }
     
     //roll the dice, int value 0-5
@@ -25,9 +27,9 @@ public class Dice {
     {
         if(canReroll == true) //you can always set dice to false
         {
-            if(getDiceInt() == 1 && name.equals("BLACK JACK")) //black jack can reroll dynamite
+            if(getDiceString().equals("Dynamite") && name.equals("BLACK JACK")) //black jack can reroll dynamite
                 this.reroll = canReroll;
-            else if(getDiceInt() != 1) //if its not dynamite can reroll
+            else if(!getDiceString().equals("Dynamite")) //if its not dynamite can reroll
                 this.reroll = canReroll;
             else
                 this.reroll = false;
@@ -44,10 +46,93 @@ public class Dice {
         return this.diceValue;
     }
     
+    public int getDiceType()
+    {
+        return this.diceType;
+    }
+    
     public String getDiceString()
     {
         String value = "error";
-        switch(getDiceInt()){
+        int type = getDiceType();
+        if(type == 1)
+        {
+            switch(getDiceInt()){ //normal dice
+                case 0:
+                    value = "Arrow";
+                    break;
+                case 1:
+                    value = "Dynamite";
+                    break;
+                case 2:
+                    value = "Shoot person one over left or right";
+                    break;
+                case 3:
+                    value = "Shoot person two over left or right";
+                    break;
+                case 4:
+                    value = "Beer";
+                    break;
+                case 5:
+                    value = "Gatling";
+                    break;
+            }
+        }
+        else if(type == 2)// loudmouth dice
+        {
+          switch(getDiceInt())
+          {
+            case 0:
+                value = "Arrow";
+                break;
+            case 1:
+                value = "Bullet";
+                break;
+            case 2:
+                value = "Shoot person one over left or right twice";
+                break;
+            case 3:
+                value = "Shoot person two over left or right twice";
+                break;
+            case 4:
+                value = "Dynamite";
+                break;
+            case 5:
+                value = "Double Gatling";
+                break;
+          }
+        }
+        else if(type == 3)// coward dice
+        {
+          switch(getDiceInt())
+          {
+            case 0:
+                value = "Arrow";
+                break;
+            case 1:
+                value = "Broken Arrow";
+                break;
+            case 2:
+                value = "Shoot person one over left or right";
+                break;
+            case 3:
+                value = "Beer";
+                break;
+            case 4:
+                value = "Dynamite";
+                break;
+            case 5:
+                value = "Double Beer";
+                break;
+          }
+        }
+
+
+
+        else if(type == 4) // duel dice
+        {
+          switch(getDiceInt())
+          {
             case 0:
                 value = "Arrow";
                 break;
@@ -55,19 +140,20 @@ public class Dice {
                 value = "Dynamite";
                 break;
             case 2:
-                value = "Shoot person one over left or right";
+                value = "Whiskey Bottle";
                 break;
             case 3:
-                value = "Shoot person two over left or right";
+                value = "Duel Guns";
                 break;
             case 4:
-                value = "Beer";
+                value = "Duel Guns";
                 break;
             case 5:
-                value = "Gatling";
+                value = "Gatling"; 
                 break;
+          }
         }
-        
+
         return value;
     }
     

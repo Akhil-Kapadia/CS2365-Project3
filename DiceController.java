@@ -7,13 +7,33 @@ public class DiceController {
     
     ArrayList<Dice> diceArray;
     
-    public DiceController()
+    public DiceController(int[] types)
     {
+        int index = 0;
         this.diceArray = new ArrayList<>(5);
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < types[0]; i++) //normal dice
         {
-            Dice newDice = new Dice(i+1, true); //set the dice index to be 1-5 and all flags to be true for first roll
+            Dice newDice = new Dice(index, true, 1); //set the dice index to be 1-5 and all flags to be true for first roll
             diceArray.add(newDice);
+            index++;
+        }
+        for(int i = 0; i < types[1]; i++) //loudmouth dice
+        {
+            Dice newDice = new Dice(index, true, 2); //set the dice index to be 1-5 and all flags to be true for first roll
+            diceArray.add(newDice);
+            index++;
+        }
+        for(int i = 0; i < types[2]; i++) //coward dice
+        {
+            Dice newDice = new Dice(index, true, 3); //set the dice index to be 1-5 and all flags to be true for first roll
+            diceArray.add(newDice);
+            index++;
+        }
+        for(int i = 0; i < types[3]; i++) //duel dice
+        {
+            Dice newDice = new Dice(index, true, 4); //set the dice index to be 1-5 and all flags to be true for first roll
+            diceArray.add(newDice);
+            index++;
         }
     }
     
@@ -57,11 +77,11 @@ public class DiceController {
         setDiceArray(array);
     }
     
-    public int checkFrequency(int diceValue)
+    public int checkFrequency(String diceValue)
     { 
         int count = 0;
         for(Dice dice : getDiceArray())
-            if(dice.getDiceInt() == diceValue)
+            if(dice.getDiceString().equals(diceValue))
                 count++;
         
         return count;

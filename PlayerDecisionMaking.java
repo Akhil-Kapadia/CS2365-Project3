@@ -66,13 +66,20 @@ public class PlayerDecisionMaking {
     */
     public int chooseHeal()
     {
+        boolean possible = false;
         System.out.println("Please choose who you would like to heal");
         for(int i = 0; i < tableSeating.size(); i++)
         {
             if(!(tableSeating.get(i).isFullHealth())) //if player not full HP, print them out
+            {
                 System.out.println(i + ": " + tableSeating.get(i).getCharacterName());
+                possible = true;
+            }
         }
-        return scan.nextInt(); 
+        if(possible)
+            return scan.nextInt(); 
+        else
+            return -1;
     }
     
     /**
@@ -91,6 +98,24 @@ public class PlayerDecisionMaking {
         for(int j = 0; j < input.length(); j++)
             diceArray.get((int)input.charAt(j)-48).setReroll(true, current.getCharacterName());
         return diceArray;
+    }
+    
+     public int chooseBrokenArrow()
+    {
+        boolean possible = false;
+        System.out.println("Please choose who you would like to remove an arrow from");
+        for(int i = 0; i < tableSeating.size(); i++)
+        {
+            if(tableSeating.get(i).getArrowCount() != 0) //if player not full HP, print them out
+            {
+                System.out.println(i + ": " + tableSeating.get(i).getCharacterName());
+                possible = true;
+            }
+        }
+        if(possible)
+            return scan.nextInt();
+        else
+            return -1;
     }
     
 }
