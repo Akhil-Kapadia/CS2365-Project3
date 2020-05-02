@@ -49,14 +49,14 @@ public class PlayerDecisionMaking {
         return scan.nextInt(); 
     }
     
-    public ArrayList<Dice> chooseReroll(ArrayList<Dice> diceArray)
+    public ArrayList<Dice> chooseReroll(ArrayList<Dice> diceArray, Player current)
     {
         System.out.println("Please enter the dice you would like to reroll (ex: 1345):");
         for(int i = 0; i < diceArray.size(); i++)
             System.out.println(i + ": " + diceArray.get(i).getDiceString());
         String input = scan.nextLine();
         for(int j = 0; j < input.length(); j++)
-            diceArray.get((int)input.charAt(j)-48).setReroll(true);
+            diceArray.get((int)input.charAt(j)-48).setReroll(true, current.getCharacterName());
         return diceArray;
     }
     

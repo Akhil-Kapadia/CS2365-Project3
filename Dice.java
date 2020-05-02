@@ -21,9 +21,17 @@ public class Dice {
         this.diceValue = rand.nextInt(6);
     }
     
-    public void setReroll(boolean canReroll)
+    public void setReroll(boolean canReroll, String name)
     {
-        this.reroll = canReroll;
+        if(canReroll == true) //you can always set dice to false
+        {
+            if(getDiceInt() == 1 && name.equals("BLACK JACK")) //black jack can reroll dynamite
+                this.reroll = canReroll;
+            else if(getDiceInt() != 1) //if its not dynamite can reroll
+                this.reroll = canReroll;
+            else
+                this.reroll = false;
+        }
     }
     
     public boolean getReroll()

@@ -23,6 +23,8 @@ public class Game {
     
     private int arrowPile; //number of arrows in the pile
     
+    ChiefArrow arrow;
+    
     public void setTotalPlayers()
     {
         this.totalPlayers = 5;
@@ -115,12 +117,13 @@ public class Game {
         }
         while(!gameOver)
         {
-            Turn turn = new Turn(getTableSeating(), getDeadList(), getArrowPile(), playerTurnIndex, roles, expansion, DoA); //create a new turn
+            Turn turn = new Turn(getTableSeating(), getDeadList(), getArrowPile(), playerTurnIndex, roles, arrow, expansion, DoA); //create a new turn
             turn.playTurn();
             gameOver = turn.getGameOver(); //get if the game is over from turn
             setTableSeating(turn.getTableSeating()); //get the list of alive players from turn
             setDeadList(turn.getDeadList()); //get the list of dead players from turn
             setArrowPile(turn.getArrowStack()); //get the arrow count from turn
+            arrow = turn.getChiefArrow();
             playerTurnIndex = (playerTurnIndex + 1) % tableSeating.size(); //set the player index to be the next alive player
             if(expansion && !DoA) //if playing the expansion and dead or alive not started, all dead players draw a card at the end of every turn
             {
@@ -147,8 +150,13 @@ public class Game {
     
     public void gameSetup()
     {
-        if(expansion) //create a graveyard deck if playing with expansion
+        //create a graveyard deck if playing with expansion and create chief arrow
+        if(expansion)
+        {
             deck.createDeck();
+            arrow = new ChiefArrow();
+        }
+       
         
         //set arrow pile
         setArrowPile(9);

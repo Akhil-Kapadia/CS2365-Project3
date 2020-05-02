@@ -50,7 +50,7 @@ public class DiceController {
             if(dice.getReroll())
             {
                 dice.rollDice();
-                dice.setReroll(false); //resets all reroll flags to false
+                dice.setReroll(false, ""); //resets all reroll flags to false
             }
         }
         

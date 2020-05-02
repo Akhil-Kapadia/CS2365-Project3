@@ -28,8 +28,10 @@ public class Turn {
 	PlayerDecisionMaking user;
 	AIDecisionMaking ai;
         DiceController diceHandler;
+        
+        ChiefArrow arrow;
 	
-	public Turn(ArrayList<Player> tableSeating, ArrayList<Player> deadList, int arrowPile, int current, int[] roles, boolean expansion, boolean DoA)
+	public Turn(ArrayList<Player> tableSeating, ArrayList<Player> deadList, int arrowPile, int current, int[] roles, ChiefArrow arrow, boolean expansion, boolean DoA)
 	{
             this.currentPlayer = current;
             this.player = tableSeating;
@@ -44,6 +46,7 @@ public class Turn {
             this.ai = new AIDecisionMaking();
             this.diceHandler = new DiceController();
             this.roles = roles;
+            this.arrow = arrow;
         }
         	
 	/**
@@ -63,6 +66,11 @@ public class Turn {
         public ArrayList<Player> getDeadList()
         {
             return new ArrayList<>(deadList);
+        }
+        
+        public ChiefArrow getChiefArrow()
+        {
+            return arrow;
         }
 	
 	/**
@@ -109,10 +117,29 @@ public class Turn {
         
         public void indianAttack()
         {
+            int maxArrows = 0;
+            boolean tie = false;
+            Player mostArrows = player.get(0);
+            for(Player p: player) //determine which player has the most arrows (no ties)
+            {
+                if(p.getArrowCount() > maxArrows)
+                {
+                    mostArrows = p;
+                    maxArrows = p.getArrowCount();
+                }
+                else if(p.getArrowCount() == maxArrows)
+                    tie = true;
+            }
+            
             for(Player p : player)
             {
-                p.TakeDamage(p.getArrowCount()); //player takes damaged based on number of arrows they have
-                System.out.println(p.getCharacterName() + " took " + p.getArrowCount() + " damage. Current HP: " + p.getHealth());
+                if(name.equals(arrow.UseArrow()) && p.equals(mostArrows) &&  tie == false) //if player has chief arrow and most arrows, take no damage
+                    System.out.println(p.getCharacterName() + " is the Indian Chief. They take no damage.");
+                else
+                {
+                    p.TakeDamage(p.getArrowCount()); //player takes damaged based on number of arrows they have
+                    System.out.println(p.getCharacterName() + " took " + p.getArrowCount() + " damage. Current HP: " + p.getHealth());
+                }
                 p.setArrowCount(0); //reset players arrow count to zero
                 checkPlayerDeath(p); //check since player took damage
             }
@@ -293,8 +320,8 @@ public class Turn {
 				if(input.equals("y"))
 				{
                                     
-					//Change the flags to roll. Add black Jack Ability in DiceController?
-					diceHandler.setDiceArray(user.chooseReroll(diceHandler.getDiceArray()));
+					//Change the flags to roll.
+					diceHandler.setDiceArray(user.chooseReroll(diceHandler.getDiceArray(), player.get(currentPlayer)));
                                         
 					diceHandler.rollAllDice();
                                         System.out.println("Roll " + count + ": ");
@@ -304,6 +331,8 @@ public class Turn {
                                         //need to handle arrows as they come up
                                         for(Dice dice : diceHandler.getDiceArray())
                                         {
+                                            //if(arrow.UseArrow().equals("") && dice.getDiceInt() == 0)
+                                                //arrow.TakeArrow(name);
                                             if(dice.getDiceInt() == 0)
                                                 indianArrow();
                                         }
@@ -328,6 +357,8 @@ public class Turn {
                         //need to handle arrows as they come up
                         for(Dice dice : diceHandler.getDiceArray())
                         {
+                            //if(arrow.UseArrow().equals("") && dice.getDiceInt() == 0)
+                                //arrow.TakeArrow(name);
                             if(dice.getDiceInt() == 0)
                                 indianArrow();
                         }
@@ -360,6 +391,13 @@ public class Turn {
                         winCond = winCondition();
                         return; //breakout since game is over
                     }
+                }
+                
+                if(player.get(currentPlayer).getCharacterName().equals("SUZY LAFAYETTE")) //add suzy ability, if no shoot dice at end of turn, plus 2 hp
+                {
+                    System.out.println("No shoot dice rolled, plus 2 HP");
+                    if(diceHandler.checkFrequency(2) == 0 && diceHandler.checkFrequency(3) == 0)
+                        player.get(currentPlayer).addHealth(2);
                 }
 
 		for(Dice dice : diceHandler.getDiceArray())
@@ -433,6 +471,15 @@ public class Turn {
             deadList.add(damagedPlayer);
             player.remove(damagedPlayer); //remove the player from the seating
             setGameOver();
+            
+            for(Player p: getTableSeating()) //vulture sam ability
+            {
+                if(p.getCharacterName().equals("VULTURE SAM"))
+                {
+                    System.out.println("Someone died, VULTURE SAM plus 2 HP");
+                    p.addHealth(2);
+                }                    
+            }
             
             return true;
         }
