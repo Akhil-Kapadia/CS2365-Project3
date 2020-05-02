@@ -25,11 +25,12 @@ public class Game {
     
     ChiefArrow arrow;
     
-    public void setTotalPlayers()
+    public Game(int totalPlayers, boolean expansion)
     {
-        this.totalPlayers = 5;
+        this.totalPlayers = totalPlayers;
+        this.expansion = expansion;
     }
-    
+        
     public int getTotalPlayers()
     {
         return this.totalPlayers;
@@ -156,13 +157,10 @@ public class Game {
             deck.createDeck();
             arrow = new ChiefArrow();
         }
-       
-        
+
         //set arrow pile
         setArrowPile(9);
         
-        //player creation
-        setTotalPlayers();
         switch (getTotalPlayers()) { //number of roles changes based on number of players
             case 4:
                 roles[1] = 1;

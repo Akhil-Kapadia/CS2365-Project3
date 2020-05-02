@@ -3,16 +3,15 @@ package cs2365_project3;
 import java.util.Random;
 import java.util.ArrayList;
 
+/**
+ * The AIDecisionMaking class is responsible for any tactical decisions made
+ * by AI Players within the game.
+ * Responsibilities include: choosing who to Shoot or Heal as well as which 
+ * Dice to Reroll.
+ * @author Demetrios Mihaltses
+ */
 class AIDecisionMaking
 {
-    
-    /**
-     * The AIDecisionMaking class is responsible for any tactical decisions made
-     * by AI Players within the game.
-     * Responsibilities include, choosing who to Shoot or Heal as well as which 
-     * Dice to Reroll.
-     * @author Demetrios Mihaltses
-     */
     
     //A Random number generator
     Random rand = new Random();

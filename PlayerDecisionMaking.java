@@ -3,6 +3,13 @@ package cs2365_project3;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The PlayerDecisionMaking class is responsible for any tactical decisions made
+ * by the user within the game.
+ * Responsibilities include: choosing who to shoot or heal, as well as which 
+ * dice to reroll.
+ * @author Jacob Strickland
+ */
 public class PlayerDecisionMaking {
     
     ArrayList<Player> tableSeating;
@@ -14,6 +21,13 @@ public class PlayerDecisionMaking {
         this.tableSeating = tableSeating;
     }
     
+    /**
+    * Method that allows the player to choose which player to shoot from
+    * possible options.
+    * @param player1 Player, one of the players that can be shot.
+    * @param player2 Player, one of the players that can be shot.
+    * @return int, the index of the chosen player
+    */
     public int chooseShoot(Player player1, Player player2)
     {
         System.out.println("Please choose which player you would like to shoot");
@@ -25,7 +39,15 @@ public class PlayerDecisionMaking {
         return scan.nextInt();
     }
     
-    //method overloading to allow janet's ability
+    /**
+    * Method that allows the player to choose which player to shoot from
+    * possible options with Calamity Janet's ability.
+    * @param player1 Player, one of the players that can be shot.
+    * @param player2 Player, one of the players that can be shot.
+    * @param player3 Player, one of the players that can be shot.
+    * @param player4 Player, one of the players that can be shot.
+    * @return Integer, the index of the chosen player
+    */
     public int chooseShoot(Player player1, Player player2, Player player3, Player player4)
     {
         System.out.println("Please choose which player you would like to shoot");
@@ -38,6 +60,10 @@ public class PlayerDecisionMaking {
         return scan.nextInt();
     }
     
+    /**
+    * Method that allows the player to choose which player to heal from possible options
+    * @return Integer, the index of the chosen player
+    */
     public int chooseHeal()
     {
         System.out.println("Please choose who you would like to heal");
@@ -49,6 +75,13 @@ public class PlayerDecisionMaking {
         return scan.nextInt(); 
     }
     
+    /**
+    * Method that allows the player to choose which player to shoot from
+    * possible options with Calamity Janet's ability.
+    * @param diceArray ArrayList, the list of dice that were rolled
+    * @param current Player, one of the players that can be shot.
+    * @return diceArray ArrayList, the list of dice with updated reroll values
+    */
     public ArrayList<Dice> chooseReroll(ArrayList<Dice> diceArray, Player current)
     {
         System.out.println("Please enter the dice you would like to reroll (ex: 1345):");
