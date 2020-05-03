@@ -87,15 +87,18 @@ public class DiceController {
         return count;
     }
     
-    public void printAllDice()
+    public String printAllDice()
     {
+        String output = "";
         int c = 0;
         for(Dice dice : getDiceArray())
         {
+            output = output + "Dice " + c + ": " + dice.getDiceString() + "\n";
             System.out.println("Dice " + c + ": " + dice.getDiceString());
             c++;
         }
         System.out.println();
+        return output;
     }
     
 }

@@ -15,7 +15,13 @@ import java.util.ArrayList;
 */
 public class GameGUI extends javax.swing.JFrame {
 
-    Game game;
+    private Game game;
+    private boolean gameOver = false;    
+    private int index;
+    private Turn turn;
+    private ArrayList<Player> tableSeating;
+    private String output;
+    
     public GameGUI() {
         initComponents();
     }
@@ -23,6 +29,61 @@ public class GameGUI extends javax.swing.JFrame {
     public void setGame(Game game)
     {
         this.game = game;
+    }
+    
+    public Game getGame()
+    {
+        return this.game;
+    }
+    
+    public void setGameOver(boolean over)
+    {
+        this.gameOver = over;
+    }
+    
+    public boolean getGameOver()
+    {
+        return this.gameOver;
+    }
+    
+    public void setIndex(int index)
+    {
+        this.index = index;
+    }
+    
+    public int getIndex()
+    {
+        return this.index;
+    }
+    
+    public void setTurn(Turn turn)
+    {
+        this.turn = turn;
+    }
+    
+    public Turn getTurn()
+    {
+        return this.turn;
+    }
+    
+    public void setTableSeating()
+    {
+        this.tableSeating = getGame().getTableSeating();
+    }
+    
+    public ArrayList<Player> getTableSeating()
+    {
+        return new ArrayList<>(tableSeating);
+    }
+    
+    public void setOutput(String output)
+    {
+        this.output = output;
+    }
+    
+    public String getOutput()
+    {
+        return this.output;
     }
 
     /**
@@ -704,69 +765,158 @@ public class GameGUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here: // Button is used to update all the players variables
-        ArrayList<Player> tableSeating = game.getTableSeating();
+        setTableSeating();
+        ArrayList<Player> tableSeating = getTableSeating();
         int Num = 5;
         String ShootTarget; // variable String of who to shoot
         String HealPlayer; // variable String of who to heal
         
-        Player1Char.setText(tableSeating.get(0).getCharacterName()); //How to Enter a number into the jTextField1 (Replace with string)
-        Player1Health.setText(String.valueOf(tableSeating.get(0).getHealth())); //Health of players
-        Player1Arrow.setText(String.valueOf(tableSeating.get(0).getArrowCount())); //Number of Arrow of players
-        Player1Roll.setText(tableSeating.get(0).getRole()); //Player's roll when dead or Sheirff
-        Player1Zombie.setText(tableSeating.get(0).getAbility()); //If Player is a zombie
-        
-        Player2Char.setText(tableSeating.get(1).getCharacterName()); //How to Enter a number into the jTextField1 (Replace with string)
-        Player2Health.setText(String.valueOf(tableSeating.get(1).getHealth())); //Health of players
-        Player2Arrow.setText(String.valueOf(tableSeating.get(1).getArrowCount())); //Number of Arrow of players
-        Player2Roll.setText(tableSeating.get(1).getRole()); //Player's roll when dead or Sheirff
-        Player2Zombie.setText(tableSeating.get(1).getAbility()); //If Player is a zombie
-        
-        Player3Char.setText(tableSeating.get(2).getCharacterName()); //How to Enter a number into the jTextField1 (Replace with string)
-        Player3Health.setText(String.valueOf(tableSeating.get(2).getHealth())); //Health of players
-        Player3Arrow.setText(String.valueOf(tableSeating.get(2).getArrowCount())); //Number of Arrow of players
-        Player3Roll.setText(tableSeating.get(2).getRole()); //Player's roll when dead or Sheirff
-        Player3Zombie.setText(tableSeating.get(2).getAbility()); //If Player is a zombie
-        
-        Player4Char.setText(tableSeating.get(3).getCharacterName()); //How to Enter a number into the jTextField1 (Replace with string)
-        Player4Health.setText(String.valueOf(tableSeating.get(3).getHealth())); //Health of players
-        Player4Arrow.setText(String.valueOf(tableSeating.get(3).getArrowCount())); //Number of Arrow of players
-        Player4Roll.setText(tableSeating.get(3).getRole()); //Player's roll when dead or Sheirff
-        Player4Zombie.setText(tableSeating.get(3).getAbility()); //If Player is a zombie
-        
-        if(game.getTotalPlayers() >=  5)
+        if(getGame().getTableSeating().size() < 1)
         {
-            Player5Char.setText(tableSeating.get(4).getCharacterName()); //How to Enter a number into the jTextField1 (Replace with string)
-            Player5Health.setText(String.valueOf(tableSeating.get(4).getHealth())); //Health of players
-            Player5Arrow.setText(String.valueOf(tableSeating.get(4).getArrowCount())); //Number of Arrow of players
-            Player5Roll.setText(tableSeating.get(4).getRole()); //Player's roll when dead or Sheirff
-            Player5Zombie.setText(tableSeating.get(4).getAbility()); //If Player is a zombie
+            Player1Char.setText(""); //How to Enter a number into the jTextField1 (Replace with string)
+            Player1Health.setText(""); //Health of players
+            Player1Arrow.setText(""); //Number of Arrow of players
+            Player1Roll.setText(""); //Player's roll when dead or Sheirff
+            Player1Zombie.setText(""); //If Player is a zombie
+        }
+        else
+        {
+            Player1Char.setText(tableSeating.get(0).getCharacterName()); //How to Enter a number into the jTextField1 (Replace with string)
+            Player1Health.setText(String.valueOf(tableSeating.get(0).getHealth())); //Health of players
+            Player1Arrow.setText(String.valueOf(tableSeating.get(0).getArrowCount())); //Number of Arrow of players
+            Player1Roll.setText(tableSeating.get(0).getRole()); //Player's roll when dead or Sheirff
+            Player1Zombie.setText(tableSeating.get(0).getAbility()); //If Player is a zombie
         }
         
-        if(game.getTotalPlayers() >=  6)
+        if(getGame().getTableSeating().size() < 2)
         {
-            Player6Char.setText(tableSeating.get(5).getCharacterName()); //How to Enter a number into the jTextField1 (Replace with string)
-            Player6Health.setText(String.valueOf(tableSeating.get(5).getHealth())); //Health of players
-            Player6Arrow.setText(String.valueOf(tableSeating.get(5).getArrowCount())); //Number of Arrow of players
-            Player6Roll.setText(tableSeating.get(5).getRole()); //Player's roll when dead or Sheirff
-            Player6Zombie.setText(tableSeating.get(5).getAbility()); //If Player is a zombie
+            Player2Char.setText(""); //How to Enter a number into the jTextField1 (Replace with string)
+            Player2Health.setText(""); //Health of players
+            Player2Arrow.setText(""); //Number of Arrow of players
+            Player2Roll.setText(""); //Player's roll when dead or Sheirff
+            Player2Zombie.setText(""); //If Player is a zombie
+        }
+        else
+        {
+            Player2Char.setText(tableSeating.get(1).getCharacterName()); //How to Enter a number into the jTextField1 (Replace with string)
+            Player2Health.setText(String.valueOf(tableSeating.get(1).getHealth())); //Health of players
+            Player2Arrow.setText(String.valueOf(tableSeating.get(1).getArrowCount())); //Number of Arrow of players
+            Player2Roll.setText(tableSeating.get(1).getRole()); //Player's roll when dead or Sheirff
+            Player2Zombie.setText(tableSeating.get(1).getAbility()); //If Player is a zombie
         }
         
-        if(game.getTotalPlayers() >=  7)
+        if(getGame().getTableSeating().size() < 3)
         {
-            Player7Char.setText(tableSeating.get(6).getCharacterName()); //How to Enter a number into the jTextField1 (Replace with string)
-            Player7Health.setText(String.valueOf(tableSeating.get(6).getHealth())); //Health of players
-            Player7Arrow.setText(String.valueOf(tableSeating.get(6).getArrowCount())); //Number of Arrow of players
-            Player7Roll.setText(tableSeating.get(6).getRole()); //Player's roll when dead or Sheirff
-            Player7Zombie.setText(tableSeating.get(6).getAbility()); //If Player is a zombie
+            Player3Char.setText(""); //How to Enter a number into the jTextField1 (Replace with string)
+            Player3Health.setText(""); //Health of players
+            Player3Arrow.setText(""); //Number of Arrow of players
+            Player3Roll.setText(""); //Player's roll when dead or Sheirff
+            Player3Zombie.setText(""); //If Player is a zombie
+        }
+        else
+        {
+            Player3Char.setText(tableSeating.get(2).getCharacterName()); //How to Enter a number into the jTextField1 (Replace with string)
+            Player3Health.setText(String.valueOf(tableSeating.get(2).getHealth())); //Health of players
+            Player3Arrow.setText(String.valueOf(tableSeating.get(2).getArrowCount())); //Number of Arrow of players
+            Player3Roll.setText(tableSeating.get(2).getRole()); //Player's roll when dead or Sheirff
+            Player3Zombie.setText(tableSeating.get(2).getAbility()); //If Player is a zombie
         }
         
-        if(game.getTotalPlayers() >=  8)
+        if(getGame().getTableSeating().size() < 4)
         {
-            Player8Char.setText(tableSeating.get(7).getCharacterName()); //How to Enter a number into the jTextField1 (Replace with string)
-            Player8Health.setText(String.valueOf(tableSeating.get(7).getHealth())); //Health of players
-            Player8Arrow.setText(String.valueOf(tableSeating.get(7).getArrowCount())); //Number of Arrow of players
-            Player8Roll.setText(tableSeating.get(7).getRole()); //Player's roll when dead or Sheirff
-            Player8Zombie.setText(tableSeating.get(7).getAbility()); //If Player is a zombie
+            Player4Char.setText(""); //How to Enter a number into the jTextField1 (Replace with string)
+            Player4Health.setText(""); //Health of players
+            Player4Arrow.setText(""); //Number of Arrow of players
+            Player4Roll.setText(""); //Player's roll when dead or Sheirff
+            Player4Zombie.setText(""); //If Player is a zombie
+        }
+        else
+        {
+            Player4Char.setText(tableSeating.get(3).getCharacterName()); //How to Enter a number into the jTextField1 (Replace with string)
+            Player4Health.setText(String.valueOf(tableSeating.get(3).getHealth())); //Health of players
+            Player4Arrow.setText(String.valueOf(tableSeating.get(3).getArrowCount())); //Number of Arrow of players
+            Player4Roll.setText(tableSeating.get(3).getRole()); //Player's roll when dead or Sheirff
+            Player4Zombie.setText(tableSeating.get(3).getAbility()); //If Player is a zombie
+        }
+        
+        if(getGame().getTotalPlayers() >=  5)
+        {
+            if(getGame().getTableSeating().size() < 5)
+            {
+                Player5Char.setText(""); //How to Enter a number into the jTextField1 (Replace with string)
+                Player5Health.setText(""); //Health of players
+                Player5Arrow.setText(""); //Number of Arrow of players
+                Player5Roll.setText(""); //Player's roll when dead or Sheirff
+                Player5Zombie.setText(""); //If Player is a zombie
+            }
+            else
+            {
+                Player5Char.setText(tableSeating.get(4).getCharacterName()); //How to Enter a number into the jTextField1 (Replace with string)
+                Player5Health.setText(String.valueOf(tableSeating.get(4).getHealth())); //Health of players
+                Player5Arrow.setText(String.valueOf(tableSeating.get(4).getArrowCount())); //Number of Arrow of players
+                Player5Roll.setText(tableSeating.get(4).getRole()); //Player's roll when dead or Sheirff
+                Player5Zombie.setText(tableSeating.get(4).getAbility()); //If Player is a zombie
+            }
+        }
+        
+        if(getGame().getTotalPlayers() >=  6)
+        {
+            if(getGame().getTableSeating().size() < 6) //if player died, clear space
+            {
+                Player6Char.setText(""); //How to Enter a number into the jTextField1 (Replace with string)
+                Player6Health.setText(""); //Health of players
+                Player6Arrow.setText(""); //Number of Arrow of players
+                Player6Roll.setText(""); //Player's roll when dead or Sheirff
+                Player6Zombie.setText(""); //If Player is a zombie
+            }
+            else
+            {
+                Player6Char.setText(tableSeating.get(5).getCharacterName()); //How to Enter a number into the jTextField1 (Replace with string)
+                Player6Health.setText(String.valueOf(tableSeating.get(5).getHealth())); //Health of players
+                Player6Arrow.setText(String.valueOf(tableSeating.get(5).getArrowCount())); //Number of Arrow of players
+                Player6Roll.setText(tableSeating.get(5).getRole()); //Player's roll when dead or Sheirff
+                Player6Zombie.setText(tableSeating.get(5).getAbility()); //If Player is a zombie
+            }
+        }
+        
+        if(getGame().getTotalPlayers() >=  7)
+        {
+            if(getGame().getTableSeating().size() < 7) //if player died, clear space
+            {
+                Player7Char.setText(""); //How to Enter a number into the jTextField1 (Replace with string)
+                Player7Health.setText(""); //Health of players
+                Player7Arrow.setText(""); //Number of Arrow of players
+                Player7Roll.setText(""); //Player's roll when dead or Sheirff
+                Player7Zombie.setText(""); //If Player is a zombie
+            }
+            else
+            {
+                Player7Char.setText(tableSeating.get(6).getCharacterName()); //How to Enter a number into the jTextField1 (Replace with string)
+                Player7Health.setText(String.valueOf(tableSeating.get(6).getHealth())); //Health of players
+                Player7Arrow.setText(String.valueOf(tableSeating.get(6).getArrowCount())); //Number of Arrow of players
+                Player7Roll.setText(tableSeating.get(6).getRole()); //Player's roll when dead or Sheirff
+                Player7Zombie.setText(tableSeating.get(6).getAbility()); //If Player is a zombie
+            }
+        }
+        
+        if(getGame().getTotalPlayers() >=  8)
+        {
+            if(getGame().getTableSeating().size() < 8) //if player died, clear space
+            {
+                Player8Char.setText(""); //How to Enter a number into the jTextField1 (Replace with string)
+                Player8Health.setText(""); //Health of players
+                Player8Arrow.setText(""); //Number of Arrow of players
+                Player8Roll.setText(""); //Player's roll when dead or Sheirff
+                Player8Zombie.setText(""); //If Player is a zombie
+            }
+            else
+            {
+                Player8Char.setText(tableSeating.get(7).getCharacterName()); //How to Enter a number into the jTextField1 (Replace with string)
+                Player8Health.setText(String.valueOf(tableSeating.get(7).getHealth())); //Health of players
+                Player8Arrow.setText(String.valueOf(tableSeating.get(7).getArrowCount())); //Number of Arrow of players
+                Player8Roll.setText(tableSeating.get(7).getRole()); //Player's roll when dead or Sheirff
+                Player8Zombie.setText(tableSeating.get(7).getAbility()); //If Player is a zombie
+            }
         }
 
         //WhoToShoot.setText(); //For the string that will tell the user who they can shoot
@@ -775,21 +925,72 @@ public class GameGUI extends javax.swing.JFrame {
         //WhoToHeal.setText(); //For the string that tells the user that they can heal
         //HealPlayer; // Used to send who to heal
 
-        //IndianChiefArrow.setText(); //Send the name of holder of the indian chief arrow
+        ArrowPile.setText(String.valueOf(getGame().getArrowPile()));
+        CardPile.setText(String.valueOf(getGame().getCardPile()));
+        //IndianChiefArrow.setText(getGame().getArrow()); //Send the name of holder of the indian chief arrow
 
-        //EventArea.setText(); //To get the Events of the last turn
+        jTextArea1.setText(getOutput()); //To get the Events of the last turn
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        System.exit(0); //used to go to the next players turn
+        if(!getGameOver())
+        {
+            setTurn(getGame().createTurn(getIndex()));
+            if(getGame().getTableSeating().get(getIndex()).getUser())
+            {
+                DiceGameGUI obj = new DiceGameGUI(); //This will show the DiceGameGUI
+                obj.setExpansion(getGame().getExpansion());
+                obj.setName(getTurn().getTableSeating().get(getIndex()).getCharacterName());
+                obj.setVisible(true);
+            }
+            else                
+                getTurn().AIDiceRoll();
+            getTurn().resolveDice();
+            //getTurn().playTurn(getGame().getTableSeating().get(getIndex()).getUser());
+            setGameOver(getTurn().getGameOver());
+            setGame(getGame().updateGame(getTurn()));
+            if(getGame().getExpansion() && !getGame().getDoA() && !getGameOver())
+                getGame().deadDraw();
+            if(getGameOver())
+            {
+                if(gameOver)
+                {
+                    System.out.print("Game over on condition ");
+                    switch(getTurn().getWinCond())
+                    {
+                        case 1: 
+                            System.out.println("Everybody else died, single Renegade wins.");
+                            break;
+                        case 2: 
+                            System.out.println("Outlaw and Renegade(s) died, Sheriff and Deputy wins.");
+                            break;
+                        case 3: 
+                            System.out.println("Sheriff died, Outlaws win.");
+                            break;
+                        case 4: 
+                            System.out.println("Alive died, Zombies win.");
+                            break;
+                        case 5: 
+                            System.out.println("Zombies died, Alive win.");
+                            break;
+                    }
+                }
+            }
+            
+            setIndex(getGame().getIndex());
+            setOutput(getTurn().getOutput());
+            getGame().printGameStatus();
+        }
+        if(getGameOver())
+            System.exit(0); //used to go to the next players turn
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        DiceGameGUI obj = new DiceGameGUI(); //This will show the DiceGameGUI
-        obj.setVisible(true);
-        this.dispose(); //Get rid of the GUI 
+        //DiceGameGUI obj = new DiceGameGUI(); //This will show the DiceGameGUI
+        //obj.setVisible(true);
+        //this.dispose(); //Get rid of the GUI 
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

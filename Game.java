@@ -12,6 +12,7 @@ public class Game {
     int zombie, alive;
     int rolesDoA[] = {zombie, alive};
     Token tokens = new Token();
+    private int index;
         
     private ArrayList<String> characterNames; //arraylist that stores all the names of the characters
     
@@ -84,6 +85,31 @@ public class Game {
         return this.arrowPile;
     }
     
+    public boolean getExpansion()
+    {
+        return this.expansion;
+    }
+    
+    public boolean getDoA()
+    {
+        return this.DoA;
+    }
+    
+    public void setIndex(int index)
+    {
+        this.index = index;
+    }
+    
+    public int getIndex()
+    {
+        return this.index;
+    }
+    
+    public int getCardPile()
+    {
+        return this.drawnCount;
+    }
+    
     public void setCharacterNames()
     {
         //contains all possible names of characters that can be chosen from
@@ -109,11 +135,48 @@ public class Game {
         return name;
     }
     
+    public Turn createTurn(int playerTurnIndex)
+    {
+        return new Turn(getTableSeating(), getDeadList(), getArrowPile(), playerTurnIndex, roles, rolesDoA, arrow, tokens, expansion, DoA); //create a new turn
+    }
+    
+    public Game updateGame(Turn turn)
+    {
+        setTableSeating(turn.getTableSeating()); //get the list of alive players from turn
+        setDeadList(turn.getDeadList()); //get the list of dead players from turn
+        setArrowPile(turn.getArrowStack()); //get the arrow count from turn
+        roles = turn.getRoles();
+        rolesDoA = turn.getRolesDoA();
+        arrow = turn.getChiefArrow();
+        tokens = turn.getTokens();
+        if(turn.getPlayerAlive()) //if current player died, don't increase the index
+            setIndex((getIndex() + 1) % tableSeating.size()); //set the player index to be the next alive player
+        
+        return this;
+    }
+    
+    public void deadDraw()
+    {
+        for(Player player : getDeadList())
+        {
+            int value = deck.drawCard();
+            drawnCount+=value;
+            System.out.println(player.getCharacterName() + " drew a " + value + ". Total pile up to " + drawnCount);
+            if(drawnCount > getTableSeating().size()) //if drawn pile count is greater than players alive, start dead or alive game mode
+            {
+                System.out.println("Conditions met, dead or alive starting");
+                DoA = true;
+                zombieSetup();
+            }
+        }
+    }
+    
     public void playGame()
     {
-        gameSetup(); //setup the game for the first time
-        printGameSetup();
+        //gameSetup(); //gamesetupUI
+        //printGameSetup(); //update button
         boolean gameOver = false;
+        /* gamesetupUI
         int playerTurnIndex = 0;
         for(Player player : getTableSeating())
         {
@@ -123,11 +186,13 @@ public class Game {
                 break;
             }
         }
+*/
         while(!gameOver)
         {
-            Turn turn = new Turn(getTableSeating(), getDeadList(), getArrowPile(), playerTurnIndex, roles, rolesDoA, arrow, tokens, expansion, DoA); //create a new turn
-            turn.playTurn();
-            gameOver = turn.getGameOver(); //get if the game is over from turn
+            //Turn turn = new Turn(getTableSeating(), getDeadList(), getArrowPile(), playerTurnIndex, roles, rolesDoA, arrow, tokens, expansion, DoA); createTurn()
+            //turn.playTurn();
+            //gameOver = turn.getGameOver(); //get if the game is over from turn
+            /*
             setTableSeating(turn.getTableSeating()); //get the list of alive players from turn
             setDeadList(turn.getDeadList()); //get the list of dead players from turn
             setArrowPile(turn.getArrowStack()); //get the arrow count from turn
@@ -152,6 +217,8 @@ public class Game {
                     }
                 }
             }
+*/
+            /*
             if(gameOver)
             {
                 System.out.print("Game over on condition ");
@@ -174,6 +241,7 @@ public class Game {
                         break;
                 }
             }
+*/
             System.out.println("--------------------------------------------------");
             printGameStatus();
         }
@@ -376,7 +444,7 @@ public class Game {
     
     public void printGameStatus()
     {
-        System.out.println("There are " + getTableSeating().size() + " players left");
+        System.out.println("----------------------------\nThere are " + getTableSeating().size() + " players left");
         for(Player player : getTableSeating())
         {
             System.out.println(player.getCharacterName() + " (" + player.getRole() + ") : HP - " + player.getHealth() + ",  Arrows: " + player.getArrowCount());

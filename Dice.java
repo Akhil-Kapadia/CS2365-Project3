@@ -34,6 +34,8 @@ public class Dice {
             else
                 this.reroll = false;
         }
+        else
+            this.reroll = false;
     }
     
     public boolean getReroll()
@@ -44,6 +46,11 @@ public class Dice {
     public int getDiceInt()
     {
         return this.diceValue;
+    }
+    
+    public int getDiceIndex()
+    {
+        return this.diceIndex;
     }
     
     public int getDiceType()
@@ -78,7 +85,8 @@ public class Dice {
                     break;
             }
         }
-        else if(type == 2)// loudmouth dice
+        
+        else if(type == 2) // duel dice
         {
           switch(getDiceInt())
           {
@@ -86,22 +94,23 @@ public class Dice {
                 value = "Arrow";
                 break;
             case 1:
-                value = "Bullet";
-                break;
-            case 2:
-                value = "Shoot person one over left or right twice";
-                break;
-            case 3:
-                value = "Shoot person two over left or right twice";
-                break;
-            case 4:
                 value = "Dynamite";
                 break;
+            case 2:
+                value = "Whiskey Bottle";
+                break;
+            case 3:
+                value = "Duel Guns";
+                break;
+            case 4:
+                value = "Duel Guns";
+                break;
             case 5:
-                value = "Double Gatling";
+                value = "Gatling"; 
                 break;
           }
         }
+        
         else if(type == 3)// coward dice
         {
           switch(getDiceInt())
@@ -125,11 +134,11 @@ public class Dice {
                 value = "Double Beer";
                 break;
           }
+          
+          
         }
-
-
-
-        else if(type == 4) // duel dice
+        
+        else if(type == 4)// loudmouth dice
         {
           switch(getDiceInt())
           {
@@ -137,19 +146,19 @@ public class Dice {
                 value = "Arrow";
                 break;
             case 1:
-                value = "Dynamite";
+                value = "Bullet";
                 break;
             case 2:
-                value = "Whiskey Bottle";
+                value = "Shoot person one over left or right twice";
                 break;
             case 3:
-                value = "Duel Guns";
+                value = "Shoot person two over left or right twice";
                 break;
             case 4:
-                value = "Duel Guns";
+                value = "Dynamite";
                 break;
             case 5:
-                value = "Gatling"; 
+                value = "Double Gatling";
                 break;
           }
         }

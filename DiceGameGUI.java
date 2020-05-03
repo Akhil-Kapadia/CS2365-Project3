@@ -5,6 +5,8 @@
  */
 package cs2365_project3;
 
+import java.util.ArrayList;
+
 /** GUI for the Game
  * @author Chase Willis
  * @version 1.0
@@ -12,11 +14,53 @@ package cs2365_project3;
 */
 public class DiceGameGUI extends javax.swing.JFrame {
 
-    /**
-     * Creates new form DiceGameGUI
-     */
+    private int dieChoice;
+    private boolean expansion;
+    private String name;
+    private ArrayList<Dice> diceArray;
+    
     public DiceGameGUI() {
         initComponents();
+    }
+    
+    public void setDieChoice(int choice)
+    {
+        this.dieChoice = choice;
+    }
+    
+    public int getDieChoice()
+    {
+        return this.dieChoice;
+    }
+    
+    public void setExpansion(boolean expansion)
+    {
+        this.expansion = expansion;
+    }
+    
+    public boolean getExpansion()
+    {
+        return this.expansion;
+    }
+    
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+    
+    public String getName()
+    {
+        return this.name;
+    }
+    
+    public void setDiceArray(ArrayList<Dice> diceArray)
+    {
+        this.diceArray = diceArray;
+    }
+    
+    public ArrayList<Dice> getDiceArray()
+    {
+        return new ArrayList<>(diceArray);
     }
 
     /**
@@ -587,8 +631,76 @@ public class DiceGameGUI extends javax.swing.JFrame {
     private void RollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RollButtonActionPerformed
         // TODO add your handling code here:
         // Get dice numbers
-        int DieChoice;
-        DieChoice = (int)Float.parseFloat(DieOption.getText());
+        setDieChoice((int)Float.parseFloat(DieOption.getText()));
+        int[] test = {5,0,0,0}; //default to all white dice
+        if(getExpansion())
+        {
+            if(getDieChoice() == 1)
+            {
+                test[0] = 3;
+                test[1] = 2;
+            }
+            else if(getDieChoice() == 2)
+            {
+                test[0] = 2;
+                test[1] = 2;
+                test[2] = 1;
+            }
+            else if(getDieChoice() == 3)
+            {
+                test[0] = 2;
+                test[1] = 2;
+                test[3] = 1;
+            }
+        }
+        
+        DiceController diceHandler = new DiceController(test);
+        diceHandler.rollAllDice();
+        setDiceArray (diceHandler.getDiceArray());
+        ArrayList<Dice> diceArray = getDiceArray();
+        for(Dice dice : diceArray)
+        {
+            dice.setReroll(false, "");
+        }
+        if(getExpansion())
+        {
+            if(getDieChoice() == 1) //white die as 5th
+            {
+                Die1.setText(String.valueOf(diceArray.get(0).getDiceInt())); // Number for die 1 White 1
+                Die2.setText(String.valueOf(diceArray.get(1).getDiceInt())); // Number for die 2 White 2
+                Die3.setText(String.valueOf(diceArray.get(2).getDiceInt())); // Number for die 3 White 3
+                Die4.setText(String.valueOf(diceArray.get(3).getDiceInt())); // Number for die 4 Black 1 or White 4
+                Die5.setText(String.valueOf(diceArray.get(4).getDiceInt())); // Number for die 5 Black 2 or White 5
+            }
+            else if(getDieChoice() == 2) //coward die as 5th
+            {
+                Die1.setText(String.valueOf(diceArray.get(0).getDiceInt())); // Number for die 1 White 1
+                Die2.setText(String.valueOf(diceArray.get(1).getDiceInt())); // Number for die 2 White 2
+                Die4.setText(String.valueOf(diceArray.get(2).getDiceInt())); // Number for die 4 Black 1 or White 4
+                Die5.setText(String.valueOf(diceArray.get(3).getDiceInt())); // Number for die 5 Black 2 or White 5
+                Die6.setText(String.valueOf(diceArray.get(4).getDiceInt())); // Number for die 6 Coward
+            }
+            else if(getDieChoice() == 3) //loudmouth die as 5th
+            {
+                Die1.setText(String.valueOf(diceArray.get(0).getDiceInt())); // Number for die 1 White 1
+                Die2.setText(String.valueOf(diceArray.get(1).getDiceInt())); // Number for die 2 White 2
+                Die4.setText(String.valueOf(diceArray.get(2).getDiceInt())); // Number for die 4 Black 1 or White 4
+                Die5.setText(String.valueOf(diceArray.get(3).getDiceInt())); // Number for die 5 Black 2 or White 5
+                Die7.setText(String.valueOf(diceArray.get(4).getDiceInt())); // Number for die 7 Loudmouth
+            }
+        }
+        else //all white die
+        {
+            Die1.setText(String.valueOf(diceArray.get(0).getDiceInt())); // Number for die 1 White 1
+            Die2.setText(String.valueOf(diceArray.get(1).getDiceInt())); // Number for die 2 White 2
+            Die3.setText(String.valueOf(diceArray.get(2).getDiceInt())); // Number for die 3 White 3
+            Die4.setText(String.valueOf(diceArray.get(3).getDiceInt())); // Number for die 4 Black 1 or White 4
+            Die5.setText(String.valueOf(diceArray.get(4).getDiceInt())); // Number for die 5 Black 2 or White 5
+        }
+        
+        //figure out how to resolve arrows here, gui should close if player dies, how will indian attacks be shown?
+        
+        
         //Die1.setText(String.valueOf()); // Number for die 1 White 1
         //Die2.setText(String.valueOf()); // Number for die 2 White 2
         //Die3.setText(String.valueOf()); // Number for die 3 White 3
@@ -613,15 +725,16 @@ public class DiceGameGUI extends javax.swing.JFrame {
         // Send Dice that need to be rerolled and get dice new numbers
         // Also update number of rerolls left
         int DiceToReroll;
+        ArrayList<Dice> diceArray = getDiceArray();
+        
         DiceToReroll = (int)Float.parseFloat(DiceReroll.getText()); //Dice to Reroll
-        //Die1.setText(String.valueOf()); // Number for die 1 White 1
-        //Die2.setText(String.valueOf()); // Number for die 2 White 2
-        //Die3.setText(String.valueOf()); // Number for die 3 White 3
-        //Die4.setText(String.valueOf()); // Number for die 4 Black 1 or White 4
-        //Die5.setText(String.valueOf()); // Number for die 5 Black 2 or White 5
-        //Die6.setText(String.valueOf()); // Number for die 6 Coward
-        //Die7.setText(String.valueOf()); // Number for die 7 Loudmouth
-        //NumRerolls.setText(String.valueOf()); //Number of rerolls left
+        
+        for(Dice dice : diceArray)
+        {
+            if((DiceToReroll-1) == dice.getDiceIndex())
+                dice.setReroll(true, getName());
+        }
+
     }//GEN-LAST:event_RerollDiceActionPerformed
 
     private void DoneWithRollingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DoneWithRollingActionPerformed

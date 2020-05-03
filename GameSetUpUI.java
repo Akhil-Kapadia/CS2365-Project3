@@ -116,6 +116,17 @@ public class GameSetUpUI extends javax.swing.JFrame {
         Game game = new Game(num_players, expansion);
         GameGUI obj = new GameGUI();
         game.gameSetup();
+        int playerTurnIndex = 0;
+        for(Player player : game.getTableSeating())
+        {
+            if(player.getRole().equals("Sheriff")) //the sheriff always starts the game
+            {
+                playerTurnIndex = player.getPlayerIndex();
+                break;
+            }
+        }
+        obj.setIndex(playerTurnIndex);
+        game.setIndex(playerTurnIndex);
         obj.setGame(game);
         obj.setVisible(true);
         this.dispose();

@@ -13,6 +13,8 @@ import java.util.Scanner;
 public class Turn {
 
     Scanner scan = new Scanner(System.in);
+    
+    String output = "";
 
     //Arraylist of all players in the game for this turn.
     private ArrayList<Player> player = new ArrayList();
@@ -71,6 +73,18 @@ public class Turn {
         this.rolesDoA = rolesDoA;
         this.arrow = arrow;
         this.tokens = tokens;
+    }
+    
+    public int getIndex()
+    {
+        return this.currentPlayer;
+    }
+    
+    public String getOutput()
+    {
+        //System.out.println("working");
+        //System.out.println(output);
+        return this.output;
     }
 
     /**
@@ -200,9 +214,12 @@ public class Turn {
             {
                     player.get(currentPlayer).setArrowCount(1); //add an arrow to the player
                     arrowStack--; //decrease arrow stack by one
-                    System.out.println(player.get(currentPlayer).getCharacterName() + " took an arrow, they have " + 
-                            player.get(currentPlayer).getArrowCount() + ". Arrow pile at " + getArrowStack());
-                    System.out.println();
+                    //System.out.println(player.get(currentPlayer).getCharacterName() + " took an arrow, they have " + 
+                            //player.get(currentPlayer).getArrowCount() + ". Arrow pile at " + getArrowStack());
+                    output = output + player.get(currentPlayer).getCharacterName() + " took an arrow, they have " + 
+                            player.get(currentPlayer).getArrowCount() + ". Arrow pile at " + getArrowStack() + "\n";
+                    //System.out.println();
+                    output = output + "\n";
                     if(arrowStack == 0) //if that taken arrow was last one in pile, start indian attack
                         indianAttack();
             }
@@ -211,7 +228,8 @@ public class Turn {
 
     public void indianAttack()
     {
-        System.out.println("Indians Attack!");
+        //System.out.println("Indians Attack!");
+        output = output + "Indians Attack!\n";
         if(expansion)
         {
             int maxArrows = 0;
@@ -231,15 +249,18 @@ public class Turn {
             for(Player p : player)
             {
                 if(p.getCharacterName().equals(arrow.UseArrow()) && p.equals(mostArrows) &&  tie == false) //if player has chief arrow and most arrows, take no damage
-                    System.out.println(p.getCharacterName() + " is the Indian Chief. They take no damage.");
+                    output = output + p.getCharacterName() + " is the Indian Chief. They take no damage.\n";
+                    //System.out.println(p.getCharacterName() + " is the Indian Chief. They take no damage.");
                 else
                 {
                     p.TakeDamage(p.getArrowCount()); //player takes damaged based on number of arrows they have
-                    System.out.println(p.getCharacterName() + " took " + p.getArrowCount() + " damage. Current HP: " + p.getHealth());
+                    //System.out.println(p.getCharacterName() + " took " + p.getArrowCount() + " damage. Current HP: " + p.getHealth());
+                    output = output + p.getCharacterName() + " took " + p.getArrowCount() + " damage. Current HP: " + p.getHealth() + "\n";
                     if(p.getCharacterName().equals(arrow.UseArrow())) //if chief arrow and not most arrows, counts as two arrows
                     {
                         p.TakeDamage(2);
-                        System.out.println(p.getCharacterName() + " had the Chief Arrow, but not most arrows, they take 2 extra damage. Current HP:" + p.getHealth());
+                        output = output + p.getCharacterName() + " had the Chief Arrow, but not most arrows, they take 2 extra damage. Current HP:" + p.getHealth() + "\n";
+                        //System.out.println(p.getCharacterName() + " had the Chief Arrow, but not most arrows, they take 2 extra damage. Current HP:" + p.getHealth());
                     }
                 }
                 p.setArrowCount(-p.getArrowCount()); //reset players arrow count to zero
@@ -261,7 +282,8 @@ public class Turn {
             for(Player p : player)
             {
                 p.TakeDamage(p.getArrowCount()); //player takes damaged based on number of arrows they have
-                System.out.println(p.getCharacterName() + " took " + p.getArrowCount() + " damage. Current HP: " + p.getHealth());
+                output = output + p.getCharacterName() + " took " + p.getArrowCount() + " damage. Current HP: " + p.getHealth() + "\n";
+                //System.out.println(p.getCharacterName() + " took " + p.getArrowCount() + " damage. Current HP: " + p.getHealth());
                 p.setArrowCount(-p.getArrowCount()); //reset players arrow count to zero
             }
             int size = player.size();  //check for player deaths
@@ -277,7 +299,8 @@ public class Turn {
         }
 
         arrowStack = 9; //reset arrow pile to 9
-        System.out.println();
+        //System.out.println();
+        output = output + "\n";
     }
     
     public void brokenArrow()
@@ -289,33 +312,41 @@ public class Turn {
             if(target > -1)
             {
                 player.get(target).setArrowCount(-1);
-                System.out.println("Removing one arrow from " + player.get(target).getCharacterName() 
-                + " they are at " + player.get(target).getArrowCount() + " arrows left.");
+                //System.out.println("Removing one arrow from " + player.get(target).getCharacterName() 
+                //+ " they are at " + player.get(target).getArrowCount() + " arrows left.");
+                output = output + "Removing one arrow from " + player.get(target).getCharacterName() 
+                + " they are at " + player.get(target).getArrowCount() + " arrows left.\n";
             }
             else
-                System.out.println("Nobody has arrows, no arrows could be removed");
+                output = output + "Nobody has arrows, no arrows could be removed \n";
+                //System.out.println("Nobody has arrows, no arrows could be removed");
         }
         else{}
             //need an ai function that will choose who to remove an arrow from
             
-        System.out.println();
+        //System.out.println();
+        output = output + "\n";
             
     }
     
     public void bullet()
     {
         player.get(currentPlayer).TakeDamage(1);
-        System.out.println(player.get(currentPlayer).getCharacterName() + " takes 1 damage. Current HP: " + player.get(currentPlayer).getHealth());
+        output = output + player.get(currentPlayer).getCharacterName() + " takes 1 damage. Current HP: " + player.get(currentPlayer).getHealth() + "\n";
+        //System.out.println(player.get(currentPlayer).getCharacterName() + " takes 1 damage. Current HP: " + player.get(currentPlayer).getHealth());
         checkPlayerDeath(player.get(currentPlayer));
-        System.out.println();
+        //System.out.println();
+        output = output + "\n";
     }
     
     public void whiskey()
     {
         player.get(currentPlayer).addHealth(1);
-        System.out.println(player.get(currentPlayer).getCharacterName() + " heals 1 HP. Current HP: " + player.get(currentPlayer).getHealth());
+        output = output + player.get(currentPlayer).getCharacterName() + " heals 1 HP. Current HP: " + player.get(currentPlayer).getHealth() + "\n";
+        //System.out.println(player.get(currentPlayer).getCharacterName() + " heals 1 HP. Current HP: " + player.get(currentPlayer).getHealth());
         //do some stuff with duel tokens here
-        System.out.println();
+        //System.out.println();
+        output = output + "\n";
     }
 
     /**
@@ -347,20 +378,25 @@ public class Turn {
                             target = user.chooseShoot(player.get(left),player.get(right));
 
                 player.get(target).TakeDamage(1);
-                System.out.println(player.get(currentPlayer).getCharacterName() + " shot " + player.get(target).getCharacterName() 
-                + ". Current HP: " + player.get(target).getHealth());
+                //System.out.println(player.get(currentPlayer).getCharacterName() + " shot " + player.get(target).getCharacterName() 
+                //+ ". Current HP: " + player.get(target).getHealth());
+                output = output + player.get(currentPlayer).getCharacterName() + " shot " + player.get(target).getCharacterName() 
+                + ". Current HP: " + player.get(target).getHealth() + "\n";
                 checkPlayerDeath(player.get(target)); //check since player took damage
             }
             else
             {
                 targetPlayer = ai.getHighestFavor(player.get(currentPlayer), "Shoot person two over left or right", player);
                 targetPlayer.TakeDamage(1);
-                System.out.println(player.get(currentPlayer).getCharacterName() + " shot " + targetPlayer.getCharacterName() 
-                + ". Current HP: " + targetPlayer.getHealth());
+                //System.out.println(player.get(currentPlayer).getCharacterName() + " shot " + targetPlayer.getCharacterName() 
+                //+ ". Current HP: " + targetPlayer.getHealth());
+                output = output + player.get(currentPlayer).getCharacterName() + " shot " + targetPlayer.getCharacterName() 
+                + ". Current HP: " + targetPlayer.getHealth() + "\n";
                 checkPlayerDeath(targetPlayer); //check since player took damage
 
             }
-            System.out.println();
+            //System.out.println();
+            output = output + "\n";
 
     }
 
@@ -394,21 +430,26 @@ public class Turn {
                             target = user.chooseShoot(player.get(left),player.get(right));
 
                 player.get(target).TakeDamage(1);
-                System.out.println(player.get(currentPlayer).getCharacterName() + " shot " + player.get(target).getCharacterName() 
-                + ". Current HP: " + player.get(target).getHealth());
+                //System.out.println(player.get(currentPlayer).getCharacterName() + " shot " + player.get(target).getCharacterName() 
+                //+ ". Current HP: " + player.get(target).getHealth());
+                output = output + player.get(currentPlayer).getCharacterName() + " shot " + player.get(target).getCharacterName() 
+                + ". Current HP: " + player.get(target).getHealth() + "\n";
                 checkPlayerDeath(player.get(target)); //check since player took damage
             }
             else
             {
                 targetPlayer = ai.getHighestFavor(player.get(currentPlayer), "Shoot person two over left or right", player);
-                System.out.println(player.get(currentPlayer).getCharacterName() + " shot " + targetPlayer.getCharacterName() 
-                + ". Current HP: " + targetPlayer.getHealth());
+                //System.out.println(player.get(currentPlayer).getCharacterName() + " shot " + targetPlayer.getCharacterName() 
+                //+ ". Current HP: " + targetPlayer.getHealth());
+                output = output + player.get(currentPlayer).getCharacterName() + " shot " + targetPlayer.getCharacterName() 
+                + ". Current HP: " + targetPlayer.getHealth() + "\n";
                 targetPlayer.TakeDamage(1);
                 checkPlayerDeath(targetPlayer); //check since player took damage
             }
 
 
-            System.out.println();
+            //System.out.println();
+            output = output + "\n";
 
     }
 
@@ -440,23 +481,28 @@ public class Turn {
             targetPlayer.addHealth(1);
         if(!(targetPlayer.getRole().equals("Zombie"))) //only print out the message if someone was actually healed
         {
-            System.out.println(player.get(currentPlayer).getCharacterName() + " healed " + targetPlayer.getCharacterName() 
-                    + ". Current HP: " + targetPlayer.getHealth());
-            System.out.println();
+           // System.out.println(player.get(currentPlayer).getCharacterName() + " healed " + targetPlayer.getCharacterName() 
+                    //+ ". Current HP: " + targetPlayer.getHealth());
+            output = output + player.get(currentPlayer).getCharacterName() + " healed " + targetPlayer.getCharacterName() 
+                    + ". Current HP: " + targetPlayer.getHealth() + "\n";
+            //System.out.println();
+            output = output + "\n";
         }
 
     }
 
     public void gatlingGun()
     {
-        System.out.println("Gatling Gun!");
+        output = output + "Gatling Gun! \n";
+        //System.out.println("Gatling Gun!");
             for(Player obj : player) //each player takes one damage unless paul regret
             {
                     String person = obj.getCharacterName();
                     if(!person.equals(name) || !person.equals("PAUL REGRET"))
                     {
                         obj.TakeDamage(1);
-                        System.out.println(person + " takes 1 damage. Current HP: " + obj.getHealth());   
+                        //System.out.println(person + " takes 1 damage. Current HP: " + obj.getHealth());   
+                        output = output + person + " takes 1 damage. Current HP: " + obj.getHealth() + "\n";
                     }
             }
             int size = player.size();  //check for player deaths
@@ -473,7 +519,8 @@ public class Turn {
             arrowStack += player.get(currentPlayer).getArrowCount();
             player.get(currentPlayer).setArrowCount(-player.get(currentPlayer).getArrowCount());
 
-            System.out.println();
+            //System.out.println();
+            output = output + "\n";
     }
     
     public void duel()
@@ -556,13 +603,14 @@ public class Turn {
      * Method determining roll of dice for this turn. Sets an arrayList of dice 
      * indexes to what the final roll should look like for this turn.
      */
-    public void setDiceRoll()
+    public void AIDiceRoll()
     {
             int count = 1;
             //Check if player is the User or an AI
             diceHandler.rollAllDice();
+            output = output + "Roll " + count + ": \n";
             System.out.println("Roll " + count + ": ");
-            diceHandler.printAllDice();
+            output = output + diceHandler.printAllDice();
             count++;
             //need to handle arrows as they come up
             if(getExpansion())
@@ -601,70 +649,6 @@ public class Turn {
                 }
             }
 
-            if(player.get(currentPlayer).getUser())
-            {
-                    //Reroll as many times as possible. If user replies no, breaks loop.
-                    while(playerAlive && player.get(currentPlayer).CanReroll())
-                    {
-                            System.out.println("Would you like to reroll any dice? (y or n)");
-                            String input = scan.nextLine();
-                            if(input.equals("y"))
-                            {
-
-                                    //Change the flags to roll.
-                                    diceHandler.setDiceArray(user.chooseReroll(diceHandler.getDiceArray(), player.get(currentPlayer)));
-
-                                    diceHandler.rollAllDice();
-                                    System.out.println("Roll " + count + ": ");
-                                    diceHandler.printAllDice();
-                                    count++;
-                                    player.get(currentPlayer).usedReroll();
-                                    //need to handle arrows as they come up
-                                    if(getExpansion())
-                                    {
-                                        for(Dice dice : diceHandler.getDiceArray())
-                                        {
-                                            if(name.equals("APACHE KID") && arrow.UseArrow().equals(""))
-                                                arrow.TakeArrow(name);
-                                            else if(!name.equals("BILL NOFACE"))
-                                            {                                
-                                                if(arrow.UseArrow().equals("") && dice.getDiceString().equals("Arrow"))
-                                                    arrow.TakeArrow(name);
-                                                else if(dice.getDiceString().equals("Arrow"))
-                                                    indianArrow();
-                                            }
-                                        }
-
-                                        for(Dice dice : diceHandler.getDiceArray())
-                                        {
-                                            if(dice.getDiceString().equals("Broken Arrow"))
-                                                brokenArrow();
-                                        }
-
-                                        for(Dice dice : diceHandler.getDiceArray())
-                                        {
-                                            if(dice.getDiceString().equals("Bullet"))
-                                                bullet();
-                                        }
-                                    }
-                                    else
-                                    {
-                                        for(Dice dice : diceHandler.getDiceArray())
-                                        {
-                                            if(dice.getDiceString().equals("Arrow") && !name.equals("BILL NOFACE"))
-                                                indianArrow();                             
-                                        }
-                                    }
-                                    //if three dynamite, cant reroll anymore
-                                    if(diceHandler.checkFrequency("Dynamite") >= 3)
-                                        player.get(currentPlayer).setRerolls(0);
-                            }
-                            else
-                                    break;
-                    }
-            }
-            else	//AI handles the rerolls.
-            {
                 while(playerAlive && player.get(currentPlayer).CanReroll())
                 {
                     diceHandler.setDiceArray(ai.RerollHandler(player.get(currentPlayer), diceHandler.getDiceArray(), player));
@@ -713,17 +697,85 @@ public class Turn {
                     if(diceHandler.checkFrequency("Dynamite") >= 3)
                         player.get(currentPlayer).setRerolls(0);
                 }
-            }
+            
                        
+    }
+    
+    public void userRoll()
+    {
+        int count = 1;
+         if(player.get(currentPlayer).getUser())
+            {
+                    //Reroll as many times as possible. If user replies no, breaks loop.
+                    while(playerAlive && player.get(currentPlayer).CanReroll())
+                    {
+                        /*
+                            System.out.println("Would you like to reroll any dice? (y or n)");
+                            String input = scan.nextLine();
+                            if(input.equals("y"))
+                            {
+
+                                    //Change the flags to roll.
+                                    diceHandler.setDiceArray(user.chooseReroll(diceHandler.getDiceArray(), player.get(currentPlayer)));
+
+                                    diceHandler.rollAllDice();
+                                    System.out.println("Roll " + count + ": ");
+                                    diceHandler.printAllDice();
+                        */
+                                    count++;
+                                    player.get(currentPlayer).usedReroll();
+                                    //need to handle arrows as they come up
+                                    if(getExpansion())
+                                    {
+                                        for(Dice dice : diceHandler.getDiceArray())
+                                        {
+                                            if(name.equals("APACHE KID") && arrow.UseArrow().equals(""))
+                                                arrow.TakeArrow(name);
+                                            else if(!name.equals("BILL NOFACE"))
+                                            {                                
+                                                if(arrow.UseArrow().equals("") && dice.getDiceString().equals("Arrow"))
+                                                    arrow.TakeArrow(name);
+                                                else if(dice.getDiceString().equals("Arrow"))
+                                                    indianArrow();
+                                            }
+                                        }
+
+                                        for(Dice dice : diceHandler.getDiceArray())
+                                        {
+                                            if(dice.getDiceString().equals("Broken Arrow"))
+                                                brokenArrow();
+                                        }
+
+                                        for(Dice dice : diceHandler.getDiceArray())
+                                        {
+                                            if(dice.getDiceString().equals("Bullet"))
+                                                bullet();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for(Dice dice : diceHandler.getDiceArray())
+                                        {
+                                            if(dice.getDiceString().equals("Arrow") && !name.equals("BILL NOFACE"))
+                                                indianArrow();                             
+                                        }
+                                    }
+                                    //if three dynamite, cant reroll anymore
+                                    if(diceHandler.checkFrequency("Dynamite") >= 3)
+                                        player.get(currentPlayer).setRerolls(0);
+                            }
+                    //else
+                                    //break;
+                    //}
+            }
     }
 
     /**
      * Handles the actual play of the turn.
      */
-    public void playTurn()
+    public void resolveDice()
     {
-            //roll the dice
-            setDiceRoll();
+            //setDiceRoll();
             
             if(playerAlive)
             {
@@ -735,7 +787,8 @@ public class Turn {
                 if(diceHandler.checkFrequency("Dynamite") >= 3)
                 {
                     player.get(currentPlayer).TakeDamage(1);
-                    System.out.println("Dynamite! Take 1 damage, current HP: " + player.get(currentPlayer).getHealth());
+                    //System.out.println("Dynamite! Take 1 damage, current HP: " + player.get(currentPlayer).getHealth());
+                    output = output + "Dynamite! Take 1 damage, current HP: " + player.get(currentPlayer).getHealth() + "\n";
                     checkPlayerDeath(player.get(currentPlayer)); //check since player took damage
                     if(gameOver)
                     {
@@ -746,7 +799,8 @@ public class Turn {
 
                 if(player.get(currentPlayer).getCharacterName().equals("SUZY LAFAYETTE")) //add suzy ability, if no shoot dice at end of turn, plus 2 hp
                 {
-                    System.out.println("No shoot dice rolled, plus 2 HP");
+                    //System.out.println("No shoot dice rolled, plus 2 HP");
+                    output = output + "No shoot dice rolled, plus 2 HP";
                     if(diceHandler.checkFrequency("Shoot person one over left or right") == 0 
                             && diceHandler.checkFrequency("Shoot person two over left or right") == 0)
                         player.get(currentPlayer).addHealth(2);
@@ -882,7 +936,8 @@ public class Turn {
             else
                 decreaseRole(3);
 
-            System.out.println("Player " + damagedPlayer.getPlayerIndex() + " is dead, their role was " + role);
+            //System.out.println("Player " + damagedPlayer.getPlayerIndex() + " is dead, their role was " + role);
+            output = output + "Player " + damagedPlayer.getPlayerIndex() + " is dead, their role was " + role + "\n";
             
             if(damagedPlayer.equals(player.get(currentPlayer)))
                     playerAlive = false;
