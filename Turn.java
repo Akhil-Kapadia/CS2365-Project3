@@ -22,6 +22,8 @@ public class Turn {
     private int arrowStack;
     //Name of current Player from player class.
     private String name;
+    
+    boolean playerAlive = true;
 
     //flag to keep track of the game being over
     private boolean gameOver = false;
@@ -29,6 +31,7 @@ public class Turn {
     private int winCond;
     //used to keep track of how many of each role is left alive for checking game over
     private int[] roles = {0,0,0,0}; 
+    private int[] rolesDoA = {0, 0};
 
     //flag to keep track of if the expansion is being used
     private boolean expansion;
@@ -47,7 +50,7 @@ public class Turn {
 
     ChiefArrow arrow;
 
-    public Turn(ArrayList<Player> tableSeating, ArrayList<Player> deadList, int arrowPile, int current, int[] roles, ChiefArrow arrow, boolean expansion, boolean DoA)
+    public Turn(ArrayList<Player> tableSeating, ArrayList<Player> deadList, int arrowPile, int current, int[] roles, int[] rolesDoA, ChiefArrow arrow, boolean expansion, boolean DoA)
     {
         this.currentPlayer = current;
         this.player = tableSeating;
@@ -63,6 +66,7 @@ public class Turn {
         int[] test = {5,0,0,0};
         this.diceHandler = new DiceController(test);
         this.roles = roles;
+        this.rolesDoA = rolesDoA;
         this.arrow = arrow;
     }
 
@@ -84,6 +88,11 @@ public class Turn {
         return this.expansion;
     }
     
+    public boolean getPlayerAlive()
+    {
+        return this.playerAlive;
+    }
+    
     /**
     * Method that gets if dead or alive game mode has started.
     * @return Boolean, true if game mode started
@@ -101,6 +110,15 @@ public class Turn {
     {
         return this.roles;
     }
+    
+    /**
+    * Method that gets the array of number of each role left in game.
+    * @return Integer[], number of each role left in the game
+    */
+    public int[] getRolesDoA()
+    {
+        return this.rolesDoA;
+    }    
 
     /**
     * Method that decreases the number of given role left in the game.
@@ -170,7 +188,7 @@ public class Turn {
      */
     public void indianArrow()
     {
-            if(arrowStack > 1) //if there is an arrow left to take
+            if(arrowStack >= 1) //if there is an arrow left to take
             {
                     player.get(currentPlayer).setArrowCount(1); //add an arrow to the player
                     arrowStack--; //decrease arrow stack by one
@@ -185,6 +203,7 @@ public class Turn {
 
     public void indianAttack()
     {
+        System.out.println("Indians Attack!");
         if(expansion)
         {
             int maxArrows = 0;
@@ -203,15 +222,30 @@ public class Turn {
 
             for(Player p : player)
             {
-                if(name.equals(arrow.UseArrow()) && p.equals(mostArrows) &&  tie == false) //if player has chief arrow and most arrows, take no damage
+                if(p.getCharacterName().equals(arrow.UseArrow()) && p.equals(mostArrows) &&  tie == false) //if player has chief arrow and most arrows, take no damage
                     System.out.println(p.getCharacterName() + " is the Indian Chief. They take no damage.");
                 else
                 {
                     p.TakeDamage(p.getArrowCount()); //player takes damaged based on number of arrows they have
                     System.out.println(p.getCharacterName() + " took " + p.getArrowCount() + " damage. Current HP: " + p.getHealth());
+                    if(p.getCharacterName().equals(arrow.UseArrow())) //if chief arrow and not most arrows, counts as two arrows
+                    {
+                        p.TakeDamage(2);
+                        System.out.println(p.getCharacterName() + " had the Chief Arrow, but not most arrows, they take 2 extra damage. Current HP:" + p.getHealth());
+                    }
                 }
-                p.setArrowCount(0); //reset players arrow count to zero
-                checkPlayerDeath(p); //check since player took damage
+                p.setArrowCount(-p.getArrowCount()); //reset players arrow count to zero
+            }
+            arrow.TakeArrow("");
+            int size = player.size();  //check for player deaths
+            for(int i = 0; i < size; i++)
+            {
+                if(player.get(i).getHealth() <= 0)
+                {
+                    checkPlayerDeath(player.get(i));
+                    size = player.size();
+                    i = 0;
+                }
             }
         }
         else
@@ -220,8 +254,17 @@ public class Turn {
             {
                 p.TakeDamage(p.getArrowCount()); //player takes damaged based on number of arrows they have
                 System.out.println(p.getCharacterName() + " took " + p.getArrowCount() + " damage. Current HP: " + p.getHealth());
-                p.setArrowCount(0); //reset players arrow count to zero
-                checkPlayerDeath(p); //check since player took damage
+                p.setArrowCount(-p.getArrowCount()); //reset players arrow count to zero
+            }
+            int size = player.size();  //check for player deaths
+            for(int i = 0; i < size; i++)
+            {
+                if(player.get(i).getHealth() <= 0)
+                {
+                    checkPlayerDeath(player.get(i));
+                    size = player.size();
+                    i = 0;
+                }
             }
         }
 
@@ -404,10 +447,19 @@ public class Turn {
                     String person = obj.getCharacterName();
                     if(!person.equals(name) || !person.equals("PAUL REGRET"))
                     {
-                        System.out.println(person + "takes 1 damage. Current HP: " + obj.getHealth());
-                            obj.TakeDamage(1);
+                        obj.TakeDamage(1);
+                        System.out.println(person + " takes 1 damage. Current HP: " + obj.getHealth());   
                     }
-                    checkPlayerDeath(obj); //check death since player took damage
+            }
+            int size = player.size();  //check for player deaths
+            for(int i = 0; i < size; i++)
+            {
+                if(player.get(i).getHealth() <= 0)
+                {
+                    checkPlayerDeath(player.get(i));
+                    size = player.size();
+                    i = 0;
+                }
             }
             //remove arrows from current player and add them to the stack.
             arrowStack += player.get(currentPlayer).getArrowCount();
@@ -428,11 +480,47 @@ public class Turn {
             System.out.println("Roll " + count + ": ");
             diceHandler.printAllDice();
             count++;
+            //need to handle arrows as they come up
+            if(getExpansion())
+            {
+                for(Dice dice : diceHandler.getDiceArray())
+                {
+                    if(name.equals("APACHE KID") && arrow.UseArrow().equals(""))
+                        arrow.TakeArrow(name);
+                    else if(!name.equals("BILL NOFACE"))
+                    {                                
+                        if(arrow.UseArrow().equals("") && dice.getDiceString().equals("Arrow"))
+                            arrow.TakeArrow(name);
+                        else if(dice.getDiceString().equals("Arrow"))
+                            indianArrow();
+                    }
+                }
+
+                for(Dice dice : diceHandler.getDiceArray())
+                {
+                    if(dice.getDiceString().equals("Broken Arrow"))
+                        brokenArrow();
+                }
+
+                for(Dice dice : diceHandler.getDiceArray())
+                {
+                    if(dice.getDiceString().equals("Bullet"))
+                        bullet();
+                }
+            }
+            else
+            {
+                for(Dice dice : diceHandler.getDiceArray())
+                {
+                    if(dice.getDiceString().equals("Arrow") && !name.equals("BILL NOFACE"))
+                        indianArrow();                             
+                }
+            }
 
             if(player.get(currentPlayer).getUser())
             {
                     //Reroll as many times as possible. If user replies no, breaks loop.
-                    while(player.get(currentPlayer).CanReroll())
+                    while(playerAlive && player.get(currentPlayer).CanReroll())
                     {
                             System.out.println("Would you like to reroll any dice? (y or n)");
                             String input = scan.nextLine();
@@ -455,14 +543,14 @@ public class Turn {
                                             if(name.equals("APACHE KID") && arrow.UseArrow().equals(""))
                                                 arrow.TakeArrow(name);
                                             else if(!name.equals("BILL NOFACE"))
-                                            {
+                                            {                                
                                                 if(arrow.UseArrow().equals("") && dice.getDiceString().equals("Arrow"))
                                                     arrow.TakeArrow(name);
                                                 else if(dice.getDiceString().equals("Arrow"))
                                                     indianArrow();
                                             }
                                         }
-                                        
+
                                         for(Dice dice : diceHandler.getDiceArray())
                                         {
                                             if(dice.getDiceString().equals("Broken Arrow"))
@@ -480,7 +568,7 @@ public class Turn {
                                         for(Dice dice : diceHandler.getDiceArray())
                                         {
                                             if(dice.getDiceString().equals("Arrow") && !name.equals("BILL NOFACE"))
-                                                indianArrow();
+                                                indianArrow();                             
                                         }
                                     }
                                     //if three dynamite, cant reroll anymore
@@ -493,14 +581,14 @@ public class Turn {
             }
             else	//AI handles the rerolls.
             {
-                while(player.get(currentPlayer).CanReroll())
+                while(playerAlive && player.get(currentPlayer).CanReroll())
                 {
                     diceHandler.setDiceArray(ai.RerollHandler(player.get(currentPlayer), diceHandler.getDiceArray(), player));
                     diceHandler.rollAllDice();
                     System.out.println("Roll " + count + ": ");
                     diceHandler.printAllDice();
                     count++;
-                    player.get(currentPlayer).usedReroll();
+                    player.get(currentPlayer).usedReroll(); 
                     //need to handle arrows as they come up
                     if(getExpansion())
                     {
@@ -509,7 +597,7 @@ public class Turn {
                             if(name.equals("APACHE KID") && arrow.UseArrow().equals(""))
                                 arrow.TakeArrow(name);
                             else if(!name.equals("BILL NOFACE"))
-                            {
+                            {                                
                                 if(arrow.UseArrow().equals("") && dice.getDiceString().equals("Arrow"))
                                     arrow.TakeArrow(name);
                                 else if(dice.getDiceString().equals("Arrow"))
@@ -534,7 +622,7 @@ public class Turn {
                         for(Dice dice : diceHandler.getDiceArray())
                         {
                             if(dice.getDiceString().equals("Arrow") && !name.equals("BILL NOFACE"))
-                                indianArrow();
+                                indianArrow();                             
                         }
                     }
                     //if three dynamite, cant reroll anymore
@@ -542,8 +630,7 @@ public class Turn {
                         player.get(currentPlayer).setRerolls(0);
                 }
             }
-
-            diceHandler.setDiceArray(diceHandler.sortDiceArray());
+                       
     }
 
     /**
@@ -553,129 +640,138 @@ public class Turn {
     {
             //roll the dice
             setDiceRoll();
-
-            player.get(currentPlayer).setRerolls(2);
-
-            //resolve the dice in correct order, arrows are already handled as they are rolled
-            if(diceHandler.checkFrequency("Dynamite") >= 3)
-            {
-                player.get(currentPlayer).TakeDamage(1);
-                checkPlayerDeath(player.get(currentPlayer)); //check since player took damage
-                if(gameOver)
-                {
-                    winCond = winCondition();
-                    return; //breakout since game is over
-                }
-            }
             
-            if(player.get(currentPlayer).getCharacterName().equals("BILL NOFACE")) //add bill ability, only apply arrows at end of turn
+            if(playerAlive)
             {
+
+                player.get(currentPlayer).setRerolls(2); //reset rerolls to 2
+                diceHandler.setDiceArray(diceHandler.sortDiceArray()); //sort the dice array in order of resolve
+
+                //resolve the dice in correct order, arrows are already handled as they are rolled
+                if(diceHandler.checkFrequency("Dynamite") >= 3)
+                {
+                    player.get(currentPlayer).TakeDamage(1);
+                    System.out.println("Dynamite! Take 1 damage, current HP: " + player.get(currentPlayer).getHealth());
+                    checkPlayerDeath(player.get(currentPlayer)); //check since player took damage
+                    if(gameOver)
+                    {
+                        winCond = winCondition();
+                        return; //breakout since game is over
+                    }
+                }
+
+                if(player.get(currentPlayer).getCharacterName().equals("SUZY LAFAYETTE")) //add suzy ability, if no shoot dice at end of turn, plus 2 hp
+                {
+                    System.out.println("No shoot dice rolled, plus 2 HP");
+                    if(diceHandler.checkFrequency("Shoot person one over left or right") == 0 
+                            && diceHandler.checkFrequency("Shoot person two over left or right") == 0)
+                        player.get(currentPlayer).addHealth(2);
+                }
+
                 for(Dice dice : diceHandler.getDiceArray())
                 {
-                    if(dice.getDiceString().equals("Arrow"))
-                        indianArrow();
-                }
-            }
-
-            if(player.get(currentPlayer).getCharacterName().equals("SUZY LAFAYETTE")) //add suzy ability, if no shoot dice at end of turn, plus 2 hp
-            {
-                System.out.println("No shoot dice rolled, plus 2 HP");
-                if(diceHandler.checkFrequency("Shoot person one over left or right") == 0 
-                        && diceHandler.checkFrequency("Shoot person two over left or right") == 0)
-                    player.get(currentPlayer).addHealth(2);
-            }
-
-            for(Dice dice : diceHandler.getDiceArray())
-            {
-                String diceString = dice.getDiceString();
-                if(diceString.equals("Whiskey Bottle"))
-                {
-                    whiskey();
-                    if(name.equals("GREG DIGGER"))
+                    String diceString = dice.getDiceString();
+                    if(diceString.equals("Whiskey Bottle"))
+                    {
                         whiskey();
-                }
-                else if(diceString.equals("Shoot person one over left or right"))
-                {
-                    bullsEyex1();
-                    if(gameOver)
-                    {
-                        winCond = winCondition();
-                        return; //breakout since game is over
+                        if(name.equals("GREG DIGGER"))
+                            whiskey();
                     }
-                }
-                else if(diceString.equals("Shoot person one over left or right twice"))
-                {
-                    bullsEyex1();
-                    if(gameOver)
+                    else if(diceString.equals("Shoot person one over left or right"))
                     {
-                        winCond = winCondition();
-                        return; //breakout since game is over
+                        bullsEyex1();
+                        if(gameOver)
+                        {
+                            winCond = winCondition();
+                            return; //breakout since game is over
+                        }
                     }
-                    if(gameOver)
+                    else if(diceString.equals("Shoot person one over left or right twice"))
                     {
-                        winCond = winCondition();
-                        return; //breakout since game is over
+                        bullsEyex1();
+                        if(gameOver)
+                        {
+                            winCond = winCondition();
+                            return; //breakout since game is over
+                        }
+                        if(gameOver)
+                        {
+                            winCond = winCondition();
+                            return; //breakout since game is over
+                        }
                     }
-                }
-                else if(diceString.equals("Shoot person two over left or right"))
-                {
-                    bullsEyex2();
-                    if(gameOver)
+                    else if(diceString.equals("Shoot person two over left or right"))
                     {
-                        winCond = winCondition();
-                        return; //breakout since game is over
+                        bullsEyex2();
+                        if(gameOver)
+                        {
+                            winCond = winCondition();
+                            return; //breakout since game is over
+                        }
                     }
-                }
-                else if(diceString.equals("Shoot person two over left or right twice"))
-                {
-                    bullsEyex2();
-                    if(gameOver)
+                    else if(diceString.equals("Shoot person two over left or right twice"))
                     {
-                        winCond = winCondition();
-                        return; //breakout since game is over
+                        bullsEyex2();
+                        if(gameOver)
+                        {
+                            winCond = winCondition();
+                            return; //breakout since game is over
+                        }
+                        bullsEyex2();
+                        if(gameOver)
+                        {
+                            winCond = winCondition();
+                            return; //breakout since game is over
+                        }
                     }
-                    bullsEyex2();
-                    if(gameOver)
+                    else if(diceString.equals("Beer"))
+                        beer();
+                    else if(diceString.equals("Double Beer"))
                     {
-                        winCond = winCondition();
-                        return; //breakout since game is over
+                        beer();
+                        beer();
                     }
-                }
-                else if(diceString.equals("Beer"))
-                    beer();
-                else if(diceString.equals("Double Beer"))
-                {
-                    beer();
-                    beer();
-                }
 
 
+                }
+
+                int gatlingTotal = diceHandler.checkFrequency("Gatling") + (2*diceHandler.checkFrequency("Double Gatling"));
+                if(gatlingTotal >= 3)
+                {
+                    gatlingGun();
+                    if(gameOver)
+                    {
+                        winCond = winCondition();
+                        return; //breakout since game is over
+                    }
+                }
             }
-
-            int gatlingTotal = diceHandler.checkFrequency("Gatling") + (2*diceHandler.checkFrequency("Double Gatling"));
-            if(gatlingTotal >= 3)
-            {
-                gatlingGun();
-                if(gameOver)
-                {
-                    winCond = winCondition();
-                    return; //breakout since game is over
-                }
-            }
-
     }
 
     public int winCondition()
     {
-        int[] roleArray = getRoles();
-        if(roleArray[0] == 0 && roleArray[1] == 1 && roleArray[2] == 0 && roleArray[3] == 0)
-            return 1; //everyone else died, single renegade wins
-        else if(roleArray[1] == 0 && roleArray[2] == 0)
-            return 2; //outlaws and renegade(s) died, sheriff wins
-        else if(roleArray[0] == 0)
-            return 3; //sheriff died, outlaws win
+        if(getDoA())
+        {
+            int[] roleArray = getRolesDoA();
+            if(roleArray[1] == 0 || (roleArray[0] == 0 && roleArray[1] == 0))
+                return 4; //alive are dead, zombie win
+            else if(roleArray[0] == 0)
+                return 5; //zombie are dead and alive are alive, alive win
+            else
+                return 0; //game is not over
+        }
         else
-            return 0; //game is not over
+        {
+            int[] roleArray = getRoles();
+            if(roleArray[0] == 0 && roleArray[1] == 1 && roleArray[2] == 0 && roleArray[3] == 0)
+                return 1; //everyone else died, single renegade wins
+            else if(roleArray[1] == 0 && roleArray[2] == 0)
+                return 2; //outlaws and renegade(s) died, sheriff wins
+            else if(roleArray[0] == 0)
+                return 3; //sheriff died, outlaws win
+            else
+                return 0; //game is not over
+        }
     }
 
     public boolean checkPlayerDeath(Player damagedPlayer)
@@ -694,6 +790,9 @@ public class Turn {
                 decreaseRole(3);
 
             System.out.println("Player " + damagedPlayer.getPlayerIndex() + " is dead, their role was " + role);
+            
+            if(damagedPlayer.equals(player.get(currentPlayer)))
+                    playerAlive = false;
 
             deadList.add(damagedPlayer);
             player.remove(damagedPlayer); //remove the player from the seating

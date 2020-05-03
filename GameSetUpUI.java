@@ -1,9 +1,15 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package cs2365_project3;
 
-/**
- *
- * @author chase
- */
+/** GUI for the Game set up
+ * @author Chase Willis
+ * @version 1.0
+ * @return Number of people and using expansions or not.
+*/
 public class GameSetUpUI extends javax.swing.JFrame {
 
     /**
@@ -107,19 +113,12 @@ public class GameSetUpUI extends javax.swing.JFrame {
         boolean expansion = false;
         if(expansions == 1)
             expansion = true;
-        
         Game game = new Game(num_players, expansion);
-        
-        GAMEGUI itemLoader = new GAMEGUI();
-        itemLoader.setGame(game);
-        itemLoader.main(null);
-        itemLoader.setVisible(true);
-        this.setVisible(false);
-  
-        for(int i = 0; i < 100000; i++)
-            System.out.println(i);
- 
-        System.exit(0);
+        GameGUI obj = new GameGUI();
+        game.gameSetup();
+        obj.setGame(game);
+        obj.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
