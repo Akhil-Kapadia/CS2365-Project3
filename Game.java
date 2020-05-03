@@ -91,6 +91,10 @@ public class Game {
         this.characterNames.add("PAUL REGRET");
         this.characterNames.add("SUZY LAFAYETTE");
         this.characterNames.add("VULTURE SAM");
+        this.characterNames.add("APACHE KID");
+        this.characterNames.add("BILL NOFACE");
+        this.characterNames.add("BELLE STAR");
+        this.characterNames.add("GREG DIGGER");        
     }
     
     public String getCharacterName()
@@ -271,6 +275,18 @@ public class Game {
                 break;
             case "VULTURE SAM":
                 HP = 9;
+                break;
+            case "APACHE KID":
+                HP = 9;
+                break;
+            case "BILL NOFACE":
+                HP = 9;
+                break;
+            case "BELLE STAR":
+                HP = 8;
+                break;
+            case "GREG DIGGER":
+                HP = 7;
                 break;
         }
         

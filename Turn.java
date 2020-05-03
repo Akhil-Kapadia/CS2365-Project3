@@ -452,10 +452,15 @@ public class Turn {
                                     {
                                         for(Dice dice : diceHandler.getDiceArray())
                                         {
-                                            if(arrow.UseArrow().equals("") && dice.getDiceInt() == 0)
+                                            if(name.equals("APACHE KID") && arrow.UseArrow().equals(""))
                                                 arrow.TakeArrow(name);
-                                            else if(dice.getDiceString().equals("Arrow"))
-                                                indianArrow();
+                                            else if(!name.equals("BILL NOFACE"))
+                                            {
+                                                if(arrow.UseArrow().equals("") && dice.getDiceString().equals("Arrow"))
+                                                    arrow.TakeArrow(name);
+                                                else if(dice.getDiceString().equals("Arrow"))
+                                                    indianArrow();
+                                            }
                                         }
                                         
                                         for(Dice dice : diceHandler.getDiceArray())
@@ -474,12 +479,12 @@ public class Turn {
                                     {
                                         for(Dice dice : diceHandler.getDiceArray())
                                         {
-                                            if(dice.getDiceString().equals("Arrow"))
+                                            if(dice.getDiceString().equals("Arrow") && !name.equals("BILL NOFACE"))
                                                 indianArrow();
                                         }
                                     }
                                     //if three dynamite, cant reroll anymore
-                                    if(diceHandler.checkFrequency(1) >= 3)
+                                    if(diceHandler.checkFrequency("Dynamite") >= 3)
                                         player.get(currentPlayer).setRerolls(0);
                             }
                             else
@@ -501,10 +506,15 @@ public class Turn {
                     {
                         for(Dice dice : diceHandler.getDiceArray())
                         {
-                            if(arrow.UseArrow().equals("") && dice.getDiceInt() == 0)
+                            if(name.equals("APACHE KID") && arrow.UseArrow().equals(""))
                                 arrow.TakeArrow(name);
-                            else if(dice.getDiceString().equals("Arrow"))
-                                indianArrow();
+                            else if(!name.equals("BILL NOFACE"))
+                            {
+                                if(arrow.UseArrow().equals("") && dice.getDiceString().equals("Arrow"))
+                                    arrow.TakeArrow(name);
+                                else if(dice.getDiceString().equals("Arrow"))
+                                    indianArrow();
+                            }
                         }
                         
                         for(Dice dice : diceHandler.getDiceArray())
@@ -523,12 +533,12 @@ public class Turn {
                     {
                         for(Dice dice : diceHandler.getDiceArray())
                         {
-                            if(dice.getDiceString().equals("Arrow"))
+                            if(dice.getDiceString().equals("Arrow") && !name.equals("BILL NOFACE"))
                                 indianArrow();
                         }
                     }
                     //if three dynamite, cant reroll anymore
-                    if(diceHandler.checkFrequency(1) >= 3)
+                    if(diceHandler.checkFrequency("Dynamite") >= 3)
                         player.get(currentPlayer).setRerolls(0);
                 }
             }
@@ -547,8 +557,7 @@ public class Turn {
             player.get(currentPlayer).setRerolls(2);
 
             //resolve the dice in correct order, arrows are already handled as they are rolled
-            int gatlingTotal = diceHandler.checkFrequency("Gatling") + (2*diceHandler.checkFrequency("Double Gatling"));
-            if(gatlingTotal >= 3)
+            if(diceHandler.checkFrequency("Dynamite") >= 3)
             {
                 player.get(currentPlayer).TakeDamage(1);
                 checkPlayerDeath(player.get(currentPlayer)); //check since player took damage
@@ -558,11 +567,21 @@ public class Turn {
                     return; //breakout since game is over
                 }
             }
+            
+            if(player.get(currentPlayer).getCharacterName().equals("BILL NOFACE")) //add bill ability, only apply arrows at end of turn
+            {
+                for(Dice dice : diceHandler.getDiceArray())
+                {
+                    if(dice.getDiceString().equals("Arrow"))
+                        indianArrow();
+                }
+            }
 
             if(player.get(currentPlayer).getCharacterName().equals("SUZY LAFAYETTE")) //add suzy ability, if no shoot dice at end of turn, plus 2 hp
             {
                 System.out.println("No shoot dice rolled, plus 2 HP");
-                if(diceHandler.checkFrequency(2) == 0 && diceHandler.checkFrequency(3) == 0)
+                if(diceHandler.checkFrequency("Shoot person one over left or right") == 0 
+                        && diceHandler.checkFrequency("Shoot person two over left or right") == 0)
                     player.get(currentPlayer).addHealth(2);
             }
 
@@ -570,7 +589,11 @@ public class Turn {
             {
                 String diceString = dice.getDiceString();
                 if(diceString.equals("Whiskey Bottle"))
+                {
                     whiskey();
+                    if(name.equals("GREG DIGGER"))
+                        whiskey();
+                }
                 else if(diceString.equals("Shoot person one over left or right"))
                 {
                     bullsEyex1();
@@ -629,7 +652,8 @@ public class Turn {
 
             }
 
-            if(diceHandler.checkFrequency(5) >= 3)
+            int gatlingTotal = diceHandler.checkFrequency("Gatling") + (2*diceHandler.checkFrequency("Double Gatling"));
+            if(gatlingTotal >= 3)
             {
                 gatlingGun();
                 if(gameOver)

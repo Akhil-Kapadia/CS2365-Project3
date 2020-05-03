@@ -147,15 +147,15 @@ class Player
         }
         else if(CharacterName.equals("CALAMITY JANET"))
         {
-            ret = "Use 3A as 3B, vise versa";
+            ret = "Use shoot two over as shoot one over and vise versa";
         }
         else if(CharacterName.equals("JESSE JONES"))
         {
-            ret = "If 4 health or less and use Beer, Add 2 Health";
+            ret = "If 4 health or less and use Beer, add 2 Health";
         }
         else if(CharacterName.equals("PAUL REGRET"))
         {
-            ret = "Never lose Health to Gattling";
+            ret = "Never lose Health to Gatling";
         }
         else if(CharacterName.equals("SUZY LAFAYETTE"))
         {
@@ -164,6 +164,22 @@ class Player
         else if(CharacterName.equals("VULTURE SAM"))
         {
             ret = "Each time Player dies, Add 2 health";
+        }
+        else if(CharacterName.equals("APACHE KID"))
+        {
+            ret = "If you roll an arrow you may take the Chief Arrow from another player";
+        }
+        else if(CharacterName.equals("BILL NOFACE"))
+        {
+            ret = "Apply arrow results only after last roll";
+        }
+        else if(CharacterName.equals("BELLE STAR"))
+        {
+            ret = "After each roll you can change 1 dynamite to gatling";
+        }
+        else if(CharacterName.equals("GREG DIGGER"))
+        {
+            ret = "You can use each whiskey rolled twice";
         }
         else //handle zombie
             ret = "No ability";
