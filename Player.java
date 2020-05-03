@@ -28,6 +28,8 @@ class Player
     //A Boolean to tell if the Player is an AI or not
     private boolean User;
     
+    private int[] tokenList = {0,0,0,0};
+    
     public Player(String CN, String R, int PI, int MH, boolean U)
     {
         CharacterName = CN;
@@ -254,6 +256,29 @@ class Player
     public boolean equals(Player player2)
     {
         return getPlayerIndex() == player2.getPlayerIndex();
+    }
+    
+    public void addTokenList(int index)
+    {
+        this.tokenList[index]++;
+    }
+    
+    public void subTokenList(int index)
+    {
+        this.tokenList[index]--;
+    }
+    
+    public int[] getTokenList()
+    {
+        return this.tokenList;
+    }
+    
+    public void wipeTokenList()
+    {
+        this.tokenList[0] = 0;
+        this.tokenList[0] = 0;
+        this.tokenList[0] = 0;
+        this.tokenList[0] = 0;
     }
 
 }

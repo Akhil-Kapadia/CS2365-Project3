@@ -100,7 +100,7 @@ public class PlayerDecisionMaking {
         return diceArray;
     }
     
-     public int chooseBrokenArrow()
+    public int chooseBrokenArrow()
     {
         boolean possible = false;
         System.out.println("Please choose who you would like to remove an arrow from");
@@ -116,6 +116,17 @@ public class PlayerDecisionMaking {
             return scan.nextInt();
         else
             return -1;
+    }
+     
+    public int chooseDuel()
+    {
+        System.out.println("Please choose who you would like to duel");
+        for(int i = 0; i < tableSeating.size(); i++)
+        {
+            System.out.println(i + ": " + tableSeating.get(i).getCharacterName());
+        }
+        
+        return scan.nextInt();
     }
     
 }

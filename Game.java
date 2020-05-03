@@ -11,6 +11,7 @@ public class Game {
     int roles[] = {sher, reneg, outl, depu};  //used for how many of each role are currently in the game
     int zombie, alive;
     int rolesDoA[] = {zombie, alive};
+    Token tokens = new Token();
         
     private ArrayList<String> characterNames; //arraylist that stores all the names of the characters
     
@@ -124,7 +125,7 @@ public class Game {
         }
         while(!gameOver)
         {
-            Turn turn = new Turn(getTableSeating(), getDeadList(), getArrowPile(), playerTurnIndex, roles, rolesDoA, arrow, expansion, DoA); //create a new turn
+            Turn turn = new Turn(getTableSeating(), getDeadList(), getArrowPile(), playerTurnIndex, roles, rolesDoA, arrow, tokens, expansion, DoA); //create a new turn
             turn.playTurn();
             gameOver = turn.getGameOver(); //get if the game is over from turn
             setTableSeating(turn.getTableSeating()); //get the list of alive players from turn
@@ -133,6 +134,7 @@ public class Game {
             roles = turn.getRoles();
             rolesDoA = turn.getRolesDoA();
             arrow = turn.getChiefArrow();
+            tokens = turn.getTokens();
             if(turn.getPlayerAlive()) //if current player died, don't increase the index
                 playerTurnIndex = (playerTurnIndex + 1) % tableSeating.size(); //set the player index to be the next alive player
             if(expansion && !DoA && !gameOver) //if playing the expansion and dead or alive not started, all dead players draw a card at the end of every turn
@@ -155,16 +157,21 @@ public class Game {
                 System.out.print("Game over on condition ");
                 switch(turn.getWinCond())
                 {
-                    case 1: System.out.println("Everybody else died, single Renegade wins.");
-                            break;
-                    case 2: System.out.println("Outlaw and Renegade(s) died, Sheriff and Deputy wins.");
-                            break;
-                    case 3: System.out.println("Sheriff died, Outlaws win.");
-                            break;
-                    case 4: System.out.println("Alive died, Zombies win.");
-                            break;
-                    case 5: System.out.println("Zombies died, Alive win.");
-                            break;
+                    case 1: 
+                        System.out.println("Everybody else died, single Renegade wins.");
+                        break;
+                    case 2: 
+                        System.out.println("Outlaw and Renegade(s) died, Sheriff and Deputy wins.");
+                        break;
+                    case 3: 
+                        System.out.println("Sheriff died, Outlaws win.");
+                        break;
+                    case 4: 
+                        System.out.println("Alive died, Zombies win.");
+                        break;
+                    case 5: 
+                        System.out.println("Zombies died, Alive win.");
+                        break;
                 }
             }
             System.out.println("--------------------------------------------------");
@@ -180,6 +187,7 @@ public class Game {
         {
             deck.createDeck();
             arrow = new ChiefArrow();
+            tokens.createTokens();
         }
 
         //set arrow pile

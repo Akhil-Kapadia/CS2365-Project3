@@ -32,6 +32,7 @@ public class Turn {
     //used to keep track of how many of each role is left alive for checking game over
     private int[] roles = {0,0,0,0}; 
     private int[] rolesDoA = {0, 0};
+    Token tokens;
 
     //flag to keep track of if the expansion is being used
     private boolean expansion;
@@ -50,7 +51,8 @@ public class Turn {
 
     ChiefArrow arrow;
 
-    public Turn(ArrayList<Player> tableSeating, ArrayList<Player> deadList, int arrowPile, int current, int[] roles, int[] rolesDoA, ChiefArrow arrow, boolean expansion, boolean DoA)
+    public Turn(ArrayList<Player> tableSeating, ArrayList<Player> deadList, int arrowPile, int current, int[] roles, 
+            int[] rolesDoA, ChiefArrow arrow, Token tokens, boolean expansion, boolean DoA)
     {
         this.currentPlayer = current;
         this.player = tableSeating;
@@ -68,6 +70,7 @@ public class Turn {
         this.roles = roles;
         this.rolesDoA = rolesDoA;
         this.arrow = arrow;
+        this.tokens = tokens;
     }
 
     /**
@@ -91,6 +94,11 @@ public class Turn {
     public boolean getPlayerAlive()
     {
         return this.playerAlive;
+    }
+    
+    public Token getTokens()
+    {
+        return this.tokens;
     }
     
     /**
@@ -467,6 +475,82 @@ public class Turn {
 
             System.out.println();
     }
+    
+    public void duel()
+    {
+        int targetIndex;
+        Player targetPlayer = player.get(currentPlayer);
+        if(player.get(currentPlayer).getUser())
+        {
+            targetIndex = user.chooseDuel();
+            for(Player p : player)
+            {
+                if(p.getPlayerIndex() == targetIndex)
+                    targetPlayer = p;
+            }
+        }
+        else{}
+            //ai chooses some duel thingy
+        
+        for(;;)
+        {
+            Dice dice = new Dice(0, true, 4);
+            dice.rollDice();
+            String value = dice.getDiceString();
+            System.out.println(targetPlayer.getCharacterName() + " rolled " + value);
+            if(!value.equals("Duel Guns"))
+            {
+                int token = tokens.getToken();
+                targetPlayer.addTokenList(token);
+                targetPlayer.TakeDamage(1);
+                switch(token)
+                {
+                    case 0:
+                        System.out.println("They take a beer token and 1 damage. Current HP: " + targetPlayer.getHealth());
+                        break;
+                    case 1:
+                        System.out.println("They take a shoot one over token and 1 damage. Current HP: " + targetPlayer.getHealth());
+                        break;
+                    case 2:
+                        System.out.println("They take a shoot two over token and 1 damage. Current HP: " + targetPlayer.getHealth());
+                        break;
+                    case 3:
+                        System.out.println("They take a dynamite token and 1 damage. Current HP: " + targetPlayer.getHealth());
+                        break;
+                }
+                break;
+            }
+            else
+            {
+                dice.rollDice();
+                value = dice.getDiceString();
+                System.out.println(player.get(currentPlayer).getCharacterName() + " rolled " + value);
+                if(!value.equals("Duel Guns"))
+                {
+                    int token = tokens.getToken();
+                    player.get(currentPlayer).addTokenList(token);
+                    player.get(currentPlayer).TakeDamage(1);
+                    switch(token)
+                    {
+                        case 0:
+                            System.out.println("They take a beer token and 1 damage. Current HP: " + player.get(currentPlayer).getHealth());
+                            break;
+                        case 1:
+                            System.out.println("They take a shoot one over token and 1 damage. Current HP: " + player.get(currentPlayer).getHealth());
+                            break;
+                        case 2:
+                            System.out.println("They take a shoot two over token and 1 damage. Current HP: " + player.get(currentPlayer).getHealth());
+                            break;
+                        case 3:
+                            System.out.println("They take a dynamite token and 1 damage. Current HP: " + player.get(currentPlayer).getHealth());
+                            break;
+                    }
+                    break;
+                }
+            }
+        }
+        
+    }
 
     /**
      * Method determining roll of dice for this turn. Sets an arrayList of dice 
@@ -745,7 +829,16 @@ public class Turn {
                         return; //breakout since game is over
                     }
                 }
+                
+                for(Dice dice : diceHandler.getDiceArray())
+                {
+                    if(dice.getDiceString().equals("Duel Guns"))
+                        duel();
+                }
             }
+            
+            tokens.addToken(player.get(currentPlayer).getTokenList());
+            player.get(currentPlayer).wipeTokenList();
     }
 
     public int winCondition()
@@ -793,6 +886,9 @@ public class Turn {
             
             if(damagedPlayer.equals(player.get(currentPlayer)))
                     playerAlive = false;
+            
+            tokens.addToken(damagedPlayer.getTokenList());
+            damagedPlayer.wipeTokenList();
 
             deadList.add(damagedPlayer);
             player.remove(damagedPlayer); //remove the player from the seating
