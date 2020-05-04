@@ -62,7 +62,7 @@ public class DiceController {
         return diceArray;
     }
     
-    public void rollAllDice()
+    public ArrayList<Dice> rollAllDice()
     {
         ArrayList<Dice> array = getDiceArray();
         for(Dice dice : array)
@@ -74,7 +74,7 @@ public class DiceController {
             }
         }
         
-        setDiceArray(array);
+        return array;
     }
     
     public int checkFrequency(String diceValue)
@@ -97,6 +97,7 @@ public class DiceController {
             System.out.println("Dice " + c + ": " + dice.getDiceString());
             c++;
         }
+        output = output + "\n";
         System.out.println();
         return output;
     }

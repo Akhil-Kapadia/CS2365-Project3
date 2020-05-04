@@ -216,6 +216,11 @@ class Player
         RerollsRemaining = N;
     }
     
+    public int getRerolls()
+    {
+        return this.RerollsRemaining;
+    }
+    
     /**
     * Method that checks if the Player can Reroll
     * @return Boolean, whether or not the Player has Rerolls left

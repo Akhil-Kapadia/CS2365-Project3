@@ -35,6 +35,8 @@ public class Turn {
     private int[] roles = {0,0,0,0}; 
     private int[] rolesDoA = {0, 0};
     Token tokens;
+    
+    private GameGUI GUI;
 
     //flag to keep track of if the expansion is being used
     private boolean expansion;
@@ -75,6 +77,16 @@ public class Turn {
         this.tokens = tokens;
     }
     
+    public void setGUI(GameGUI gui)
+    {
+        this.GUI = gui;
+    }
+    
+    public GameGUI getGUI()
+    {
+        return this.GUI;
+    }
+    
     public int getIndex()
     {
         return this.currentPlayer;
@@ -113,6 +125,11 @@ public class Turn {
     public Token getTokens()
     {
         return this.tokens;
+    }
+    
+    public String getName()
+    {
+        return this.name;
     }
     
     /**
@@ -203,7 +220,7 @@ public class Turn {
     {
         return this.winCond;
     }
-    
+        
     /**
      * Method adds an arrow to the current player if there's enough in the stack.
      * Also updates the stack count, triggers indian attack if no arrows left in stack.
@@ -308,7 +325,7 @@ public class Turn {
         int target = -1;
         if(player.get(currentPlayer).getUser())
         {
-            target = user.chooseBrokenArrow();
+            target = user.chooseBrokenArrow(getGUI());
             if(target > -1)
             {
                 player.get(target).setArrowCount(-1);
@@ -357,11 +374,10 @@ public class Turn {
      * 
      * @param jack boolean Used to tell if his ability has been used.
      */
-    public void bullsEyex1()
+    public void bullsEyex1(int target)
     {
             //Sets the left and right index of currentPlayer. If current is 0, then
             //left is that last person.
-            int target;
             Player targetPlayer;
             int right = (currentPlayer!=player.size()-1) ? currentPlayer+1 : 0 ;
             int left = (currentPlayer!=0) ? currentPlayer - 1 :  player.size()-1;
@@ -370,12 +386,12 @@ public class Turn {
 
             if(player.get(currentPlayer).getUser())
             {
-                    if ( name.equals("CALAMITY JANET"))
-                    {
-                            target = user.chooseShoot(player.get(left),player.get(right),
-                                                                              player.get(leftx2),player.get(rightx2));
-                    }else
-                            target = user.chooseShoot(player.get(left),player.get(right));
+                    //if ( name.equals("CALAMITY JANET"))
+                    //{
+                            //target = user.chooseShoot(player.get(left),player.get(right),
+                                                                              //player.get(leftx2),player.get(rightx2), getGUI());
+                    //}else
+                            //target = user.chooseShoot(player.get(left),player.get(right), getGUI());
 
                 player.get(target).TakeDamage(1);
                 //System.out.println(player.get(currentPlayer).getCharacterName() + " shot " + player.get(target).getCharacterName() 
@@ -408,11 +424,10 @@ public class Turn {
      * 
      * @param jack boolean Used to tell if his ability has been used.
      */
-    public void bullsEyex2()
+    public void bullsEyex2(int target)
     {
             //Sets the left and right index of currentPlayer. If current is 0, then
             //left is that last person.
-            int target;
             Player targetPlayer;
             int right = (currentPlayer!=player.size()-1) ? currentPlayer+1 : 0 ;
             int left = (currentPlayer!=0) ? currentPlayer - 1 :  player.size()-1;
@@ -421,13 +436,13 @@ public class Turn {
 
             if(player.get(currentPlayer).getUser())
             {
-                    if ( name.equals("CALAMITY JANET"))
-                    {
-                            target = user.chooseShoot(player.get(left),player.get(right),
-                                                                              player.get(leftx2),player.get(rightx2));
-                    }
-                    else
-                            target = user.chooseShoot(player.get(left),player.get(right));
+                    //if ( name.equals("CALAMITY JANET"))
+                    //{
+                            //target = user.chooseShoot(player.get(left),player.get(right),
+                                                                              //player.get(leftx2),player.get(rightx2), getGUI());
+                    //}
+                    //else
+                            //target = user.chooseShoot(player.get(left),player.get(right), getGUI());
 
                 player.get(target).TakeDamage(1);
                 //System.out.println(player.get(currentPlayer).getCharacterName() + " shot " + player.get(target).getCharacterName() 
@@ -458,18 +473,16 @@ public class Turn {
      * is added to the person with the highest favor. If not at max health 
      * then add to his own. Also handles Jesse Jones ability.
      */
-    public void beer()
+    public void beer(int targetIndex)
     {
-        int targetIndex;
         Player targetPlayer = player.get(currentPlayer);
         if(player.get(currentPlayer).getUser())
         {
-                targetIndex = user.chooseHeal();
-                for(Player p : player)
-                {
-                    if(p.getPlayerIndex() == targetIndex)
-                        targetPlayer = p;
-                }
+            for(Player p : player)
+            {
+                if(p.getPlayerIndex() == targetIndex)
+                    targetPlayer = p;
+            }
         }
         else
             targetPlayer = ai.getHighestFavor(player.get(currentPlayer), "Beer", player);
@@ -529,7 +542,7 @@ public class Turn {
         Player targetPlayer = player.get(currentPlayer);
         if(player.get(currentPlayer).getUser())
         {
-            targetIndex = user.chooseDuel();
+            targetIndex = user.chooseDuel(getGUI());
             for(Player p : player)
             {
                 if(p.getPlayerIndex() == targetIndex)
@@ -653,8 +666,9 @@ public class Turn {
                 {
                     diceHandler.setDiceArray(ai.RerollHandler(player.get(currentPlayer), diceHandler.getDiceArray(), player));
                     diceHandler.rollAllDice();
+                    output = output + "Roll " + count + ": \n";
                     System.out.println("Roll " + count + ": ");
-                    diceHandler.printAllDice();
+                    output = output + diceHandler.printAllDice();
                     count++;
                     player.get(currentPlayer).usedReroll(); 
                     //need to handle arrows as they come up
@@ -817,7 +831,7 @@ public class Turn {
                     }
                     else if(diceString.equals("Shoot person one over left or right"))
                     {
-                        bullsEyex1();
+                        bullsEyex1(0);
                         if(gameOver)
                         {
                             winCond = winCondition();
@@ -826,7 +840,7 @@ public class Turn {
                     }
                     else if(diceString.equals("Shoot person one over left or right twice"))
                     {
-                        bullsEyex1();
+                        bullsEyex1(0);
                         if(gameOver)
                         {
                             winCond = winCondition();
@@ -840,7 +854,7 @@ public class Turn {
                     }
                     else if(diceString.equals("Shoot person two over left or right"))
                     {
-                        bullsEyex2();
+                        bullsEyex2(0);
                         if(gameOver)
                         {
                             winCond = winCondition();
@@ -849,13 +863,13 @@ public class Turn {
                     }
                     else if(diceString.equals("Shoot person two over left or right twice"))
                     {
-                        bullsEyex2();
+                        bullsEyex2(0);
                         if(gameOver)
                         {
                             winCond = winCondition();
                             return; //breakout since game is over
                         }
-                        bullsEyex2();
+                        bullsEyex2(0);
                         if(gameOver)
                         {
                             winCond = winCondition();
@@ -863,11 +877,11 @@ public class Turn {
                         }
                     }
                     else if(diceString.equals("Beer"))
-                        beer();
+                        beer(0);
                     else if(diceString.equals("Double Beer"))
                     {
-                        beer();
-                        beer();
+                        beer(0);
+                        beer(0);
                     }
 
 

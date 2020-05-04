@@ -28,7 +28,7 @@ public class PlayerDecisionMaking {
     * @param player2 Player, one of the players that can be shot.
     * @return int, the index of the chosen player
     */
-    public int chooseShoot(Player player1, Player player2)
+    public int chooseShoot(Player player1, Player player2, GameGUI gui)
     {
         System.out.println("Please choose which player you would like to shoot");
         for(int i = 0; i < tableSeating.size(); i++)
@@ -48,7 +48,7 @@ public class PlayerDecisionMaking {
     * @param player4 Player, one of the players that can be shot.
     * @return Integer, the index of the chosen player
     */
-    public int chooseShoot(Player player1, Player player2, Player player3, Player player4)
+    public int chooseShoot(Player player1, Player player2, Player player3, Player player4, GameGUI gui)
     {
         System.out.println("Please choose which player you would like to shoot");
         for(int i = 0; i < tableSeating.size(); i++)
@@ -60,47 +60,7 @@ public class PlayerDecisionMaking {
         return scan.nextInt();
     }
     
-    /**
-    * Method that allows the player to choose which player to heal from possible options
-    * @return Integer, the index of the chosen player
-    */
-    public int chooseHeal()
-    {
-        boolean possible = false;
-        System.out.println("Please choose who you would like to heal");
-        for(int i = 0; i < tableSeating.size(); i++)
-        {
-            if(!(tableSeating.get(i).isFullHealth())) //if player not full HP, print them out
-            {
-                System.out.println(i + ": " + tableSeating.get(i).getCharacterName());
-                possible = true;
-            }
-        }
-        if(possible)
-            return scan.nextInt(); 
-        else
-            return -1;
-    }
-    
-    /**
-    * Method that allows the player to choose which player to shoot from
-    * possible options with Calamity Janet's ability.
-    * @param diceArray ArrayList, the list of dice that were rolled
-    * @param current Player, one of the players that can be shot.
-    * @return diceArray ArrayList, the list of dice with updated reroll values
-    */
-    public ArrayList<Dice> chooseReroll(ArrayList<Dice> diceArray, Player current)
-    {
-        System.out.println("Please enter the dice you would like to reroll (ex: 1345):");
-        for(int i = 0; i < diceArray.size(); i++)
-            System.out.println(i + ": " + diceArray.get(i).getDiceString());
-        String input = scan.nextLine();
-        for(int j = 0; j < input.length(); j++)
-            diceArray.get((int)input.charAt(j)-48).setReroll(true, current.getCharacterName());
-        return diceArray;
-    }
-    
-    public int chooseBrokenArrow()
+    public int chooseBrokenArrow(GameGUI gui)
     {
         boolean possible = false;
         System.out.println("Please choose who you would like to remove an arrow from");
@@ -118,7 +78,7 @@ public class PlayerDecisionMaking {
             return -1;
     }
      
-    public int chooseDuel()
+    public int chooseDuel(GameGUI gui)
     {
         System.out.println("Please choose who you would like to duel");
         for(int i = 0; i < tableSeating.size(); i++)
@@ -128,5 +88,6 @@ public class PlayerDecisionMaking {
         
         return scan.nextInt();
     }
+    
     
 }

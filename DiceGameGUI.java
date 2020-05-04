@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cs2365_project3;
 
 import java.util.ArrayList;
@@ -18,6 +13,11 @@ public class DiceGameGUI extends javax.swing.JFrame {
     private boolean expansion;
     private String name;
     private ArrayList<Dice> diceArray;
+    int[] test = {5,0,0,0}; //default to all white dice
+    DiceController diceHandler = new DiceController(test);
+    private int rerolls = 3;
+    private int arrowCount = 0;
+    private Player player;
     
     public DiceGameGUI() {
         initComponents();
@@ -62,6 +62,36 @@ public class DiceGameGUI extends javax.swing.JFrame {
     {
         return new ArrayList<>(diceArray);
     }
+    
+    public void usedReroll()
+    {
+        this.rerolls--;
+    }
+    
+    public int getReroll()
+    {
+        return this.rerolls;
+    }
+    
+    public void increaseArrowCount()
+    {
+        this.arrowCount++;
+    }
+    
+    public int getArrowCount()
+    {
+        return this.arrowCount;
+    }
+    
+    public void setPlayer(Player player)
+    {
+        this.player = player;
+    }
+    
+    public Player getPlayer()
+    {
+        return this.player;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -74,9 +104,6 @@ public class DiceGameGUI extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        DuelDie = new javax.swing.JTextField();
-        ReRollDuelButton = new javax.swing.JButton();
-        jLabel47 = new javax.swing.JLabel();
         jLabel48 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
@@ -90,7 +117,6 @@ public class DiceGameGUI extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         DieOption = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -98,7 +124,6 @@ public class DiceGameGUI extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        RollButton = new javax.swing.JButton();
         Die1 = new javax.swing.JTextField();
         Die2 = new javax.swing.JTextField();
         Die3 = new javax.swing.JTextField();
@@ -123,21 +148,20 @@ public class DiceGameGUI extends javax.swing.JFrame {
         jLabel41 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jLabel43 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel44 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel45 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jLabel46 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        DuelPlayer = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
-        DuelButton = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
+        jLabel49 = new javax.swing.JLabel();
+        jLabel50 = new javax.swing.JLabel();
+        RollRerolls = new javax.swing.JButton();
+        jLabel30 = new javax.swing.JLabel();
+        ArrowsRolled = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -146,24 +170,7 @@ public class DiceGameGUI extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("White Dice Meanings:");
 
-        DuelDie.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        DuelDie.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        DuelDie.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DuelDieActionPerformed(evt);
-            }
-        });
-
-        ReRollDuelButton.setLabel("Reroll Duel Die");
-        ReRollDuelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ReRollDuelButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel47.setText("If Player Rolled Duel Die To Press:");
-
-        jLabel48.setText("Dice Number from Left to Right (1-7)");
+        jLabel48.setText("Dice Number (1-5) based on the ");
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel23.setText("1 - Arrow");
@@ -195,11 +202,10 @@ public class DiceGameGUI extends javax.swing.JFrame {
         jLabel3.setText("2 - Dynamite");
 
         DieOption.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        DieOption.setText("1");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("3 - Shoot Person One Over Left/Right");
-
-        jLabel30.setText("After Selecting one of the options press Roll:");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("4 - Shoot Person Two Over Left/Right");
@@ -221,13 +227,6 @@ public class DiceGameGUI extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel11.setText("3 - Moonshine");
-
-        RollButton.setText("Roll");
-        RollButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RollButtonActionPerformed(evt);
-            }
-        });
 
         Die1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         Die1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -282,7 +281,7 @@ public class DiceGameGUI extends javax.swing.JFrame {
         jLabel37.setText("Loudmouth Die");
 
         jLabel38.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel38.setText("Enter Dice Number to Reroll them (Ex. 1234):");
+        jLabel38.setText("Enter the dice you would like to reroll and press reroll, repeat for all dice you want to reroll.");
 
         RerollDice.setText("Reroll");
         RerollDice.addActionListener(new java.awt.event.ActionListener() {
@@ -302,6 +301,11 @@ public class DiceGameGUI extends javax.swing.JFrame {
         jLabel39.setText("Rerolls Left:");
 
         NumRerolls.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        NumRerolls.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NumRerollsActionPerformed(evt);
+            }
+        });
 
         jLabel40.setText("When Done With Rerolls press Done:");
 
@@ -314,39 +318,20 @@ public class DiceGameGUI extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel12.setText("4 - Gatling Gun");
 
-        jLabel43.setText("If Character is Jose Delgado you can use the Loudmouth die without replacing a base die.");
-
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel13.setText("5 - Duel");
-
-        jLabel44.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel44.setText("If Character is Tequila Joe you can use the Coward die without replacing a base die.");
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel15.setText("Coward Die Meanings:");
 
-        jLabel45.setText("If You Rolled a Duel Die");
-
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel16.setText("1 - Arrow");
-
-        jLabel46.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel46.setText("Pick Player to Shoot:");
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel17.setText("2 - Dynamite");
 
-        DuelPlayer.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel18.setText("3 - Shoot Person One Over Left/Right");
-
-        DuelButton.setLabel("Duel");
-        DuelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DuelButtonActionPerformed(evt);
-            }
-        });
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel19.setText("4 - Beer");
@@ -360,6 +345,20 @@ public class DiceGameGUI extends javax.swing.JFrame {
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel22.setText("Loudmouth Die Meanings:");
 
+        jLabel49.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel49.setText("order the boxs are filled.");
+
+        jLabel50.setText("When done entering all the dice to reroll press role:");
+
+        RollRerolls.setText("Roll");
+        RollRerolls.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RollRerollsActionPerformed(evt);
+            }
+        });
+
+        jLabel30.setText("Number of Arrows rolled:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -368,13 +367,58 @@ public class DiceGameGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
+                        .addGap(38, 38, 38)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel12))
+                                .addGap(37, 37, 37)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel19)
+                                    .addComponent(jLabel18)
+                                    .addComponent(jLabel17)
+                                    .addComponent(jLabel16)
+                                    .addComponent(jLabel15)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel14))
+                                .addGap(105, 105, 105)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel21)
+                                    .addComponent(jLabel20))))
+                        .addGap(43, 43, 43)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel27)
+                            .addComponent(jLabel24)
+                            .addComponent(jLabel25)
+                            .addComponent(jLabel23)
+                            .addComponent(jLabel22)
+                            .addComponent(jLabel26)
+                            .addComponent(jLabel28))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel40)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel48)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(jLabel48, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel49, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(18, 18, 18)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(Die1, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE))
@@ -386,22 +430,25 @@ public class DiceGameGUI extends javax.swing.JFrame {
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(Die3, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
                                             .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE))
+                                    .addComponent(jLabel38))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(Die4, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
                                     .addComponent(jLabel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(DiceReroll))))
+                                    .addComponent(DiceReroll)))
+                            .addComponent(jLabel50)
+                            .addComponent(jLabel29))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(DoneWithRolling, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Die5, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-                            .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(RerollDice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel42, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(DoneWithRolling, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(Die5, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                                    .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(RerollDice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel42, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(RollRerolls, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(Die6, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
@@ -412,83 +459,17 @@ public class DiceGameGUI extends javax.swing.JFrame {
                                     .addComponent(Die7)
                                     .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(NumRerolls))
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(72, 72, 72)
-                                        .addComponent(DuelButton))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(61, 61, 61)
-                                        .addComponent(DuelDie, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jLabel45, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel46, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(DuelPlayer))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel47)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(ReRollDuelButton)))
-                                .addGap(28, 28, 28))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel30)
+                                        .addGap(23, 23, 23))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .addComponent(ArrowsRolled, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(66, 66, 66))))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel7))
-                                .addGap(38, 38, 38)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel8)
-                                            .addComponent(jLabel9)
-                                            .addComponent(jLabel10)
-                                            .addComponent(jLabel11)
-                                            .addComponent(jLabel12))
-                                        .addGap(37, 37, 37)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel19)
-                                            .addComponent(jLabel18)
-                                            .addComponent(jLabel17)
-                                            .addComponent(jLabel16)
-                                            .addComponent(jLabel15)))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel13)
-                                            .addComponent(jLabel14))
-                                        .addGap(105, 105, 105)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel21)
-                                            .addComponent(jLabel20))))
-                                .addGap(43, 43, 43)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel27)
-                                    .addComponent(jLabel24)
-                                    .addComponent(jLabel25)
-                                    .addComponent(jLabel23)
-                                    .addComponent(jLabel22)
-                                    .addComponent(jLabel26)
-                                    .addComponent(jLabel28)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jLabel43, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel29)
-                                    .addComponent(jLabel44, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
                                 .addComponent(DieOption, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel30)
-                                .addGap(23, 23, 23)
-                                .addComponent(RollButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE))))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -535,21 +516,14 @@ public class DiceGameGUI extends javax.swing.JFrame {
                     .addComponent(jLabel21)
                     .addComponent(jLabel28)
                     .addComponent(jLabel14))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel44)
-                .addGap(11, 11, 11)
-                .addComponent(jLabel43)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(33, 33, 33)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel29)
-                    .addComponent(DieOption, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel30)
-                    .addComponent(RollButton))
-                .addGap(39, 39, 39)
+                    .addComponent(DieOption, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel41)
-                    .addComponent(jLabel42)
-                    .addComponent(jLabel45))
+                    .addComponent(jLabel42))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel31)
@@ -558,43 +532,40 @@ public class DiceGameGUI extends javax.swing.JFrame {
                     .addComponent(jLabel34)
                     .addComponent(jLabel35)
                     .addComponent(jLabel36)
-                    .addComponent(jLabel37)
-                    .addComponent(jLabel46))
+                    .addComponent(jLabel37))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Die1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Die2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Die3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Die4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Die5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Die6, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(Die7, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ArrowsRolled, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(DuelPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DuelButton)
-                        .addGap(10, 10, 10)
-                        .addComponent(DuelDie, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ReRollDuelButton)
-                            .addComponent(jLabel47))
-                        .addContainerGap())
+                        .addComponent(jLabel48)
+                        .addGap(2, 2, 2)
+                        .addComponent(jLabel49))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Die1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Die2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Die3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Die4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Die5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Die6, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Die7, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(DiceReroll, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel38)
-                            .addComponent(RerollDice)
-                            .addComponent(jLabel39)
-                            .addComponent(NumRerolls, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel48))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(DoneWithRolling)
-                            .addComponent(jLabel40))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(jLabel30)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(DiceReroll, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel38)
+                    .addComponent(RerollDice)
+                    .addComponent(jLabel39)
+                    .addComponent(NumRerolls, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel50)
+                    .addComponent(RollRerolls))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(DoneWithRolling)
+                    .addComponent(jLabel40)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -609,30 +580,66 @@ public class DiceGameGUI extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void DuelDieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DuelDieActionPerformed
-        // TODO add your handling code here:
-        //Not Sure Ignore Maybe?
-    }//GEN-LAST:event_DuelDieActionPerformed
-
-    private void ReRollDuelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReRollDuelButtonActionPerformed
-        // TODO add your handling code here:
-        //Used to send the reroll only if player also rolled a Duel Die
-        //DuelDie.setText(String.valueOf()); //Get Users roll to show them what they got
-    }//GEN-LAST:event_ReRollDuelButtonActionPerformed
-
-    private void RollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RollButtonActionPerformed
+    private void Die2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Die2ActionPerformed
         // TODO add your handling code here:
         // Get dice numbers
+
+    }//GEN-LAST:event_Die2ActionPerformed
+
+    private void Die7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Die7ActionPerformed
+        // TODO add your handling code here:
+        // Ignore This
+    }//GEN-LAST:event_Die7ActionPerformed
+
+    private void RerollDiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RerollDiceActionPerformed
+        // TODO add your handling code here:
+        // Send Dice that need to be rerolled and get dice new numbers
+        // Also update number of rerolls left
+        int DiceToReroll;
+        ArrayList<Dice> diceArray = getDiceArray();
+        
+        DiceToReroll = (int)Float.parseFloat(DiceReroll.getText()); //Dice to Reroll
+        
+        for(Dice dice : diceArray)
+        {
+            if((DiceToReroll-1) == dice.getDiceIndex())
+                dice.setReroll(true, getName());
+        }
+        //Die1.setText(String.valueOf()); // Number for die 1 White 1
+        //Die2.setText(String.valueOf()); // Number for die 2 White 2
+        //Die3.setText(String.valueOf()); // Number for die 3 White 3
+        //Die4.setText(String.valueOf()); // Number for die 4 Black 1 or White 4
+        //Die5.setText(String.valueOf()); // Number for die 5 Black 2 or White 5
+        //Die6.setText(String.valueOf()); // Number for die 6 Coward
+        //Die7.setText(String.valueOf()); // Number for die 7 Loudmouth
+        //NumRerolls.setText(String.valueOf()); //Number of rerolls left
+        
+        // Maybe add the arrows that you rolled here?
+    }//GEN-LAST:event_RerollDiceActionPerformed
+
+    private void DoneWithRollingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DoneWithRollingActionPerformed
+        // TODO add your handling code here:
+        // I believe only need system.exit(0); here\
+        //GameGUI obj = new GameGUI();
+        //obj.setVisible(true);
+        
+        //here is where dice will be resolved
+        
+        this.setVisible(false);
+        //this.dispose();
+    }//GEN-LAST:event_DoneWithRollingActionPerformed
+
+    private void RollRerollsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RollRerollsActionPerformed
+        // TODO add your handling code here:
+        Player player = getPlayer();
         setDieChoice((int)Float.parseFloat(DieOption.getText()));
-        int[] test = {5,0,0,0}; //default to all white dice
         if(getExpansion())
         {
             if(getDieChoice() == 1)
@@ -654,13 +661,17 @@ public class DiceGameGUI extends javax.swing.JFrame {
             }
         }
         
-        DiceController diceHandler = new DiceController(test);
-        diceHandler.rollAllDice();
-        setDiceArray (diceHandler.getDiceArray());
+        if(getReroll() > 0)
+        {
+            diceHandler.setDiceArray(diceHandler.rollAllDice());
+            usedReroll();
+        }
+        setDiceArray(diceHandler.getDiceArray());
         ArrayList<Dice> diceArray = getDiceArray();
         for(Dice dice : diceArray)
         {
-            dice.setReroll(false, "");
+            if(dice.getDiceString().equals("Arrow"))
+                increaseArrowCount();
         }
         if(getExpansion())
         {
@@ -698,6 +709,11 @@ public class DiceGameGUI extends javax.swing.JFrame {
             Die5.setText(String.valueOf(diceArray.get(4).getDiceInt())); // Number for die 5 Black 2 or White 5
         }
         
+        NumRerolls.setText(String.valueOf(getReroll()));
+        ArrowsRolled.setText(String.valueOf(getArrowCount()));
+
+        setDiceArray(diceArray);
+        
         //figure out how to resolve arrows here, gui should close if player dies, how will indian attacks be shown?
         
         
@@ -708,49 +724,11 @@ public class DiceGameGUI extends javax.swing.JFrame {
         //Die5.setText(String.valueOf()); // Number for die 5 Black 2 or White 5
         //Die6.setText(String.valueOf()); // Number for die 6 Coward
         //Die7.setText(String.valueOf()); // Number for die 7 Loudmouth
-    }//GEN-LAST:event_RollButtonActionPerformed
+    }//GEN-LAST:event_RollRerollsActionPerformed
 
-    private void Die2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Die2ActionPerformed
+    private void NumRerollsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NumRerollsActionPerformed
         // TODO add your handling code here:
-        // Ignore This
-    }//GEN-LAST:event_Die2ActionPerformed
-
-    private void Die7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Die7ActionPerformed
-        // TODO add your handling code here:
-        // Ignore This
-    }//GEN-LAST:event_Die7ActionPerformed
-
-    private void RerollDiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RerollDiceActionPerformed
-        // TODO add your handling code here:
-        // Send Dice that need to be rerolled and get dice new numbers
-        // Also update number of rerolls left
-        int DiceToReroll;
-        ArrayList<Dice> diceArray = getDiceArray();
-        
-        DiceToReroll = (int)Float.parseFloat(DiceReroll.getText()); //Dice to Reroll
-        
-        for(Dice dice : diceArray)
-        {
-            if((DiceToReroll-1) == dice.getDiceIndex())
-                dice.setReroll(true, getName());
-        }
-
-    }//GEN-LAST:event_RerollDiceActionPerformed
-
-    private void DoneWithRollingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DoneWithRollingActionPerformed
-        // TODO add your handling code here:
-        // I believe only need system.exit(0); here\
-        GameGUI obj = new GameGUI();
-        obj.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_DoneWithRollingActionPerformed
-
-    private void DuelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DuelButtonActionPerformed
-        // TODO add your handling code here:
-        //Used to Send name of player to duel and to send back their role
-        // Set up Variable to get Players name
-        //DuelDie.setText(String.valueOf()); //Get Player who dueled roll
-    }//GEN-LAST:event_DuelButtonActionPerformed
+    }//GEN-LAST:event_NumRerollsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -788,6 +766,7 @@ public class DiceGameGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField ArrowsRolled;
     private javax.swing.JTextField DiceReroll;
     private javax.swing.JTextField Die1;
     private javax.swing.JTextField Die2;
@@ -798,13 +777,9 @@ public class DiceGameGUI extends javax.swing.JFrame {
     private javax.swing.JTextField Die7;
     private javax.swing.JTextField DieOption;
     private javax.swing.JButton DoneWithRolling;
-    private javax.swing.JButton DuelButton;
-    private javax.swing.JTextField DuelDie;
-    private javax.swing.JTextField DuelPlayer;
     private javax.swing.JTextField NumRerolls;
-    private javax.swing.JButton ReRollDuelButton;
     private javax.swing.JButton RerollDice;
-    private javax.swing.JButton RollButton;
+    private javax.swing.JButton RollRerolls;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -842,13 +817,10 @@ public class DiceGameGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
