@@ -425,6 +425,61 @@ class AIDecisionMaking
                     }
             }
         }
+        else if(GameObject.equals("Broken Arrow"))
+        {
+            if(PlayerRole.equals("Sheriff"))
+            {
+                if(CurrentPlayer.getArrowCount() != 0)
+                {
+                    return CurrentPlayer;
+                }
+                else
+                {
+                    //Sheriff heals the dude with lowest health
+                    ArrayList<Player> sortedByH = sortPlayersHealth(TotP, false);
+                    
+                    if(sortedByH.get(0) != null)
+                    {
+                        return sortedByH.get(0);
+                    }
+                    else
+                    {
+                        return CurrentPlayer;
+                    }
+                    
+                }
+                
+            }
+            else if (PlayerRole.equals("Deputy"))
+            {
+                ArrayList<Player> Sheriffs = getPlayerType("Sheriff", CName, TotP);
+                Sheriffs = sortPlayersHealth(Sheriffs, false);   
+                //if there are no Deputy, then the CurrentPlayer will be the highest favor
+                if(Sheriffs.size() > 0)
+                {
+                    if(Sheriffs.get(0).getHealth() <= CurrentPlayer.getHealth())
+                    {
+                        return Sheriffs.get(0);
+                    }
+                    else
+                    {
+                        return CurrentPlayer;
+                    }
+                }
+                else
+                {
+                    return CurrentPlayer;
+                }
+            }
+            else if (PlayerRole.equals("Outlaw"))
+            {
+                return CurrentPlayer;
+            }
+            else if (PlayerRole.equals("Renegade"))
+            {
+                return CurrentPlayer;
+            }
+        }
         else if (CName.equals("CALAMITY JANET"))
         {
             //For the special abilities that Janet has
@@ -715,6 +770,39 @@ class AIDecisionMaking
         }
         
         return -1;
+    }
+    
+    /**
+    * Method that gets the highest favored player to engage in a dual
+    * @param CPlayer Player, the Current Player who is making moves
+    * @param TotP ArrayList<Player>, ArrayList of the all the Players objects 
+    * at the table.
+    * @return Player, who has the highest favor to be shot will be who the 
+    * player will engage with in a dual
+    */
+    public Player getDual(Player CurrentPlayer, ArrayList<Player> TotP)
+    {
+        ArrayList<Integer> Favors = new ArrayList<Integer>(); 
+        
+        for(int a = 0; a < TotP.size(); a++)
+        {
+            int Fav = FavorSystemShooting(CurrentPlayer, TotP.get(a));
+            Favors.add(Fav);
+        }
+        
+        //get the largest number
+        int max = 0;
+        int Index = 0;
+        for(int a = 0; a < Favors.size(); a++)
+        {
+            if(max < Favors.get(a))
+            {
+                Index = a;
+                max = Favors.get(a);
+            }
+        }
+        
+        return TotP.get(Index);
     }
     
     /**
