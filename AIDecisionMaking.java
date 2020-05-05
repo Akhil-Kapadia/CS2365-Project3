@@ -132,14 +132,17 @@ class AIDecisionMaking
                     //Sheriff heals the dude with lowest health
                     ArrayList<Player> sortedByH = sortPlayersHealth(TotP, false);
                     
-                    if(sortedByH.get(0) != null)
+                   
+                    for(int a = 0; a < sortedByH.size(); a++)
                     {
-                        return sortedByH.get(0);
+                        Player P = sortedByH.get(a);
+                        if(P.getArrowCount() > 0)
+                        {
+                            return sortedByH.get(a);
+                        }
                     }
-                    else
-                    {
-                        return CurrentPlayer;
-                    }
+                    
+                    return null;
                     
                 }
                 
@@ -151,27 +154,59 @@ class AIDecisionMaking
                 //if there are no Deputy, then the CurrentPlayer will be the highest favor
                 if(Sheriffs.size() > 0)
                 {
-                    if(Sheriffs.get(0).getHealth() <= CurrentPlayer.getHealth())
+                    if(Sheriffs.get(0).getHealth() <= CurrentPlayer.getHealth() && Sheriffs.get(0).getArrowCount() > 0)
                     {
                         return Sheriffs.get(0);
                     }
                     else
                     {
-                        return CurrentPlayer;
+                        if(CurrentPlayer.getArrowCount() > 0)
+                        {
+                            return CurrentPlayer;
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                        
                     }
                 }
                 else
                 {
-                    return CurrentPlayer;
+                    if(CurrentPlayer.getArrowCount() > 0)
+                        {
+                            return CurrentPlayer;
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                        
                 }
             }
             else if (PlayerRole.equals("Outlaw"))
             {
-                return CurrentPlayer;
+                if(CurrentPlayer.getArrowCount() > 0)
+                {
+                    return CurrentPlayer;
+                }
+                else
+                {
+                    return null;
+                }
+                        
             }
             else if (PlayerRole.equals("Renegade"))
             {
-                return CurrentPlayer;
+              if(CurrentPlayer.getArrowCount() > 0)
+               {
+                    return CurrentPlayer;
+               }
+               else
+               {
+                    return null;
+               }
+                        
             }
         }
         else if (CName.equals("CALAMITY JANET"))
@@ -953,6 +988,28 @@ class AIDecisionMaking
         
         
         return Ret;
+    }
+    
+    /**
+    * Method picks what the 5th Dice should be during the Expansion Game modes
+    * @param CurrentPlayer Player, The Player whose turn it is
+    * @return Integer, will return which dice has been selected
+    */
+    public int ExpansionDice(Player CurrentPlayer)
+    {
+        if(CurrentPlayer.getRole().equals("Sheriff") || CurrentPlayer.getRole().equals("Outlaw"))
+        {
+            return 3;
+        }
+        else if(CurrentPlayer.getRole().equals("Deputy"))
+        {
+            return 1;
+        }
+        else
+        {
+            return 2;
+        }
+        
     }
     
 }
