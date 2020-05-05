@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package my.gamesetup;
+package cs2365_project3;
+
+import java.util.ArrayList;
 
 /** GUI for the Game
  * @author Chase Willis
@@ -12,11 +9,88 @@ package my.gamesetup;
 */
 public class DiceGameGUI extends javax.swing.JFrame {
 
-    /**
-     * Creates new form DiceGameGUI
-     */
+    private int dieChoice;
+    private boolean expansion;
+    private String name;
+    private ArrayList<Dice> diceArray;
+    int[] test = {5,0,0,0}; //default to all white dice
+    DiceController diceHandler = new DiceController(test);
+    private int rerolls = 3;
+    private int arrowCount = 0;
+    private Turn turn;
+    
     public DiceGameGUI() {
         initComponents();
+    }
+    
+    public void setDieChoice(int choice)
+    {
+        this.dieChoice = choice;
+    }
+    
+    public int getDieChoice()
+    {
+        return this.dieChoice;
+    }
+    
+    public void setExpansion(boolean expansion)
+    {
+        this.expansion = expansion;
+    }
+    
+    public boolean getExpansion()
+    {
+        return this.expansion;
+    }
+    
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+    
+    public String getName()
+    {
+        return this.name;
+    }
+    
+    public void setDiceArray(ArrayList<Dice> diceArray)
+    {
+        this.diceArray = diceArray;
+    }
+    
+    public ArrayList<Dice> getDiceArray()
+    {
+        return new ArrayList<>(diceArray);
+    }
+    
+    public void usedReroll()
+    {
+        this.rerolls--;
+    }
+    
+    public int getReroll()
+    {
+        return this.rerolls;
+    }
+    
+    public void increaseArrowCount()
+    {
+        this.arrowCount++;
+    }
+    
+    public int getArrowCount()
+    {
+        return this.arrowCount;
+    }
+
+    public void setTurn(Turn turn)
+    {
+        this.turn = turn;
+    }
+    
+    public Turn getTurn()
+    {
+        return this.turn;
     }
 
     /**
@@ -99,60 +173,60 @@ public class DiceGameGUI extends javax.swing.JFrame {
         jLabel48.setText("Dice Number (1-5) based on the ");
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel23.setText("1 - Arrow");
+        jLabel23.setText("0 - Arrow");
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel24.setText("2 - Dynamite");
+        jLabel24.setText("1 - Shoot Self");
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel25.setText("3 - Shoot Person One Over Left/Right Double Damage");
+        jLabel25.setText("2 - Shoot Person One Over Left/Right Double Damage");
 
         jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel26.setText("4 - Shoot Person Two Over Left/Right Double Damage");
+        jLabel26.setText("3 - Shoot Person Two Over Left/Right Double Damage");
 
         jLabel27.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel27.setText("5 - Shoot Self");
+        jLabel27.setText("4 - Dynamite");
 
         jLabel28.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel28.setText("6 - Gatling Gun Double Damage");
+        jLabel28.setText("5 - Gatling Gun Double Damage");
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel14.setText("6 - Duel");
+        jLabel14.setText("5 - Gatling Gun");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("1 - Arrow");
+        jLabel2.setText("0 - Arrow");
 
         jLabel29.setText("Select one of the options for 5th die: (1-White, 2-Coward, 3-Loudmouth)");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setText("2 - Dynamite");
+        jLabel3.setText("1 - Dynamite");
 
         DieOption.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         DieOption.setText("1");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setText("3 - Shoot Person One Over Left/Right");
+        jLabel4.setText("2 - Shoot Person One Over Left/Right");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel5.setText("4 - Shoot Person Two Over Left/Right");
+        jLabel5.setText("3 - Shoot Person Two Over Left/Right");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel6.setText("5 - Beer");
+        jLabel6.setText("4 - Beer");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel7.setText("6 - Gatling Gun");
+        jLabel7.setText("5 - Gatling Gun");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setText("Black Dice Meanings:");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel9.setText("1 - Arrow");
+        jLabel9.setText("0 - Arrow");
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel10.setText("2 - Dynamite");
+        jLabel10.setText("1 - Dynamite");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel11.setText("3 - Moonshine");
+        jLabel11.setText("2 - Whiskey Bottle");
 
         Die1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         Die1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -186,19 +260,19 @@ public class DiceGameGUI extends javax.swing.JFrame {
         });
 
         jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel31.setText("White Die 1");
+        jLabel31.setText("White Die");
 
         jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel32.setText("White Die 2");
+        jLabel32.setText("White Die");
 
         jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel33.setText("White Die 3");
+        jLabel33.setText("White Die");
 
         jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel34.setText("Black Die 1");
+        jLabel34.setText("Black Die");
 
         jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel35.setText("Black Die 2");
+        jLabel35.setText("Black Die");
 
         jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel36.setText("Coward Die ");
@@ -227,41 +301,46 @@ public class DiceGameGUI extends javax.swing.JFrame {
         jLabel39.setText("Rerolls Left:");
 
         NumRerolls.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        NumRerolls.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NumRerollsActionPerformed(evt);
+            }
+        });
 
         jLabel40.setText("When Done With Rerolls press Done:");
 
         jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel41.setText("White Die 4");
+        jLabel41.setText("White Die");
 
         jLabel42.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel42.setText("White Die 5");
+        jLabel42.setText("White Die");
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel12.setText("4 - Gatling Gun");
+        jLabel12.setText("3 - Duel Guns");
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel13.setText("5 - Duel");
+        jLabel13.setText("4 - Duel Guns");
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel15.setText("Coward Die Meanings:");
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel16.setText("1 - Arrow");
+        jLabel16.setText("0 - Arrow");
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel17.setText("2 - Dynamite");
+        jLabel17.setText("1 - Broken Arrow");
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel18.setText("3 - Shoot Person One Over Left/Right");
+        jLabel18.setText("2 - Shoot Person One Over Left/Right");
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel19.setText("4 - Beer");
+        jLabel19.setText("3 - Beer");
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel20.setText("5 - Double Beer");
+        jLabel20.setText("4 - Dynamite");
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel21.setText("6 - Broken Arrow");
+        jLabel21.setText("5 - Double Beer");
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel22.setText("Loudmouth Die Meanings:");
@@ -316,10 +395,10 @@ public class DiceGameGUI extends javax.swing.JFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel13)
                                     .addComponent(jLabel14))
-                                .addGap(105, 105, 105)
+                                .addGap(67, 67, 67)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel21)
-                                    .addComponent(jLabel20))))
+                                    .addComponent(jLabel20)
+                                    .addComponent(jLabel21))))
                         .addGap(43, 43, 43)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel27)
@@ -510,7 +589,8 @@ public class DiceGameGUI extends javax.swing.JFrame {
 
     private void Die2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Die2ActionPerformed
         // TODO add your handling code here:
-        // Ignore This
+        // Get dice numbers
+
     }//GEN-LAST:event_Die2ActionPerformed
 
     private void Die7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Die7ActionPerformed
@@ -520,10 +600,16 @@ public class DiceGameGUI extends javax.swing.JFrame {
 
     private void RerollDiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RerollDiceActionPerformed
         // TODO add your handling code here:
-        // Send Dice that need to be rerolled and get dice new numbers
-        // Also update number of rerolls left
         int DiceToReroll;
+        ArrayList<Dice> diceArray = getDiceArray();
+        
         DiceToReroll = (int)Float.parseFloat(DiceReroll.getText()); //Dice to Reroll
+        
+        for(Dice dice : diceArray)
+        {
+            if((DiceToReroll-1) == dice.getDiceIndex())
+                dice.setReroll(true, getName());
+        }
         //Die1.setText(String.valueOf()); // Number for die 1 White 1
         //Die2.setText(String.valueOf()); // Number for die 2 White 2
         //Die3.setText(String.valueOf()); // Number for die 3 White 3
@@ -531,24 +617,149 @@ public class DiceGameGUI extends javax.swing.JFrame {
         //Die5.setText(String.valueOf()); // Number for die 5 Black 2 or White 5
         //Die6.setText(String.valueOf()); // Number for die 6 Coward
         //Die7.setText(String.valueOf()); // Number for die 7 Loudmouth
-        //NumRerolls.setText(String.valueOf()); //Number of rerolls left
-        
-        // Maybe add the arrows that you rolled here?
     }//GEN-LAST:event_RerollDiceActionPerformed
 
     private void DoneWithRollingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DoneWithRollingActionPerformed
         // TODO add your handling code here:
-        // I believe only need system.exit(0); here\
-        GameGUI obj = new GameGUI();
-        obj.setVisible(true);
-        this.dispose();
+        this.setVisible(false);
     }//GEN-LAST:event_DoneWithRollingActionPerformed
 
     private void RollRerollsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RollRerollsActionPerformed
         // TODO add your handling code here:
-        //This is for rolling the rerolls
-        //
+        setDieChoice((int)Float.parseFloat(DieOption.getText()));
+        if(getExpansion())
+        {
+            if(getDieChoice() == 1)
+            {
+                test[0] = 3;
+                test[1] = 2;
+            }
+            else if(getDieChoice() == 2)
+            {
+                test[0] = 2;
+                test[1] = 2;
+                test[2] = 1;
+            }
+            else if(getDieChoice() == 3)
+            {
+                test[0] = 2;
+                test[1] = 2;
+                test[3] = 1;
+            }
+            
+            diceHandler = new DiceController(test);
+        }
+        
+        
+        setDiceArray(diceHandler.getDiceArray());
+        Turn turn = getTurn();
+        if(getReroll() > 0)
+        {
+            diceHandler.setDiceArray(diceHandler.rollAllDice());
+            usedReroll();
+            if(diceHandler.checkFrequency("Dynamite") >= 3)
+            {
+                while(getReroll() > 0)
+                    usedReroll();
+            }
+            if(getExpansion())
+            {
+                for(Dice dice : diceHandler.getDiceArray())
+                {
+                    if(name.equals("APACHE KID") && turn.arrow.UseArrow().equals(""))
+                        turn.arrow.TakeArrow(name);
+                    else if(!name.equals("BILL NOFACE"))
+                    {                                
+                        if(turn.arrow.UseArrow().equals("") && dice.getDiceString().equals("Arrow"))
+                            turn.arrow.TakeArrow(name);
+                        else if(dice.getDiceString().equals("Arrow"))
+                            turn.indianArrow();
+                    }
+                }
+
+                for(Dice dice : diceHandler.getDiceArray())
+                {
+                    if(dice.getDiceString().equals("Broken Arrow"))
+                        turn.brokenArrow();
+                }
+
+                for(Dice dice : diceHandler.getDiceArray())
+                {
+                    if(dice.getDiceString().equals("Bullet"))
+                        turn.bullet();
+                }
+            }
+            else
+            {
+                for(Dice dice : diceHandler.getDiceArray())
+                {
+                    if(dice.getDiceString().equals("Arrow") && !name.equals("BILL NOFACE"))
+                        turn.indianArrow();                             
+                }
+            }
+        }
+        
+
+        for(Dice dice : diceHandler.getDiceArray())
+        {
+            if(dice.getDiceString().equals("Arrow") && getReroll() > 0)
+                increaseArrowCount();
+        }
+        
+        if(getExpansion())
+        {
+            if(getDieChoice() == 1) //white die as 5th
+            {
+                Die1.setText(String.valueOf(diceArray.get(0).getDiceInt())); // Number for die 1 White 1
+                Die2.setText(String.valueOf(diceArray.get(1).getDiceInt())); // Number for die 2 White 2
+                Die3.setText(String.valueOf(diceArray.get(2).getDiceInt())); // Number for die 3 White 3
+                Die4.setText(String.valueOf(diceArray.get(3).getDiceInt())); // Number for die 4 Black 1 or White 4
+                Die5.setText(String.valueOf(diceArray.get(4).getDiceInt())); // Number for die 5 Black 2 or White 5
+            }
+            else if(getDieChoice() == 2) //coward die as 5th
+            {
+                Die1.setText(String.valueOf(diceArray.get(0).getDiceInt())); // Number for die 1 White 1
+                Die2.setText(String.valueOf(diceArray.get(1).getDiceInt())); // Number for die 2 White 2
+                Die4.setText(String.valueOf(diceArray.get(2).getDiceInt())); // Number for die 4 Black 1 or White 4
+                Die5.setText(String.valueOf(diceArray.get(3).getDiceInt())); // Number for die 5 Black 2 or White 5
+                Die6.setText(String.valueOf(diceArray.get(4).getDiceInt())); // Number for die 6 Coward
+            }
+            else if(getDieChoice() == 3) //loudmouth die as 5th
+            {
+                Die1.setText(String.valueOf(diceArray.get(0).getDiceInt())); // Number for die 1 White 1
+                Die2.setText(String.valueOf(diceArray.get(1).getDiceInt())); // Number for die 2 White 2
+                Die4.setText(String.valueOf(diceArray.get(2).getDiceInt())); // Number for die 4 Black 1 or White 4
+                Die5.setText(String.valueOf(diceArray.get(3).getDiceInt())); // Number for die 5 Black 2 or White 5
+                Die7.setText(String.valueOf(diceArray.get(4).getDiceInt())); // Number for die 7 Loudmouth
+            }
+        }
+        else //all white die
+        {
+            Die1.setText(String.valueOf(diceArray.get(0).getDiceInt())); // Number for die 1 White 1
+            Die2.setText(String.valueOf(diceArray.get(1).getDiceInt())); // Number for die 2 White 2
+            Die3.setText(String.valueOf(diceArray.get(2).getDiceInt())); // Number for die 3 White 3
+            Die4.setText(String.valueOf(diceArray.get(3).getDiceInt())); // Number for die 4 Black 1 or White 4
+            Die5.setText(String.valueOf(diceArray.get(4).getDiceInt())); // Number for die 5 Black 2 or White 5
+        }
+        
+        NumRerolls.setText(String.valueOf(getReroll()));
+        ArrowsRolled.setText(String.valueOf(getArrowCount()));
+
+        setDiceArray(diceArray);
+               
+        
+        //Die1.setText(String.valueOf()); // Number for die 1 White 1
+        //Die2.setText(String.valueOf()); // Number for die 2 White 2
+        //Die3.setText(String.valueOf()); // Number for die 3 White 3
+        //Die4.setText(String.valueOf()); // Number for die 4 Black 1 or White 4
+        //Die5.setText(String.valueOf()); // Number for die 5 Black 2 or White 5
+        //Die6.setText(String.valueOf()); // Number for die 6 Coward
+        //Die7.setText(String.valueOf()); // Number for die 7 Loudmouth
     }//GEN-LAST:event_RollRerollsActionPerformed
+
+    private void NumRerollsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NumRerollsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NumRerollsActionPerformed
 
     /**
      * @param args the command line arguments
