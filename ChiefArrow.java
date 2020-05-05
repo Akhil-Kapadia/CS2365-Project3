@@ -18,7 +18,7 @@ public class ChiefArrow
         if(Owner.equals(""))
         {
             Owner = Name;
-            System.out.println(Name + " is now the owner of the chief arrow.\n");
+            //System.out.println(Name + " is now the owner of the chief arrow.\n");
         }
     }
     

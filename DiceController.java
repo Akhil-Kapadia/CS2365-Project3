@@ -17,7 +17,7 @@ public class DiceController {
             diceArray.add(newDice);
             index++;
         }
-        for(int i = 0; i < types[1]; i++) //loudmouth dice
+        for(int i = 0; i < types[1]; i++) //duel dice
         {
             Dice newDice = new Dice(index, true, 2); //set the dice index to be 1-5 and all flags to be true for first roll
             diceArray.add(newDice);
@@ -29,7 +29,7 @@ public class DiceController {
             diceArray.add(newDice);
             index++;
         }
-        for(int i = 0; i < types[3]; i++) //duel dice
+        for(int i = 0; i < types[3]; i++) //loudmouth dice
         {
             Dice newDice = new Dice(index, true, 4); //set the dice index to be 1-5 and all flags to be true for first roll
             diceArray.add(newDice);
@@ -94,11 +94,11 @@ public class DiceController {
         for(Dice dice : getDiceArray())
         {
             output = output + "Dice " + c + ": " + dice.getDiceString() + "\n";
-            System.out.println("Dice " + c + ": " + dice.getDiceString());
+            //System.out.println("Dice " + c + ": " + dice.getDiceString());
             c++;
         }
         output = output + "\n";
-        System.out.println();
+        //System.out.println();
         return output;
     }
     

@@ -912,7 +912,7 @@ public class GameGUI extends javax.swing.JFrame {
             Player3Arrow.setText(String.valueOf(tableSeating.get(2).getArrowCount())); //Number of Arrow of players
             if(tableSeating.get(2).getUser() || tableSeating.get(2).getRole().equals("Sheriff") || tableSeating.get(2).getRole().equals("Alive") 
                     || tableSeating.get(2).getRole().equals("Zombie") || tableSeating.get(2).getRole().equals("Zombie Master"))
-                Player3Roll.setText(tableSeating.get(7).getRole()); //Player's roll when dead or Sheirff
+                Player3Roll.setText(tableSeating.get(2).getRole()); //Player's roll when dead or Sheirff
             else
                 Player3Roll.setText(""); //Player's roll when dead or Sheirff
             Player3Zombie.setText(tableSeating.get(2).getAbility()); //If Player is a zombie
@@ -1100,7 +1100,7 @@ public class GameGUI extends javax.swing.JFrame {
             
             setIndex(getGame().getIndex());
             setOutput(getTurn().getOutput());
-            getGame().printGameStatus();
+            //getGame().printGameStatus();
         }
         if(getGameOver())
         {
@@ -1258,7 +1258,7 @@ public class GameGUI extends javax.swing.JFrame {
             WhoToHeal.setText(healOutput);
         }
         
-        if(diceCount == 5) //things to only do once, at the end
+        if(diceCount == 4) //things to only do once, at the end
         {
             int gatlingTotal = diceHandler.checkFrequency("Gatling") + (2*diceHandler.checkFrequency("Double Gatling"));
             if(gatlingTotal >= 3)
@@ -1274,7 +1274,21 @@ public class GameGUI extends javax.swing.JFrame {
             for(Dice d : diceHandler.getDiceArray())
             {
                 if(d.getDiceString().equals("Duel Guns"))
-                    turn.duel();
+                {
+                    String list = "";
+                    int count = 1;
+                    for(Player player1 : turn.getTableSeating())
+                    {
+                        if(!player1.equals(player.get(currentPlayer)))
+                            list = list + count + ": " + player1.getCharacterName() + "\n";
+                        count++;
+                    }
+                    DuelGUI obj1 = new DuelGUI();
+                    obj1.setNames(list);
+                    obj1.setVisible(true);
+                    obj1.setTableSeating(player);
+                    //turn.duel();
+                }
             }
         }
         

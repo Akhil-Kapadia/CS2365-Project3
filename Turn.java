@@ -46,8 +46,6 @@ public class Turn {
     //arraylist of dead players
     private ArrayList<Player> deadList = new ArrayList(0);
     
-    //handler for making user based decisions
-    PlayerDecisionMaking user;
     //handler for making ai based decisions
     AIDecisionMaking ai;
     //handler for making dice based actions
@@ -67,7 +65,6 @@ public class Turn {
         this.expansion = expansion;
         this.DoA = DoA;
 
-        this.user = new PlayerDecisionMaking(player);
         this.ai = new AIDecisionMaking();
         int[] test = {5,0,0,0};
         this.diceHandler = new DiceController(test);
@@ -325,7 +322,7 @@ public class Turn {
         int target = -1;
         if(player.get(currentPlayer).getUser())
         {
-            target = user.chooseBrokenArrow(getGUI());
+            //target = user.chooseBrokenArrow(getGUI());
             if(target > -1)
             {
                 player.get(target).setArrowCount(-1);
@@ -341,11 +338,14 @@ public class Turn {
         else
         {
             Player targetPlayer = ai.getHighestFavor(player.get(currentPlayer), "Broken Arrow", player);
-            targetPlayer.setArrowCount(-1);
-            //System.out.println("Removing one arrow from " + player.get(target).getCharacterName() 
-            //+ " they are at " + player.get(target).getArrowCount() + " arrows left.");
-            output = output + "Removing one arrow from " + targetPlayer.getCharacterName() 
-            + " they are at " + targetPlayer.getArrowCount() + " arrows left.\n";
+            if(targetPlayer != null)
+            {
+                targetPlayer.setArrowCount(-1);
+                //System.out.println("Removing one arrow from " + player.get(target).getCharacterName() 
+                //+ " they are at " + player.get(target).getArrowCount() + " arrows left.");
+                output = output + "Removing one arrow from " + targetPlayer.getCharacterName() 
+                + " they are at " + targetPlayer.getArrowCount() + " arrows left.\n";
+            }
         }
             
         //System.out.println();
@@ -549,10 +549,10 @@ public class Turn {
         Player targetPlayer = player.get(currentPlayer);
         if(player.get(currentPlayer).getUser())
         {
-            targetIndex = user.chooseDuel(getGUI());
+            //targetIndex = user.chooseDuel(getGUI());
             for(Player p : player)
             {
-                if(p.getPlayerIndex() == targetIndex)
+                //if(p.getPlayerIndex() == targetIndex)
                     targetPlayer = p;
             }
         }
@@ -564,7 +564,8 @@ public class Turn {
             Dice dice = new Dice(0, true, 4);
             dice.rollDice();
             String value = dice.getDiceString();
-            System.out.println(targetPlayer.getCharacterName() + " rolled " + value);
+            output = output + player.get(currentPlayer).getCharacterName() + " rolled " + value + "\n";
+            //System.out.println(player.get(currentPlayer).getCharacterName() + " rolled " + value);
             if(!value.equals("Duel Guns"))
             {
                 int token = tokens.getToken();
@@ -573,16 +574,20 @@ public class Turn {
                 switch(token)
                 {
                     case 0:
-                        System.out.println("They take a beer token and 1 damage. Current HP: " + targetPlayer.getHealth());
+                        output = output + "They take a beer token and 1 damage. Current HP: " + player.get(currentPlayer).getHealth() + "\n";
+                        //System.out.println("They take a beer token and 1 damage. Current HP: " + player.get(currentPlayer).getHealth());
                         break;
                     case 1:
-                        System.out.println("They take a shoot one over token and 1 damage. Current HP: " + targetPlayer.getHealth());
+                        output = output + "They take a shoot one over token and 1 damage. Current HP: " + player.get(currentPlayer).getHealth() + "\n";
+                        //System.out.println("They take a shoot one over token and 1 damage. Current HP: " + player.get(currentPlayer).getHealth());
                         break;
                     case 2:
-                        System.out.println("They take a shoot two over token and 1 damage. Current HP: " + targetPlayer.getHealth());
+                        output = output + "They take a shoot two over token and 1 damage. Current HP: " + player.get(currentPlayer).getHealth() + "\n";
+                        //System.out.println("They take a shoot two over token and 1 damage. Current HP: " + player.get(currentPlayer).getHealth());
                         break;
                     case 3:
-                        System.out.println("They take a dynamite token and 1 damage. Current HP: " + targetPlayer.getHealth());
+                        output = output + "They take a dynamite token and 1 damage. Current HP: " + player.get(currentPlayer).getHealth() + "\n";
+                        //System.out.println("They take a dynamite token and 1 damage. Current HP: " + player.get(currentPlayer).getHealth());
                         break;
                 }
                 break;
@@ -591,7 +596,8 @@ public class Turn {
             {
                 dice.rollDice();
                 value = dice.getDiceString();
-                System.out.println(player.get(currentPlayer).getCharacterName() + " rolled " + value);
+                output = output + player.get(currentPlayer).getCharacterName() + " rolled " + value + "\n";
+                //System.out.println(player.get(currentPlayer).getCharacterName() + " rolled " + value);
                 if(!value.equals("Duel Guns"))
                 {
                     int token = tokens.getToken();
@@ -600,16 +606,20 @@ public class Turn {
                     switch(token)
                     {
                         case 0:
-                            System.out.println("They take a beer token and 1 damage. Current HP: " + player.get(currentPlayer).getHealth());
+                            output = output + "They take a beer token and 1 damage. Current HP: " + player.get(currentPlayer).getHealth() + "\n";
+                            //System.out.println("They take a beer token and 1 damage. Current HP: " + player.get(currentPlayer).getHealth());
                             break;
                         case 1:
-                            System.out.println("They take a shoot one over token and 1 damage. Current HP: " + player.get(currentPlayer).getHealth());
+                            output = output + "They take a shoot one over token and 1 damage. Current HP: " + player.get(currentPlayer).getHealth() + "\n";
+                            //System.out.println("They take a shoot one over token and 1 damage. Current HP: " + player.get(currentPlayer).getHealth());
                             break;
                         case 2:
-                            System.out.println("They take a shoot two over token and 1 damage. Current HP: " + player.get(currentPlayer).getHealth());
+                            output = output + "They take a shoot two over token and 1 damage. Current HP: " + player.get(currentPlayer).getHealth() + "\n";
+                            //System.out.println("They take a shoot two over token and 1 damage. Current HP: " + player.get(currentPlayer).getHealth());
                             break;
                         case 3:
-                            System.out.println("They take a dynamite token and 1 damage. Current HP: " + player.get(currentPlayer).getHealth());
+                            output = output + "They take a dynamite token and 1 damage. Current HP: " + player.get(currentPlayer).getHealth() + "\n";
+                            //System.out.println("They take a dynamite token and 1 damage. Current HP: " + player.get(currentPlayer).getHealth());
                             break;
                     }
                     break;
@@ -627,9 +637,33 @@ public class Turn {
     {
             int count = 1;
             //Check if player is the User or an AI
+            int[] test = {5, 0, 0, 0};
+            int choice = ai.ExpansionDice(player.get(currentPlayer));
+            if(getExpansion())
+            {
+                if(choice == 1)
+                {
+                    test[0] = 3;
+                    test[1] = 2;
+                }
+                else if(choice == 2)
+                {
+                    test[0] = 2;
+                    test[1] = 2;
+                    test[2] = 1;
+                }
+                else if(choice == 3)
+                {
+                    test[0] = 2;
+                    test[1] = 2;
+                    test[3] = 1;
+                }
+
+                //diceHandler = new DiceController(test);
+            }
             diceHandler.rollAllDice();
             output = output + "Roll " + count + ": \n";
-            System.out.println("Roll " + count + ": ");
+            //System.out.println("Roll " + count + ": ");
             output = output + diceHandler.printAllDice();
             count++;
             //need to handle arrows as they come up
@@ -674,7 +708,7 @@ public class Turn {
                     diceHandler.setDiceArray(ai.RerollHandler(player.get(currentPlayer), diceHandler.getDiceArray(), player));
                     diceHandler.rollAllDice();
                     output = output + "Roll " + count + ": \n";
-                    System.out.println("Roll " + count + ": ");
+                    //System.out.println("Roll " + count + ": ");
                     output = output + diceHandler.printAllDice();
                     count++;
                     player.get(currentPlayer).usedReroll(); 
@@ -905,7 +939,7 @@ public class Turn {
             {
                 if(p.getCharacterName().equals("VULTURE SAM"))
                 {
-                    System.out.println("Someone died, VULTURE SAM plus 2 HP");
+                    //System.out.println("Someone died, VULTURE SAM plus 2 HP");
                     p.addHealth(2);
                 }                    
             }
