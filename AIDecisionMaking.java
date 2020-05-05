@@ -474,7 +474,7 @@ class AIDecisionMaking
     * @return Player, who has the highest favor to be shot will be who the 
     * player will engage with in a dual
     */
-    public Player getDual(Player CurrentPlayer, ArrayList<Player> TotP)
+    public Player getDuel(Player CurrentPlayer, ArrayList<Player> TotP)
     {
         ArrayList<Integer> Favors = new ArrayList<Integer>(); 
         

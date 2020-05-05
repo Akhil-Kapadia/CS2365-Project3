@@ -338,8 +338,15 @@ public class Turn {
                 output = output + "Nobody has arrows, no arrows could be removed \n";
                 //System.out.println("Nobody has arrows, no arrows could be removed");
         }
-        else{}
-            //need an ai function that will choose who to remove an arrow from
+        else
+        {
+            Player targetPlayer = ai.getHighestFavor(player.get(currentPlayer), "Broken Arrow", player);
+            targetPlayer.setArrowCount(-1);
+            //System.out.println("Removing one arrow from " + player.get(target).getCharacterName() 
+            //+ " they are at " + player.get(target).getArrowCount() + " arrows left.");
+            output = output + "Removing one arrow from " + targetPlayer.getCharacterName() 
+            + " they are at " + targetPlayer.getArrowCount() + " arrows left.\n";
+        }
             
         //System.out.println();
         output = output + "\n";
@@ -549,8 +556,8 @@ public class Turn {
                     targetPlayer = p;
             }
         }
-        else{}
-            //ai chooses some duel thingy
+        else
+            targetPlayer = ai.getDuel(player.get(currentPlayer), player);
         
         for(;;)
         {
@@ -714,75 +721,6 @@ public class Turn {
             
                        
     }
-    
-    public void userRoll()
-    {
-        int count = 1;
-         if(player.get(currentPlayer).getUser())
-            {
-                    //Reroll as many times as possible. If user replies no, breaks loop.
-                    while(playerAlive && player.get(currentPlayer).CanReroll())
-                    {
-                        /*
-                            System.out.println("Would you like to reroll any dice? (y or n)");
-                            String input = scan.nextLine();
-                            if(input.equals("y"))
-                            {
-
-                                    //Change the flags to roll.
-                                    diceHandler.setDiceArray(user.chooseReroll(diceHandler.getDiceArray(), player.get(currentPlayer)));
-
-                                    diceHandler.rollAllDice();
-                                    System.out.println("Roll " + count + ": ");
-                                    diceHandler.printAllDice();
-                        */
-                                    count++;
-                                    player.get(currentPlayer).usedReroll();
-                                    //need to handle arrows as they come up
-                                    if(getExpansion())
-                                    {
-                                        for(Dice dice : diceHandler.getDiceArray())
-                                        {
-                                            if(name.equals("APACHE KID") && arrow.UseArrow().equals(""))
-                                                arrow.TakeArrow(name);
-                                            else if(!name.equals("BILL NOFACE"))
-                                            {                                
-                                                if(arrow.UseArrow().equals("") && dice.getDiceString().equals("Arrow"))
-                                                    arrow.TakeArrow(name);
-                                                else if(dice.getDiceString().equals("Arrow"))
-                                                    indianArrow();
-                                            }
-                                        }
-
-                                        for(Dice dice : diceHandler.getDiceArray())
-                                        {
-                                            if(dice.getDiceString().equals("Broken Arrow"))
-                                                brokenArrow();
-                                        }
-
-                                        for(Dice dice : diceHandler.getDiceArray())
-                                        {
-                                            if(dice.getDiceString().equals("Bullet"))
-                                                bullet();
-                                        }
-                                    }
-                                    else
-                                    {
-                                        for(Dice dice : diceHandler.getDiceArray())
-                                        {
-                                            if(dice.getDiceString().equals("Arrow") && !name.equals("BILL NOFACE"))
-                                                indianArrow();                             
-                                        }
-                                    }
-                                    //if three dynamite, cant reroll anymore
-                                    if(diceHandler.checkFrequency("Dynamite") >= 3)
-                                        player.get(currentPlayer).setRerolls(0);
-                            }
-                    //else
-                                    //break;
-                    //}
-            }
-    }
 
     /**
      * Handles the actual play of the turn.
@@ -905,8 +843,8 @@ public class Turn {
                 }
             }
             
-            tokens.addToken(player.get(currentPlayer).getTokenList());
-            player.get(currentPlayer).wipeTokenList();
+            //tokens.addToken(player.get(currentPlayer).getTokenList());
+            //player.get(currentPlayer).wipeTokenList();
     }
 
     public int winCondition()
@@ -953,8 +891,8 @@ public class Turn {
             //System.out.println("Player " + damagedPlayer.getPlayerIndex() + " is dead, their role was " + role);
             output = output + "Player " + damagedPlayer.getPlayerIndex() + " is dead, their role was " + role + "\n";
             
-            if(damagedPlayer.equals(player.get(currentPlayer)))
-                    playerAlive = false;
+            //if(damagedPlayer.equals(player.get(currentPlayer)))
+                    //playerAlive = false;
             
             tokens.addToken(damagedPlayer.getTokenList());
             damagedPlayer.wipeTokenList();

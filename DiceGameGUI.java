@@ -17,7 +17,7 @@ public class DiceGameGUI extends javax.swing.JFrame {
     DiceController diceHandler = new DiceController(test);
     private int rerolls = 3;
     private int arrowCount = 0;
-    private Player player;
+    private Turn turn;
     
     public DiceGameGUI() {
         initComponents();
@@ -82,15 +82,15 @@ public class DiceGameGUI extends javax.swing.JFrame {
     {
         return this.arrowCount;
     }
-    
-    public void setPlayer(Player player)
+
+    public void setTurn(Turn turn)
     {
-        this.player = player;
+        this.turn = turn;
     }
     
-    public Player getPlayer()
+    public Turn getTurn()
     {
-        return this.player;
+        return this.turn;
     }
 
     /**
@@ -600,8 +600,6 @@ public class DiceGameGUI extends javax.swing.JFrame {
 
     private void RerollDiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RerollDiceActionPerformed
         // TODO add your handling code here:
-        // Send Dice that need to be rerolled and get dice new numbers
-        // Also update number of rerolls left
         int DiceToReroll;
         ArrayList<Dice> diceArray = getDiceArray();
         
@@ -619,26 +617,15 @@ public class DiceGameGUI extends javax.swing.JFrame {
         //Die5.setText(String.valueOf()); // Number for die 5 Black 2 or White 5
         //Die6.setText(String.valueOf()); // Number for die 6 Coward
         //Die7.setText(String.valueOf()); // Number for die 7 Loudmouth
-        //NumRerolls.setText(String.valueOf()); //Number of rerolls left
-        
-        // Maybe add the arrows that you rolled here?
     }//GEN-LAST:event_RerollDiceActionPerformed
 
     private void DoneWithRollingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DoneWithRollingActionPerformed
         // TODO add your handling code here:
-        // I believe only need system.exit(0); here\
-        //GameGUI obj = new GameGUI();
-        //obj.setVisible(true);
-        
-        //here is where dice will be resolved
-        
         this.setVisible(false);
-        //this.dispose();
     }//GEN-LAST:event_DoneWithRollingActionPerformed
 
     private void RollRerollsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RollRerollsActionPerformed
         // TODO add your handling code here:
-        Player player = getPlayer();
         setDieChoice((int)Float.parseFloat(DieOption.getText()));
         if(getExpansion())
         {
@@ -659,20 +646,66 @@ public class DiceGameGUI extends javax.swing.JFrame {
                 test[1] = 2;
                 test[3] = 1;
             }
+            
+            diceHandler = new DiceController(test);
         }
         
+        
+        setDiceArray(diceHandler.getDiceArray());
+        Turn turn = getTurn();
         if(getReroll() > 0)
         {
             diceHandler.setDiceArray(diceHandler.rollAllDice());
             usedReroll();
+            if(diceHandler.checkFrequency("Dynamite") >= 3)
+            {
+                while(getReroll() > 0)
+                    usedReroll();
+            }
+            if(getExpansion())
+            {
+                for(Dice dice : diceHandler.getDiceArray())
+                {
+                    if(name.equals("APACHE KID") && turn.arrow.UseArrow().equals(""))
+                        turn.arrow.TakeArrow(name);
+                    else if(!name.equals("BILL NOFACE"))
+                    {                                
+                        if(turn.arrow.UseArrow().equals("") && dice.getDiceString().equals("Arrow"))
+                            turn.arrow.TakeArrow(name);
+                        else if(dice.getDiceString().equals("Arrow"))
+                            turn.indianArrow();
+                    }
+                }
+
+                for(Dice dice : diceHandler.getDiceArray())
+                {
+                    if(dice.getDiceString().equals("Broken Arrow"))
+                        turn.brokenArrow();
+                }
+
+                for(Dice dice : diceHandler.getDiceArray())
+                {
+                    if(dice.getDiceString().equals("Bullet"))
+                        turn.bullet();
+                }
+            }
+            else
+            {
+                for(Dice dice : diceHandler.getDiceArray())
+                {
+                    if(dice.getDiceString().equals("Arrow") && !name.equals("BILL NOFACE"))
+                        turn.indianArrow();                             
+                }
+            }
         }
-        setDiceArray(diceHandler.getDiceArray());
-        ArrayList<Dice> diceArray = getDiceArray();
-        for(Dice dice : diceArray)
+        
+
+        for(Dice dice : diceHandler.getDiceArray())
         {
-            if(dice.getDiceString().equals("Arrow"))
+            if(dice.getDiceString().equals("Arrow") && getReroll() > 0)
                 increaseArrowCount();
         }
+        
         if(getExpansion())
         {
             if(getDieChoice() == 1) //white die as 5th
@@ -713,9 +746,7 @@ public class DiceGameGUI extends javax.swing.JFrame {
         ArrowsRolled.setText(String.valueOf(getArrowCount()));
 
         setDiceArray(diceArray);
-        
-        //figure out how to resolve arrows here, gui should close if player dies, how will indian attacks be shown?
-        
+               
         
         //Die1.setText(String.valueOf()); // Number for die 1 White 1
         //Die2.setText(String.valueOf()); // Number for die 2 White 2

@@ -24,6 +24,7 @@ public class GameGUI extends javax.swing.JFrame {
     private DiceGameGUI obj;
     private int diceCount = 0;
     private int shootValue;
+    private boolean again; //used to handle double shoot and heal
     
     public GameGUI() {
         initComponents();
@@ -109,6 +110,11 @@ public class GameGUI extends javax.swing.JFrame {
         this.diceCount++;
     }
     
+    public void decreaseDiceCount()
+    {
+        this.diceCount++;
+    }
+    
     public int getDiceCount()
     {
         return this.diceCount;
@@ -122,6 +128,16 @@ public class GameGUI extends javax.swing.JFrame {
     public int getShootValue()
     {
         return this.shootValue;
+    }
+    
+    public void setAgain(boolean set)
+    {
+        this.again = set;
+    }
+    
+    public boolean getAgain()
+    {
+        return this.again;
     }
 
     /**
@@ -142,7 +158,7 @@ public class GameGUI extends javax.swing.JFrame {
         Player5Arrow = new javax.swing.JTextField();
         Player5Roll = new javax.swing.JTextField();
         Player5Zombie = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        Update = new javax.swing.JButton();
         Player1Zombie = new javax.swing.JTextField();
         ArrowPile = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -191,7 +207,7 @@ public class GameGUI extends javax.swing.JFrame {
         Player7Char = new javax.swing.JTextField();
         jLabel27 = new javax.swing.JLabel();
         Player7Health = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        NextTurn = new javax.swing.JButton();
         Player7Arrow = new javax.swing.JTextField();
         jLabel28 = new javax.swing.JLabel();
         Player7Roll = new javax.swing.JTextField();
@@ -215,11 +231,11 @@ public class GameGUI extends javax.swing.JFrame {
         Player6Roll = new javax.swing.JTextField();
         jLabel32 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        Resolve = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        healChoice = new javax.swing.JButton();
+        ShootChoice = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -241,10 +257,10 @@ public class GameGUI extends javax.swing.JFrame {
 
         Player5Zombie.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jButton1.setText("Update");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Update.setText("Update");
+        Update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                UpdateActionPerformed(evt);
             }
         });
 
@@ -344,10 +360,10 @@ public class GameGUI extends javax.swing.JFrame {
 
         Player7Health.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jButton2.setText("Next Turn");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        NextTurn.setText("Next Turn");
+        NextTurn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                NextTurnActionPerformed(evt);
             }
         });
 
@@ -403,10 +419,10 @@ public class GameGUI extends javax.swing.JFrame {
         jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel33.setText("Held by:");
 
-        jButton3.setText("Roll");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        Resolve.setText("Resolve");
+        Resolve.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                ResolveActionPerformed(evt);
             }
         });
 
@@ -414,17 +430,17 @@ public class GameGUI extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jButton4.setText("Choice");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        healChoice.setText("Choice");
+        healChoice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                healChoiceActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Choice");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        ShootChoice.setText("Choice");
+        ShootChoice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                ShootChoiceActionPerformed(evt);
             }
         });
 
@@ -510,12 +526,12 @@ public class GameGUI extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(60, 60, 60)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(NextTurn, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                            .addComponent(Update, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(Resolve, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(42, 42, 42)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -568,7 +584,7 @@ public class GameGUI extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(ShootPerson, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(ShootChoice, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -643,7 +659,7 @@ public class GameGUI extends javax.swing.JFrame {
                         .addComponent(jLabel28)
                         .addGap(114, 114, 114))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(healChoice, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel30)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -707,7 +723,7 @@ public class GameGUI extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel29)
                                     .addComponent(ShootPerson, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton5)))
+                                    .addComponent(ShootChoice)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel28)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -716,7 +732,7 @@ public class GameGUI extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel30)
                                     .addComponent(HealPerson, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton4))))
+                                    .addComponent(healChoice))))
                         .addGap(174, 174, 174)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -799,11 +815,11 @@ public class GameGUI extends javax.swing.JFrame {
                             .addComponent(Player5Arrow, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(jButton1)
+                        .addComponent(Update)
                         .addGap(11, 11, 11)
-                        .addComponent(jButton2)
+                        .addComponent(NextTurn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3)))
+                        .addComponent(Resolve)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Player5Roll, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -831,7 +847,7 @@ public class GameGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
         // TODO add your handling code here: // Button is used to update all the players variables
         setTableSeating();
         ArrayList<Player> tableSeating = getTableSeating();
@@ -852,7 +868,11 @@ public class GameGUI extends javax.swing.JFrame {
             Player1Char.setText(tableSeating.get(0).getCharacterName()); //How to Enter a number into the jTextField1 (Replace with string)
             Player1Health.setText(String.valueOf(tableSeating.get(0).getHealth())); //Health of players
             Player1Arrow.setText(String.valueOf(tableSeating.get(0).getArrowCount())); //Number of Arrow of players
-            Player1Roll.setText(tableSeating.get(0).getRole()); //Player's roll when dead or Sheirff
+            if(tableSeating.get(0).getUser() || tableSeating.get(0).getRole().equals("Sheriff") || tableSeating.get(0).getRole().equals("Alive") 
+                    || tableSeating.get(0).getRole().equals("Zombie") || tableSeating.get(0).getRole().equals("Zombie Master"))
+                Player1Roll.setText(tableSeating.get(0).getRole()); //Player's roll when dead or Sheirff
+            else
+                Player1Roll.setText(""); //Player's roll when dead or Sheirff
             Player1Zombie.setText(tableSeating.get(0).getAbility()); //If Player is a zombie
         }
         
@@ -869,7 +889,11 @@ public class GameGUI extends javax.swing.JFrame {
             Player2Char.setText(tableSeating.get(1).getCharacterName()); //How to Enter a number into the jTextField1 (Replace with string)
             Player2Health.setText(String.valueOf(tableSeating.get(1).getHealth())); //Health of players
             Player2Arrow.setText(String.valueOf(tableSeating.get(1).getArrowCount())); //Number of Arrow of players
-            Player2Roll.setText(tableSeating.get(1).getRole()); //Player's roll when dead or Sheirff
+            if(tableSeating.get(1).getUser() || tableSeating.get(1).getRole().equals("Sheriff") || tableSeating.get(1).getRole().equals("Alive") 
+                    || tableSeating.get(1).getRole().equals("Zombie") || tableSeating.get(1).getRole().equals("Zombie Master"))
+                Player2Roll.setText(tableSeating.get(1).getRole()); //Player's roll when dead or Sheirff
+            else
+                Player2Roll.setText(""); //Player's roll when dead or Sheirff
             Player2Zombie.setText(tableSeating.get(1).getAbility()); //If Player is a zombie
         }
         
@@ -886,7 +910,11 @@ public class GameGUI extends javax.swing.JFrame {
             Player3Char.setText(tableSeating.get(2).getCharacterName()); //How to Enter a number into the jTextField1 (Replace with string)
             Player3Health.setText(String.valueOf(tableSeating.get(2).getHealth())); //Health of players
             Player3Arrow.setText(String.valueOf(tableSeating.get(2).getArrowCount())); //Number of Arrow of players
-            Player3Roll.setText(tableSeating.get(2).getRole()); //Player's roll when dead or Sheirff
+            if(tableSeating.get(2).getUser() || tableSeating.get(2).getRole().equals("Sheriff") || tableSeating.get(2).getRole().equals("Alive") 
+                    || tableSeating.get(2).getRole().equals("Zombie") || tableSeating.get(2).getRole().equals("Zombie Master"))
+                Player3Roll.setText(tableSeating.get(7).getRole()); //Player's roll when dead or Sheirff
+            else
+                Player3Roll.setText(""); //Player's roll when dead or Sheirff
             Player3Zombie.setText(tableSeating.get(2).getAbility()); //If Player is a zombie
         }
         
@@ -903,7 +931,11 @@ public class GameGUI extends javax.swing.JFrame {
             Player4Char.setText(tableSeating.get(3).getCharacterName()); //How to Enter a number into the jTextField1 (Replace with string)
             Player4Health.setText(String.valueOf(tableSeating.get(3).getHealth())); //Health of players
             Player4Arrow.setText(String.valueOf(tableSeating.get(3).getArrowCount())); //Number of Arrow of players
-            Player4Roll.setText(tableSeating.get(3).getRole()); //Player's roll when dead or Sheirff
+            if(tableSeating.get(3).getUser() || tableSeating.get(3).getRole().equals("Sheriff") || tableSeating.get(3).getRole().equals("Alive") 
+                    || tableSeating.get(3).getRole().equals("Zombie") || tableSeating.get(3).getRole().equals("Zombie Master"))
+                Player4Roll.setText(tableSeating.get(3).getRole()); //Player's roll when dead or Sheirff
+            else
+                Player4Roll.setText(""); //Player's roll when dead or Sheirff
             Player4Zombie.setText(tableSeating.get(3).getAbility()); //If Player is a zombie
         }
         
@@ -922,7 +954,11 @@ public class GameGUI extends javax.swing.JFrame {
                 Player5Char.setText(tableSeating.get(4).getCharacterName()); //How to Enter a number into the jTextField1 (Replace with string)
                 Player5Health.setText(String.valueOf(tableSeating.get(4).getHealth())); //Health of players
                 Player5Arrow.setText(String.valueOf(tableSeating.get(4).getArrowCount())); //Number of Arrow of players
-                Player5Roll.setText(tableSeating.get(4).getRole()); //Player's roll when dead or Sheirff
+                if(tableSeating.get(4).getUser() || tableSeating.get(4).getRole().equals("Sheriff") || tableSeating.get(4).getRole().equals("Alive") 
+                        || tableSeating.get(4).getRole().equals("Zombie") || tableSeating.get(4).getRole().equals("Zombie Master"))
+                    Player5Roll.setText(tableSeating.get(4).getRole()); //Player's roll when dead or Sheirff
+                else
+                    Player5Roll.setText(""); //Player's roll when dead or Sheirff
                 Player5Zombie.setText(tableSeating.get(4).getAbility()); //If Player is a zombie
             }
         }
@@ -942,7 +978,11 @@ public class GameGUI extends javax.swing.JFrame {
                 Player6Char.setText(tableSeating.get(5).getCharacterName()); //How to Enter a number into the jTextField1 (Replace with string)
                 Player6Health.setText(String.valueOf(tableSeating.get(5).getHealth())); //Health of players
                 Player6Arrow.setText(String.valueOf(tableSeating.get(5).getArrowCount())); //Number of Arrow of players
-                Player6Roll.setText(tableSeating.get(5).getRole()); //Player's roll when dead or Sheirff
+                if(tableSeating.get(5).getUser() || tableSeating.get(5).getRole().equals("Sheriff") || tableSeating.get(5).getRole().equals("Alive") 
+                        || tableSeating.get(5).getRole().equals("Zombie") || tableSeating.get(5).getRole().equals("Zombie Master"))
+                    Player6Roll.setText(tableSeating.get(5).getRole()); //Player's roll when dead or Sheirff
+                else
+                    Player6Roll.setText(""); //Player's roll when dead or Sheirff
                 Player6Zombie.setText(tableSeating.get(5).getAbility()); //If Player is a zombie
             }
         }
@@ -962,7 +1002,11 @@ public class GameGUI extends javax.swing.JFrame {
                 Player7Char.setText(tableSeating.get(6).getCharacterName()); //How to Enter a number into the jTextField1 (Replace with string)
                 Player7Health.setText(String.valueOf(tableSeating.get(6).getHealth())); //Health of players
                 Player7Arrow.setText(String.valueOf(tableSeating.get(6).getArrowCount())); //Number of Arrow of players
-                Player7Roll.setText(tableSeating.get(6).getRole()); //Player's roll when dead or Sheirff
+                if(tableSeating.get(6).getUser() || tableSeating.get(6).getRole().equals("Sheriff") || tableSeating.get(6).getRole().equals("Alive") 
+                        || tableSeating.get(6).getRole().equals("Zombie") || tableSeating.get(6).getRole().equals("Zombie Master"))
+                    Player7Roll.setText(tableSeating.get(6).getRole()); //Player's roll when dead or Sheirff
+                else
+                    Player7Roll.setText(""); //Player's roll when dead or Sheirff
                 Player7Zombie.setText(tableSeating.get(6).getAbility()); //If Player is a zombie
             }
         }
@@ -982,25 +1026,23 @@ public class GameGUI extends javax.swing.JFrame {
                 Player8Char.setText(tableSeating.get(7).getCharacterName()); //How to Enter a number into the jTextField1 (Replace with string)
                 Player8Health.setText(String.valueOf(tableSeating.get(7).getHealth())); //Health of players
                 Player8Arrow.setText(String.valueOf(tableSeating.get(7).getArrowCount())); //Number of Arrow of players
-                Player8Roll.setText(tableSeating.get(7).getRole()); //Player's roll when dead or Sheirff
+                if(tableSeating.get(7).getUser() || tableSeating.get(7).getRole().equals("Sheriff") || tableSeating.get(7).getRole().equals("Alive") 
+                        || tableSeating.get(7).getRole().equals("Zombie") || tableSeating.get(7).getRole().equals("Zombie Master"))
+                    Player8Roll.setText(tableSeating.get(7).getRole()); //Player's roll when dead or Sheirff
+                else
+                    Player8Roll.setText(""); //Player's roll when dead or Sheirff
                 Player8Zombie.setText(tableSeating.get(7).getAbility()); //If Player is a zombie
             }
         }
 
-        //WhoToShoot.setText(); //For the string that will tell the user who they can shoot
-        //ShootTarget; // Used to send who to shoot
-
-        //WhoToHeal.setText(); //For the string that tells the user that they can heal
-        //HealPlayer; // Used to send who to heal
-
         ArrowPile.setText(String.valueOf(getGame().getArrowPile()));
         CardPile.setText(String.valueOf(getGame().getCardPile()));
-        //IndianChiefArrow.setText(getGame().getArrow()); //Send the name of holder of the indian chief arrow
+        IndianChiefArrow.setText(getGame().arrow.UseArrow()); //Send the name of holder of the indian chief arrow
 
         jTextArea1.setText(getOutput()); //To get the Events of the last turn
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_UpdateActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void NextTurnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NextTurnActionPerformed
         // TODO add your handling code here:
         if(!getGameOver())
         {
@@ -1011,7 +1053,7 @@ public class GameGUI extends javax.swing.JFrame {
                 DiceGameGUI obj = new DiceGameGUI(); //This will show the DiceGameGUI
                 obj.setExpansion(getGame().getExpansion());
                 obj.setName(getTurn().getTableSeating().get(getIndex()).getCharacterName());
-                obj.setPlayer(getTurn().getTableSeating().get(getIndex()));
+                obj.setTurn(turn);
                 obj.setVisible(true);
                 setDiceGUI(obj);
             }
@@ -1023,27 +1065,34 @@ public class GameGUI extends javax.swing.JFrame {
             setGame(getGame().updateGame(getTurn()));
             if(getGame().getExpansion() && !getGame().getDoA() && !getGameOver())
                 getGame().deadDraw();
+            String output = "";
             if(getGameOver())
             {
                 if(gameOver)
                 {
-                    System.out.print("Game over on condition ");
+                    output = output + "Game over on condition ";
+                    //System.out.print("Game over on condition ");
                     switch(getTurn().getWinCond())
                     {
                         case 1: 
-                            System.out.println("Everybody else died, single Renegade wins.");
+                            output = output + "Everybody else died, single Renegade wins.";
+                            //System.out.println("Everybody else died, single Renegade wins.");
                             break;
                         case 2: 
-                            System.out.println("Outlaw and Renegade(s) died, Sheriff and Deputy wins.");
+                            output = output + "Outlaw and Renegade(s) died, Sheriff and Deputy wins.";
+                            //System.out.println("Outlaw and Renegade(s) died, Sheriff and Deputy wins.");
                             break;
                         case 3: 
-                            System.out.println("Sheriff died, Outlaws win.");
+                            output = output + "Sheriff died, Outlaws win.";
+                            //System.out.println("Sheriff died, Outlaws win.");
                             break;
                         case 4: 
-                            System.out.println("Alive died, Zombies win.");
+                            output = output + "Alive died, Zombies win.";
+                            //System.out.println("Alive died, Zombies win.");
                             break;
                         case 5: 
-                            System.out.println("Zombies died, Alive win.");
+                            output = output + "Zombies died, Alive win.";
+                            //System.out.println("Zombies died, Alive win.");
                             break;
                     }
                 }
@@ -1054,14 +1103,15 @@ public class GameGUI extends javax.swing.JFrame {
             getGame().printGameStatus();
         }
         if(getGameOver())
-            System.exit(0); //used to go to the next players turn
-    }//GEN-LAST:event_jButton2ActionPerformed
+        {
+            setOutput(output);
+            jTextArea1.setText(getOutput());
+        }
+            //System.exit(0); //used to go to the next players turn
+    }//GEN-LAST:event_NextTurnActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void ResolveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResolveActionPerformed
         // TODO add your handling code here:
-        //DiceGameGUI obj = new DiceGameGUI(); //This will show the DiceGameGUI
-        //obj.setVisible(true);
-        //this.dispose(); //Get rid of the GUI 
         String output = "";
         Turn turn = getTurn();
         DiceGameGUI obj = getDiceGUI();
@@ -1076,10 +1126,9 @@ public class GameGUI extends javax.swing.JFrame {
         int[] test = {5,0,0,0};
         DiceController diceHandler = new DiceController(test);
         diceHandler.setDiceArray(obj.getDiceArray());
-        boolean playerAlive = turn.getPlayerAlive();
         ArrayList<Player> player = turn.getTableSeating();
         int currentPlayer = turn.getIndex();
-        int winCond = turn.getWinCond();
+
         String name = turn.getName();
         turn.setGUI(this);
         int diceCount = getDiceCount();
@@ -1095,7 +1144,7 @@ public class GameGUI extends javax.swing.JFrame {
                 turn.checkPlayerDeath(player.get(currentPlayer)); //check since player took damage
                 if(gameOver)
                 {
-                    winCond = turn.winCondition();
+                    //winCond = turn.winCondition();
                     return; //breakout since game is over
                 }
             }
@@ -1103,11 +1152,12 @@ public class GameGUI extends javax.swing.JFrame {
             if(player.get(currentPlayer).getCharacterName().equals("SUZY LAFAYETTE")) //add suzy ability, if no shoot dice at end of turn, plus 2 hp
             {
                 //System.out.println("No shoot dice rolled, plus 2 HP");
-                output = output + "No shoot dice rolled, plus 2 HP";
+                output = output + "No shoot dice rolled, plus 2 HP \n";
                 if(diceHandler.checkFrequency("Shoot person one over left or right") == 0 
                         && diceHandler.checkFrequency("Shoot person two over left or right") == 0)
                     player.get(currentPlayer).addHealth(2);
             }
+
         }
         
         Dice dice = diceHandler.getDiceArray().get(diceCount);
@@ -1126,13 +1176,25 @@ public class GameGUI extends javax.swing.JFrame {
             WhoToShoot.setText(shootOutput);
             if(gameOver)
             {
-                winCond = turn.winCondition();
+                //winCond = turn.winCondition();
                 return; //breakout since game is over
             }
         }
         else if(diceString.equals("Shoot person one over left or right twice"))
         {
-
+            if(getAgain() == false)
+                setAgain(true);
+            else
+                setAgain(false);
+            setShootValue(1);
+            String shootOutput = "Pick who you would like to shoot based on dice";
+            System.out.println("Please choose who you would like to shoot");
+            WhoToShoot.setText(shootOutput);
+            if(gameOver)
+            {
+                //winCond = turn.winCondition();
+                return; //breakout since game is over
+            }
         }
         else if(diceString.equals("Shoot person two over left or right"))
         {
@@ -1142,22 +1204,23 @@ public class GameGUI extends javax.swing.JFrame {
             WhoToShoot.setText(shootOutput);
             if(gameOver)
             {
-                winCond = turn.winCondition();
+                //winCond = turn.winCondition();
                 return; //breakout since game is over
             }
         }
         else if(diceString.equals("Shoot person two over left or right twice"))
         {
-            turn.bullsEyex2(0);
+            if(getAgain() == false)
+                setAgain(true);
+            else
+                setAgain(false);
+            setShootValue(2);
+            String shootOutput = "Pick who you would like to shoot based on dice";
+            System.out.println("Please choose who you would like to shoot");
+            WhoToShoot.setText(shootOutput);
             if(gameOver)
             {
-                winCond = turn.winCondition();
-                return; //breakout since game is over
-            }
-            turn.bullsEyex2(0);
-            if(gameOver)
-            {
-                winCond = turn.winCondition();
+                //winCond = turn.winCondition();
                 return; //breakout since game is over
             }
         }
@@ -1177,8 +1240,22 @@ public class GameGUI extends javax.swing.JFrame {
         }
         else if(diceString.equals("Double Beer"))
         {
-            turn.beer(0);
-            turn.beer(0);
+            if(getAgain() == false)
+                setAgain(true);
+            else
+                setAgain(false);
+            
+            String healOutput = "";
+            System.out.println("Please choose who you would like to heal");
+            for(int i = 0; i < tableSeating.size(); i++)
+            {
+                if(!(tableSeating.get(i).isFullHealth())) //if player not full HP, print them out
+                {
+                    healOutput = healOutput + "Player " + (i+1) + "  ";
+                    //System.out.println(i + ": " + tableSeating.get(i).getCharacterName());
+                }
+            }
+            WhoToHeal.setText(healOutput);
         }
         
         if(diceCount == 5) //things to only do once, at the end
@@ -1189,7 +1266,7 @@ public class GameGUI extends javax.swing.JFrame {
                 turn.gatlingGun();
                 if(gameOver)
                 {
-                    winCond = turn.winCondition();
+                    //winCond = turn.winCondition();
                     return; //breakout since game is over
                 }
             }
@@ -1202,20 +1279,18 @@ public class GameGUI extends javax.swing.JFrame {
         }
         
         increaseDiceCount();
-     
-        
-            
+       
         turn.tokens.addToken(player.get(currentPlayer).getTokenList());
         player.get(currentPlayer).wipeTokenList();
         setOutput(output);
         jTextArea1.setText(getOutput());
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_ResolveActionPerformed
 
     private void ShootPersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShootPersonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ShootPersonActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void healChoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_healChoiceActionPerformed
         // TODO add your handling code here:
         //healing choice
         Turn turn = getTurn();
@@ -1224,9 +1299,12 @@ public class GameGUI extends javax.swing.JFrame {
         setTurn(turn);
         
         WhoToHeal.setText("");
-    }//GEN-LAST:event_jButton4ActionPerformed
+        
+        if(getAgain())
+            decreaseDiceCount();
+    }//GEN-LAST:event_healChoiceActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void ShootChoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShootChoiceActionPerformed
         // TODO add your handling code here:
         //shooting choice
         Turn turn = getTurn();
@@ -1237,8 +1315,10 @@ public class GameGUI extends javax.swing.JFrame {
             turn.bullsEyex2(targetPlayer-1);
         
         WhoToShoot.setText("");
-
-    }//GEN-LAST:event_jButton5ActionPerformed
+        
+        if(getAgain())
+            decreaseDiceCount();
+    }//GEN-LAST:event_ShootChoiceActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1280,6 +1360,7 @@ public class GameGUI extends javax.swing.JFrame {
     private javax.swing.JTextField CardPile;
     private javax.swing.JTextField HealPerson;
     private javax.swing.JTextField IndianChiefArrow;
+    private javax.swing.JButton NextTurn;
     private javax.swing.JTextField Player1Arrow;
     private javax.swing.JTextField Player1Char;
     private javax.swing.JTextField Player1Health;
@@ -1320,14 +1401,13 @@ public class GameGUI extends javax.swing.JFrame {
     private javax.swing.JTextField Player8Health;
     private javax.swing.JTextField Player8Roll;
     private javax.swing.JTextField Player8Zombie;
+    private javax.swing.JButton Resolve;
+    private javax.swing.JButton ShootChoice;
     private javax.swing.JTextField ShootPerson;
+    private javax.swing.JButton Update;
     private javax.swing.JTextField WhoToHeal;
     private javax.swing.JTextField WhoToShoot;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton healChoice;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
