@@ -3,6 +3,13 @@ package cs2365_project3;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The PlayerDecisionMaking class is responsible for any tactical decisions made
+ * by the user within the game.
+ * Responsibilities include: choosing who to shoot or heal, as well as which 
+ * dice to reroll.
+ * @author Jacob Strickland
+ */
 public class PlayerDecisionMaking {
     
     ArrayList<Player> tableSeating;
@@ -14,50 +21,35 @@ public class PlayerDecisionMaking {
         this.tableSeating = tableSeating;
     }
     
-    public int chooseShoot(Player player1, Player player2)
+    
+    public int chooseBrokenArrow(GameGUI gui)
     {
-        System.out.println("Please choose which player you would like to shoot");
+        boolean possible = false;
+        System.out.println("Please choose who you would like to remove an arrow from");
         for(int i = 0; i < tableSeating.size(); i++)
         {
-            if(tableSeating.get(i).equals(player1) || tableSeating.get(i).equals(player2))
+            if(tableSeating.get(i).getArrowCount() != 0) //if player not full HP, print them out
+            {
                 System.out.println(i + ": " + tableSeating.get(i).getCharacterName());
+                possible = true;
+            }
         }
+        if(possible)
+            return scan.nextInt();
+        else
+            return -1;
+    }
+     
+    public int chooseDuel(GameGUI gui)
+    {
+        System.out.println("Please choose who you would like to duel");
+        for(int i = 0; i < tableSeating.size(); i++)
+        {
+            System.out.println(i + ": " + tableSeating.get(i).getCharacterName());
+        }
+        
         return scan.nextInt();
     }
     
-    //method overloading to allow janet's ability
-    public int chooseShoot(Player player1, Player player2, Player player3, Player player4)
-    {
-        System.out.println("Please choose which player you would like to shoot");
-        for(int i = 0; i < tableSeating.size(); i++)
-        {
-            if(tableSeating.get(i).equals(player1) || tableSeating.get(i).equals(player2) 
-                || tableSeating.get(i).equals(player3) || tableSeating.get(i).equals(player4))
-                System.out.println(i + ": " + tableSeating.get(i).getCharacterName());
-        }
-        return scan.nextInt();
-    }
-    
-    public int chooseHeal()
-    {
-        System.out.println("Please choose who you would like to heal");
-        for(int i = 0; i < tableSeating.size(); i++)
-        {
-            if(!(tableSeating.get(i).isFullHealth())) //if player not full HP, print them out
-                System.out.println(i + ": " + tableSeating.get(i).getCharacterName());
-        }
-        return scan.nextInt(); 
-    }
-    
-    public ArrayList<Dice> chooseReroll(ArrayList<Dice> diceArray)
-    {
-        System.out.println("Please enter the dice you would like to reroll (ex: 1345):");
-        for(int i = 0; i < diceArray.size(); i++)
-            System.out.println(i + ": " + diceArray.get(i).getDiceString());
-        String input = scan.nextLine();
-        for(int j = 0; j < input.length(); j++)
-            diceArray.get((int)input.charAt(j)-48).setReroll(true);
-        return diceArray;
-    }
     
 }

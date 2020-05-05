@@ -9,25 +9,32 @@ public class Game {
     int sher = 1; //used for game set up as a decrementing counter
     int depu, outl, reneg;  //used for game set up as a decrementing counter
     int roles[] = {sher, reneg, outl, depu};  //used for how many of each role are currently in the game
+    int zombie, alive;
+    int rolesDoA[] = {zombie, alive};
+    Token tokens = new Token();
+    private int index;
         
     private ArrayList<String> characterNames; //arraylist that stores all the names of the characters
     
     private int totalPlayers; //total number of players in the game
     private ArrayList<Player> tableSeating = new ArrayList<>(0); //arraylist of all alive players
-    private ArrayList<Player> deadList = new ArrayList<>(0); //arraylist of all daed players (expansion only)
+    private ArrayList<Player> deadList = new ArrayList<>(0); //arraylist of all dead players (expansion only)
     
     boolean DoA = false; //flag to see if dead or alive game mode needs to start
     boolean expansion = false; //flag to see if playing with expansions
-    Deck deck; //deck that contains the graveyward cards
+    Deck deck = new Deck(); //deck that contains the graveyward cards
     int drawnCount = 0; //total count of cards drawn from graveyard
     
     private int arrowPile; //number of arrows in the pile
     
-    public void setTotalPlayers()
-    {
-        this.totalPlayers = 5;
-    }
+    ChiefArrow arrow;
     
+    public Game(int totalPlayers, boolean expansion)
+    {
+        this.totalPlayers = totalPlayers;
+        this.expansion = expansion;
+    }
+        
     public int getTotalPlayers()
     {
         return this.totalPlayers;
@@ -78,6 +85,31 @@ public class Game {
         return this.arrowPile;
     }
     
+    public boolean getExpansion()
+    {
+        return this.expansion;
+    }
+    
+    public boolean getDoA()
+    {
+        return this.DoA;
+    }
+    
+    public void setIndex(int index)
+    {
+        this.index = index;
+    }
+    
+    public int getIndex()
+    {
+        return this.index;
+    }
+    
+    public int getCardPile()
+    {
+        return this.drawnCount;
+    }
+    
     public void setCharacterNames()
     {
         //contains all possible names of characters that can be chosen from
@@ -88,6 +120,10 @@ public class Game {
         this.characterNames.add("PAUL REGRET");
         this.characterNames.add("SUZY LAFAYETTE");
         this.characterNames.add("VULTURE SAM");
+        this.characterNames.add("APACHE KID");
+        this.characterNames.add("BILL NOFACE");
+        this.characterNames.add("BELLE STAR");
+        this.characterNames.add("GREG DIGGER");        
     }
     
     public String getCharacterName()
@@ -99,62 +135,56 @@ public class Game {
         return name;
     }
     
-    public void playGame()
+    public Turn createTurn(int playerTurnIndex)
     {
-        gameSetup(); //setup the game for the first time
-        printGameSetup();
-        boolean gameOver = false;
-        int playerTurnIndex = 0;
-        for(Player player : getTableSeating())
-        {
-            if(player.getRole().equals("Sheriff")) //the sheriff always starts the game
-            {
-                playerTurnIndex = player.getPlayerIndex();
-                break;
-            }
-        }
-        while(!gameOver)
-        {
-            Turn turn = new Turn(getTableSeating(), getDeadList(), getArrowPile(), playerTurnIndex, roles, expansion, DoA); //create a new turn
-            turn.playTurn();
-            gameOver = turn.getGameOver(); //get if the game is over from turn
-            setTableSeating(turn.getTableSeating()); //get the list of alive players from turn
-            setDeadList(turn.getDeadList()); //get the list of dead players from turn
-            setArrowPile(turn.getArrowStack()); //get the arrow count from turn
-            playerTurnIndex = (playerTurnIndex + 1) % tableSeating.size(); //set the player index to be the next alive player
-            if(expansion && !DoA) //if playing the expansion and dead or alive not started, all dead players draw a card at the end of every turn
-            {
-                for(Player player : getDeadList())
-                {
-                    int value = deck.drawCard();
-                    drawnCount+=value;
-                    System.out.println(player.getCharacterName() + " drew a " + value + ". Total pile up to " + drawnCount);
-                    if(drawnCount > getTableSeating().size()) //if drawn pile count is greater than players alive, start dead or alive game mode
-                    {
-                        System.out.println("Conditions met, dead or alive starting");
-                        DoA = true;
-                        zombieSetup();
-                    }
-                }
-            }
-            if(gameOver)
-                System.out.println("Game over on condition" + turn.getWinCond());
-            System.out.println("--------------------------------------------------");
-            printGameStatus();
-        }
-            
+        return new Turn(getTableSeating(), getDeadList(), getArrowPile(), playerTurnIndex, roles, rolesDoA, arrow, tokens, expansion, DoA); //create a new turn
     }
+    
+    public Game updateGame(Turn turn)
+    {
+        setTableSeating(turn.getTableSeating()); //get the list of alive players from turn
+        setDeadList(turn.getDeadList()); //get the list of dead players from turn
+        setArrowPile(turn.getArrowStack()); //get the arrow count from turn
+        roles = turn.getRoles();
+        rolesDoA = turn.getRolesDoA();
+        arrow = turn.getChiefArrow();
+        tokens = turn.getTokens();
+        if(turn.getPlayerAlive()) //if current player died, don't increase the index
+            setIndex((getIndex() + 1) % tableSeating.size()); //set the player index to be the next alive player
+        
+        return this;
+    }
+    
+    public void deadDraw()
+    {
+        for(Player player : getDeadList())
+        {
+            int value = deck.drawCard();
+            drawnCount+=value;
+            System.out.println(player.getCharacterName() + " drew a " + value + ". Total pile up to " + drawnCount);
+            if(drawnCount > getTableSeating().size()) //if drawn pile count is greater than players alive, start dead or alive game mode
+            {
+                System.out.println("Conditions met, dead or alive starting");
+                DoA = true;
+                zombieSetup();
+            }
+        }
+    }
+  
     
     public void gameSetup()
     {
-        if(expansion) //create a graveyard deck if playing with expansion
+        //create a graveyard deck if playing with expansion and create chief arrow
+        if(expansion)
+        {
             deck.createDeck();
-        
+            arrow = new ChiefArrow();
+            tokens.createTokens();
+        }
+
         //set arrow pile
         setArrowPile(9);
         
-        //player creation
-        setTotalPlayers();
         switch (getTotalPlayers()) { //number of roles changes based on number of players
             case 4:
                 roles[1] = 1;
@@ -266,6 +296,18 @@ public class Game {
             case "VULTURE SAM":
                 HP = 9;
                 break;
+            case "APACHE KID":
+                HP = 9;
+                break;
+            case "BILL NOFACE":
+                HP = 9;
+                break;
+            case "BELLE STAR":
+                HP = 8;
+                break;
+            case "GREG DIGGER":
+                HP = 7;
+                break;
         }
         
         if(role == 0)
@@ -282,6 +324,9 @@ public class Game {
     
     public void zombieSetup()
     {
+        rolesDoA[0] = getDeadList().size();
+        rolesDoA[1] = getTableSeating().size();
+        System.out.println("Alive: " + rolesDoA[0] + "\t Dead: " + rolesDoA[1]);
         boolean zombieMaster = false; //used if case of 2 renegades (8 players)
         int totalAlive = getTableSeating().size();
         for(Player player : getTableSeating())
@@ -299,7 +344,7 @@ public class Game {
         for(Player deadPlayer : getDeadList())
         {
             //easier to create a new player instead of changing values
-            Player newPlayer = new Player("Zombie", "Zombie", deadPlayer.getPlayerIndex(), totalAlive, deadPlayer.getUser());
+            Player newPlayer = new Player(deadPlayer.getCharacterName(), "Zombie", deadPlayer.getPlayerIndex(), totalAlive, deadPlayer.getUser());
             tableSeating.add(deadPlayer.getPlayerIndex(), newPlayer);
         }
     }
@@ -323,7 +368,7 @@ public class Game {
     
     public void printGameStatus()
     {
-        System.out.println("There are " + getTotalPlayers() + " players left");
+        System.out.println("----------------------------\nThere are " + getTableSeating().size() + " players left");
         for(Player player : getTableSeating())
         {
             System.out.println(player.getCharacterName() + " (" + player.getRole() + ") : HP - " + player.getHealth() + ",  Arrows: " + player.getArrowCount());
