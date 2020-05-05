@@ -9,10 +9,10 @@ public class Game {
     int sher = 1; //used for game set up as a decrementing counter
     int depu, outl, reneg;  //used for game set up as a decrementing counter
     int roles[] = {sher, reneg, outl, depu};  //used for how many of each role are currently in the game
-    int zombie, alive;
-    int rolesDoA[] = {zombie, alive};
-    Token tokens = new Token();
-    private int index;
+    int zombie, alive; //used to keep track of each when checking game over
+    int rolesDoA[] = {zombie, alive}; //used as a decrementing counter
+    Token tokens = new Token(); //used to store duel tokens
+    private int index; //index of the current player
         
     private ArrayList<String> characterNames; //arraylist that stores all the names of the characters
     
@@ -157,14 +157,14 @@ public class Game {
     
     public void deadDraw()
     {
-        for(Player player : getDeadList())
+        for(Player player : getDeadList()) //for dead player, draw a card
         {
             int value = deck.drawCard();
             drawnCount+=value;
-            System.out.println(player.getCharacterName() + " drew a " + value + ". Total pile up to " + drawnCount);
+            //System.out.println(player.getCharacterName() + " drew a " + value + ". Total pile up to " + drawnCount);
             if(drawnCount > getTableSeating().size()) //if drawn pile count is greater than players alive, start dead or alive game mode
             {
-                System.out.println("Conditions met, dead or alive starting");
+                //System.out.println("Conditions met, dead or alive starting");
                 DoA = true;
                 zombieSetup();
             }
@@ -174,7 +174,7 @@ public class Game {
     
     public void gameSetup()
     {
-        //create a graveyard deck if playing with expansion and create chief arrow
+        //create a graveyard deck if playing with expansion and create chief arrow and create duel system
         if(expansion)
         {
             deck.createDeck();
@@ -326,7 +326,7 @@ public class Game {
     {
         rolesDoA[0] = getDeadList().size();
         rolesDoA[1] = getTableSeating().size();
-        System.out.println("Alive: " + rolesDoA[0] + "\t Dead: " + rolesDoA[1]);
+        //System.out.println("Alive: " + rolesDoA[0] + "\t Dead: " + rolesDoA[1]);
         boolean zombieMaster = false; //used if case of 2 renegades (8 players)
         int totalAlive = getTableSeating().size();
         for(Player player : getTableSeating())
@@ -350,7 +350,7 @@ public class Game {
     }
         
     
-    public void printGameSetup()
+    public void printGameSetup() //used as test method
     {
         System.out.println("There are " + getTotalPlayers() + " players in the game.\n");
         
@@ -366,7 +366,7 @@ public class Game {
         }
     }
     
-    public void printGameStatus()
+    public void printGameStatus() //used a test method
     {
         System.out.println("----------------------------\nThere are " + getTableSeating().size() + " players left");
         for(Player player : getTableSeating())

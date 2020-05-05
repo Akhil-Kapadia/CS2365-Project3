@@ -631,13 +631,6 @@ public class DiceGameGUI extends javax.swing.JFrame {
             if((DiceToReroll-1) == dice.getDiceIndex())
                 dice.setReroll(true, getName());
         }
-        //Die1.setText(String.valueOf()); // Number for die 1 White 1
-        //Die2.setText(String.valueOf()); // Number for die 2 White 2
-        //Die3.setText(String.valueOf()); // Number for die 3 White 3
-        //Die4.setText(String.valueOf()); // Number for die 4 Black 1 or White 4
-        //Die5.setText(String.valueOf()); // Number for die 5 Black 2 or White 5
-        //Die6.setText(String.valueOf()); // Number for die 6 Coward
-        //Die7.setText(String.valueOf()); // Number for die 7 Loudmouth
     }//GEN-LAST:event_RerollDiceActionPerformed
 
     private void DoneWithRollingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DoneWithRollingActionPerformed
@@ -678,12 +671,12 @@ public class DiceGameGUI extends javax.swing.JFrame {
         {
             diceHandler.setDiceArray(diceHandler.rollAllDice());
             usedReroll();
-            if(diceHandler.checkFrequency("Dynamite") >= 3)
+            if(diceHandler.checkFrequency("Dynamite") >= 3) //if three dynamite stop rerolling
             {
                 while(getReroll() > 0)
                     usedReroll();
             }
-            if(getExpansion())
+            if(getExpansion()) //if expansion handle dice as they come up that need to be
             {
                 for(Dice dice : diceHandler.getDiceArray())
                 {
@@ -767,15 +760,6 @@ public class DiceGameGUI extends javax.swing.JFrame {
         ArrowsRolled.setText(String.valueOf(getArrowCount()));
 
         setDiceArray(diceArray);
-               
-        
-        //Die1.setText(String.valueOf()); // Number for die 1 White 1
-        //Die2.setText(String.valueOf()); // Number for die 2 White 2
-        //Die3.setText(String.valueOf()); // Number for die 3 White 3
-        //Die4.setText(String.valueOf()); // Number for die 4 Black 1 or White 4
-        //Die5.setText(String.valueOf()); // Number for die 5 Black 2 or White 5
-        //Die6.setText(String.valueOf()); // Number for die 6 Coward
-        //Die7.setText(String.valueOf()); // Number for die 7 Loudmouth
     }//GEN-LAST:event_RollRerollsActionPerformed
 
     private void NumRerollsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NumRerollsActionPerformed

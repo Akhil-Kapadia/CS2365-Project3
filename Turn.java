@@ -255,6 +255,7 @@ public class Turn {
                 {
                     mostArrows = p;
                     maxArrows = p.getArrowCount();
+                    tie = false;
                 }
                 else if(p.getArrowCount() == maxArrows)
                     tie = true;

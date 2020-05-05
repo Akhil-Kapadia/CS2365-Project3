@@ -851,9 +851,6 @@ public class GameGUI extends javax.swing.JFrame {
         // TODO add your handling code here: // Button is used to update all the players variables
         setTableSeating();
         ArrayList<Player> tableSeating = getTableSeating();
-        int Num = 5;
-        String ShootTarget; // variable String of who to shoot
-        String HealPlayer; // variable String of who to heal
         
         if(getGame().getTableSeating().size() < 1)
         {
@@ -1037,7 +1034,8 @@ public class GameGUI extends javax.swing.JFrame {
 
         ArrowPile.setText(String.valueOf(getGame().getArrowPile()));
         CardPile.setText(String.valueOf(getGame().getCardPile()));
-        IndianChiefArrow.setText(getGame().arrow.UseArrow()); //Send the name of holder of the indian chief arrow
+        if(getGame().getExpansion())
+            IndianChiefArrow.setText(getGame().arrow.UseArrow()); //Send the name of holder of the indian chief arrow
 
         jTextArea1.setText(getOutput()); //To get the Events of the last turn
     }//GEN-LAST:event_UpdateActionPerformed
@@ -1051,6 +1049,7 @@ public class GameGUI extends javax.swing.JFrame {
             {
                 resetDiceCount();
                 DiceGameGUI obj = new DiceGameGUI(); //This will show the DiceGameGUI
+                //pass through the values needed to the gui
                 obj.setExpansion(getGame().getExpansion());
                 obj.setName(getTurn().getTableSeating().get(getIndex()).getCharacterName());
                 obj.setTurn(turn);
@@ -1058,12 +1057,11 @@ public class GameGUI extends javax.swing.JFrame {
                 setDiceGUI(obj);
             }
             else                
-                getTurn().AIDiceRoll();
-            getTurn().resolveDice();
-            //getTurn().playTurn(getGame().getTableSeating().get(getIndex()).getUser());
+                getTurn().AIDiceRoll(); //call the turn function to automate a turn
+            getTurn().resolveDice(); //resolve the dice from the turn that just occured
             setGameOver(getTurn().getGameOver());
             setGame(getGame().updateGame(getTurn()));
-            if(getGame().getExpansion() && !getGame().getDoA() && !getGameOver())
+            if(getGame().getExpansion() && !getGame().getDoA() && !getGameOver()) //dead people draw at end of turn
                 getGame().deadDraw();
             String output = "";
             if(getGameOver())
@@ -1098,8 +1096,8 @@ public class GameGUI extends javax.swing.JFrame {
                 }
             }
             
-            setIndex(getGame().getIndex());
-            setOutput(getTurn().getOutput());
+            setIndex(getGame().getIndex()); //set index to next player
+            setOutput(getTurn().getOutput()); //update the string for what occured
             //getGame().printGameStatus();
         }
         if(getGameOver())
@@ -1116,7 +1114,7 @@ public class GameGUI extends javax.swing.JFrame {
         Turn turn = getTurn();
         DiceGameGUI obj = getDiceGUI();
         int c = 1;
-        for(Dice dice: obj.getDiceArray())
+        for(Dice dice: obj.getDiceArray()) //print out the dice the user rolled
         {
             output = output + c + ": " + dice.getDiceString() + "\n";
             c++;
@@ -1182,7 +1180,7 @@ public class GameGUI extends javax.swing.JFrame {
         }
         else if(diceString.equals("Shoot person one over left or right twice"))
         {
-            if(getAgain() == false)
+            if(getAgain() == false) //used to make shooting happen twice, but still update the gui each time
                 setAgain(true);
             else
                 setAgain(false);
@@ -1210,7 +1208,7 @@ public class GameGUI extends javax.swing.JFrame {
         }
         else if(diceString.equals("Shoot person two over left or right twice"))
         {
-            if(getAgain() == false)
+            if(getAgain() == false) //used to make shooting happen twice, but still update the gui each time
                 setAgain(true);
             else
                 setAgain(false);
@@ -1240,7 +1238,7 @@ public class GameGUI extends javax.swing.JFrame {
         }
         else if(diceString.equals("Double Beer"))
         {
-            if(getAgain() == false)
+            if(getAgain() == false) //used to make healing happen twice, but still update the gui each time
                 setAgain(true);
             else
                 setAgain(false);
@@ -1271,7 +1269,7 @@ public class GameGUI extends javax.swing.JFrame {
                 }
             }
 
-            for(Dice d : diceHandler.getDiceArray())
+            for(Dice d : diceHandler.getDiceArray()) //duel guns are resolved last
             {
                 if(d.getDiceString().equals("Duel Guns"))
                 {
@@ -1283,7 +1281,7 @@ public class GameGUI extends javax.swing.JFrame {
                             list = list + count + ": " + player1.getCharacterName() + "\n";
                         count++;
                     }
-                    DuelGUI obj1 = new DuelGUI();
+                    DuelGUI obj1 = new DuelGUI(); //open a new duel gui
                     obj1.setNames(list);
                     obj1.setVisible(true);
                     obj1.setTableSeating(player);
@@ -1315,7 +1313,7 @@ public class GameGUI extends javax.swing.JFrame {
         WhoToHeal.setText("");
         
         if(getAgain())
-            decreaseDiceCount();
+            decreaseDiceCount(); //decrease the dicecount by one to repeat to heal to act as a pseudo double dice
     }//GEN-LAST:event_healChoiceActionPerformed
 
     private void ShootChoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShootChoiceActionPerformed
@@ -1323,7 +1321,7 @@ public class GameGUI extends javax.swing.JFrame {
         //shooting choice
         Turn turn = getTurn();
         int targetPlayer = (int)Float.parseFloat(ShootPerson.getText());
-        if(getShootValue() == 1)
+        if(getShootValue() == 1) //value is the range of shooting
             turn.bullsEyex1(targetPlayer-1);
         else if(getShootValue() == 2)
             turn.bullsEyex2(targetPlayer-1);
@@ -1331,7 +1329,7 @@ public class GameGUI extends javax.swing.JFrame {
         WhoToShoot.setText("");
         
         if(getAgain())
-            decreaseDiceCount();
+            decreaseDiceCount();  //decrease the dicecount by one to repeat to shoot to act as a pseudo double dice
     }//GEN-LAST:event_ShootChoiceActionPerformed
 
     /**
