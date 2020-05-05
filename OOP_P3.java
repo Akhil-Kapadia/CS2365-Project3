@@ -1049,6 +1049,28 @@ class AIDecisionMaking
     }
     
     /**
+    * Method picks what the 5th Dice should be during the Expansion Game modes
+    * @param CurrentPlayer Player, The Player whose turn it is
+    * @return Integer, will return which dice has been selected
+    */
+    private int ExpansionDice(Player CurrentPlayer)
+    {
+        if(CurrentPlayer.getRole().equals("Sheriff") || CurrentPlayer.getRole().equals("Outlaw"))
+        {
+            return 3;
+        }
+        else if(CurrentPlayer.getRole().equals("Deputy"))
+        {
+            return 1;
+        }
+        else
+        {
+            return 2;
+        }
+        
+    }
+    
+    /**
     * Method that sets dice with certain faces to be Rerolled
     * @param D ArrayList<Dice>, The ArrayList of Dice objects that will be 
     * checked for Rerolling.
