@@ -1,8 +1,9 @@
 package cs2365_project3;
 
 /**
- * Chief Indian Arrow class just tracks who holds the Chief Indian Arrow
+ * The Chief Arrow class is responsible for assigning the Chief Arrow to a player.
  * @author Demetrios Mihaltses
+ * Collaborators: Jacob Strickland
  */
 public class ChiefArrow 
 {
@@ -23,8 +24,7 @@ public class ChiefArrow
     }
     
     /**
-    * Method for when the Chief Indian Arrow is used, this method clears the 
-    * Ownership
+    * Method to check who owns the Chief Arrow
     * @return Owner String, The Name of the Current Owner
     */
     public String UseArrow()

@@ -2,16 +2,10 @@ package cs2365_project3;
 
 import java.util.ArrayList;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/** GUI for the Dueling
+/** GUI for the Dueling part of the Game
  * @author Chase Willis
  * @version 1.0
- * @return Who loses health based one how the dueling goes.
+ * Collaborators: Jacob Strickland
 */
 public class DuelGUI extends javax.swing.JFrame {
 
@@ -21,7 +15,7 @@ public class DuelGUI extends javax.swing.JFrame {
     private Player player;
     
     /**
-     * Method to initialize gui for duel
+     * Method to initialize gui for duel.
      */
     public DuelGUI() {
         initComponents();
@@ -65,7 +59,7 @@ public class DuelGUI extends javax.swing.JFrame {
     
     /**
      * Method to set winner boolean
-     * @param winner boolean
+     * @param winner Boolean
      */
     public void setWinner(boolean winner)
     {
@@ -73,8 +67,8 @@ public class DuelGUI extends javax.swing.JFrame {
     }
     
     /**
-     * Method to get if there is a winner fro setWinner method
-     * @return winner boolean
+     * Method to get if there is a winner
+     * @return winner Boolean
      */
     public boolean getWinner()
     {
@@ -83,7 +77,7 @@ public class DuelGUI extends javax.swing.JFrame {
     
     /**
      * Method to set the player 
-     * @param player 
+     * @param player Player, the player that will be set
      */
     public void setPlayer(Player player)
     {
@@ -277,11 +271,17 @@ public class DuelGUI extends javax.swing.JFrame {
         //IGNORE
     }//GEN-LAST:event_DuelPlayerActionPerformed
 
+    /**
+     * Method that will close the duel gui when button is pressed.
+     */
     private void DuelDoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DuelDoneActionPerformed
         // TODO add your handling code here:
         this.dispose(); //Get rid of the GUI 
     }//GEN-LAST:event_DuelDoneActionPerformed
 
+    /**
+     * Method that will allow the user roll their dice when the button is pressed.
+     */
     private void YourRollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YourRollActionPerformed
         // TODO add your handling code here:
         //Update Your Die
@@ -299,6 +299,9 @@ public class DuelGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_YourRollActionPerformed
 
+    /**
+     * Method that will allow the AI to roll their dice when the button is pressed.
+     */
     private void TheirRollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TheirRollActionPerformed
         // TODO add your handling code here:
         //Update Player you Challenged Die

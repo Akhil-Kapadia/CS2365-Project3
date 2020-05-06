@@ -8,7 +8,7 @@ package cs2365_project3;
 /** GUI for the Game set up
  * @author Chase Willis
  * @version 1.0
- * @return Number of people and using expansions or not.
+ * Collaborators: Jacob Strickland
 */
 public class GameSetUpUI extends javax.swing.JFrame {
 
@@ -106,6 +106,9 @@ public class GameSetUpUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+    * Method that will create a new game with the given values when button is pressed.
+    */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int num_players, expansions;
         num_players = (int)Float.parseFloat(jTextField1.getText());

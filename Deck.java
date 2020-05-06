@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * 
- * @author 
+ * The Deck class is responsible for creation of a deck and drawing of cards.
+ * @author Jacob Strickland
  */
 public class Deck {
     private ArrayList<Card> deck = new ArrayList<Card>();
     
     /**
-     * Method to create deck
+     * Method to create deck the deck of cards with correct values.
      */
     public void createDeck()
     {
@@ -38,7 +38,8 @@ public class Deck {
     }
     
     /**
-     * Method to draw a card deck and check if card is zero to reshuffle back in deck
+     * Method to draw a card from the deck. 
+     * If card is zero to reshuffle back in deck
      * @return drawnValue integer
      */
     public int drawCard()

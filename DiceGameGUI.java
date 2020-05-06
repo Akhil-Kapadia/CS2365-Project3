@@ -2,10 +2,10 @@ package cs2365_project3;
 
 import java.util.ArrayList;
 
-/** GUI for the Game
+/** GUI for the Dice Section of the Game
  * @author Chase Willis
  * @version 1.0
- * @return What dice they are going to roll, rerolls, duel, what the user rolled
+ * Collaborators: Jacob Strickland
 */
 public class DiceGameGUI extends javax.swing.JFrame {
 
@@ -42,7 +42,7 @@ public class DiceGameGUI extends javax.swing.JFrame {
     }
     
     /**
-     * Method sets wheter expansion is selected or not 
+     * Method sets whether expansion is selected or not 
      * @param expansion boolean, true if expansion is selected to play
      */
     public void setExpansion(boolean expansion)
@@ -139,7 +139,7 @@ public class DiceGameGUI extends javax.swing.JFrame {
 
     /**
      * Method sets the turn for player to have turn and roll dice and play game
-     * @param turn 
+     * @param turn Turn, the turn that will be set
      */
     public void setTurn(Turn turn)
     {
@@ -676,6 +676,9 @@ public class DiceGameGUI extends javax.swing.JFrame {
         // Ignore This
     }//GEN-LAST:event_Die7ActionPerformed
 
+    /**
+     * Method that will set dice to be rerolled when the button is pressed.
+     */
     private void RerollDiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RerollDiceActionPerformed
         // TODO add your handling code here:
         int DiceToReroll;
@@ -690,11 +693,17 @@ public class DiceGameGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_RerollDiceActionPerformed
 
+    /**
+     * Method that close the Dice GUI when the button is pressed.
+     */
     private void DoneWithRollingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DoneWithRollingActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
     }//GEN-LAST:event_DoneWithRollingActionPerformed
 
+    /**
+     * Method that will roll the dice when the button is pressed.
+     */
     private void RollRerollsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RollRerollsActionPerformed
         // TODO add your handling code here:
         setDieChoice((int)Float.parseFloat(DieOption.getText()));
@@ -823,6 +832,9 @@ public class DiceGameGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_NumRerollsActionPerformed
 
+    /**
+     * Method that take the Chief Arrow if available when the button is pressed.
+     */
     private void TakeChiefArrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TakeChiefArrowActionPerformed
         // TODO add your handling code here:
         Turn turn = getTurn();

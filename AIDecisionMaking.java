@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Dice to Reroll.
  * @author Demetrios Mihaltses
  */
-class AIDecisionMaking
+public class AIDecisionMaking
 {  
     //A Random number generator
     Random rand = new Random();
@@ -23,7 +23,7 @@ class AIDecisionMaking
     * @param CurrentPlayer Player, Player who is currently making a move
     * @param GameObject String, The String of the Dice Value in which the Player
     * is acting upon.
-    * @param TotP ArrayList<Player>, ArrayList of the all the Players objects 
+    * @param TotP ArrayList, ArrayList of the all the Players objects 
     * at the table.
     * @return Player, returns the Targeted Player with the Highest Favor
     */
@@ -503,8 +503,8 @@ class AIDecisionMaking
     
     /**
     * Method that gets the highest favored player to engage in a dual
-    * @param CPlayer Player, the Current Player who is making moves
-    * @param TotP ArrayList<Player>, ArrayList of the all the Players objects 
+    * @param CurrentPlayer Player, the Current Player who is making moves
+    * @param TotP ArrayList, ArrayList of the all the Players objects 
     * at the table.
     * @return Player, who has the highest favor to be shot will be who the 
     * player will engage with in a dual
@@ -538,9 +538,9 @@ class AIDecisionMaking
     * Method that gets all the Players who hold a specific role
     * @param T String, The Role that you want to retrieve
     * @param CN String, The Character Name of the Current Player making moves
-    * @param TotP ArrayList<Player>, ArrayList of the all the Players objects at
+    * @param TotP ArrayList, ArrayList of the all the Players objects at
     * the table.
-    * @return ArrayList<Player> , a List of all Player Objects who have the
+    * @return ArrayList , a List of all Player Objects who have the
     * designated Role.
     */
     private ArrayList<Player> getPlayerType(String T, String CN, ArrayList<Player> TotP)
@@ -563,11 +563,11 @@ class AIDecisionMaking
     
     /**
     * Method that Sorts a List of Players by their Current Health
-    * @param Data ArrayList<Player>, ArrayList of the all the Players objects at
+    * @param Data ArrayList, ArrayList of the all the Players objects at
     * the table.
     * @param GreatestToSmallest Boolean, whether or not you want it to sort 
     * Greatest to Smallest or vice versa.
-    * @return ArrayList<Player> , a List of all Player Objects who have been
+    * @return ArrayList, a List of all Player Objects who have been
     * sorted via their Current Health.
     */
     private ArrayList<Player> sortPlayersHealth(ArrayList<Player> Data, boolean GreatestToSmallest)
@@ -609,7 +609,7 @@ class AIDecisionMaking
     /**
     * Method that gets the exact index where the Current Player is at the Table
     * @param CN String, The Character Name of the Current Player making moves
-    * @param TotP ArrayList<Player>, ArrayList of the all the Players objects at
+    * @param TotP ArrayList, ArrayList of the all the Players objects at
     * the table.
     * @return Integer, the Index where the Current Player is at the Table
     */
@@ -636,7 +636,7 @@ class AIDecisionMaking
     * @param CurrentMove String, The Action that the Player is looking to apply
     * @param PlayerI Integer, The Index where the Current Player is located at 
     * the table.
-    * @param TotP ArrayList<Player>, ArrayList of the all the Players objects at
+    * @param TotP ArrayList, ArrayList of the all the Players objects at
     * the table.
     * @return String, An adjusted Action based upon the Players positioning at 
     * the Table and the size of the Table.
@@ -685,11 +685,11 @@ class AIDecisionMaking
     /**
     * Method that handles all of the Rerolling Decisions
     * @param CurrentPlayer Player, the Current Player who is making moves
-    * @param D ArrayList<Dice>, The ArrayList of Dice objects that will be 
+    * @param D ArrayList, The ArrayList of Dice objects that will be 
     * checked for Rerolling.
-    * @param TotP ArrayList<Player>, ArrayList of the all the Players objects at
+    * @param TotP ArrayList, ArrayList of the all the Players objects at
     * the table.
-    * @return ArrayList<Dice> , will return an ArrayList of all the Dice Objects
+    * @return ArrayList, will return an ArrayList of all the Dice Objects
     */
      public ArrayList<Dice> RerollHandler(Player CurrentPlayer, ArrayList<Dice> D, ArrayList<Player> TotP)
     {
@@ -759,7 +759,7 @@ class AIDecisionMaking
     * Method that counts how many Dice have been rolled with a selected face
     * @param Face Integer, the numeric value of the Face that you are trying to
     * check for.
-    * @param D ArrayList<Dice>, The ArrayList of Dice objects that will be 
+    * @param D ArrayList, The ArrayList of Dice objects that will be 
     * checked for Rerolling.
     * @return Integer, will return the number of Dice with the selected face
     */
@@ -779,12 +779,12 @@ class AIDecisionMaking
     
     /**
     * Method that sets dice with certain faces to be Rerolled
-    * @param D ArrayList<Dice>, The ArrayList of Dice objects that will be 
+    * @param D ArrayList, The ArrayList of Dice objects that will be 
     * checked for Rerolling.
     * @param Type Integer, is a numeric value that will tell the method which 
     * dice could be rerolled.
     * @param CurrentPlayer Player, the Current Player who is making moves
-    * @return ArrayList<Dice> , will return an ArrayList of all the Dice Objects
+    * @return ArrayList, will return an ArrayList of all the Dice Objects
     */
     private ArrayList<Dice> Reroll(ArrayList<Dice> D, int Type, Player CurrentPlayer)
     {
@@ -878,7 +878,7 @@ class AIDecisionMaking
     /**
     * Method that handles Dice Rerolling if the Game Mode has been changed to 
     * Dead Or Alive.
-    * @param TotP ArrayList<Player>, ArrayList of the all the Players objects at
+    * @param TotP ArrayList, ArrayList of the all the Players objects at
     * the table.
     * @param @param CurrentPlayer Player, the Current Player who is making moves
     * @return String, An adjusted Action based upon the Players role at and the 

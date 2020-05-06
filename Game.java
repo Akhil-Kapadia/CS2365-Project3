@@ -3,6 +3,14 @@ package cs2365_project3;
 import java.util.Random;
 import java.util.ArrayList;
 
+/**
+ * The Game class is responsible setting up the game and then storing the data
+ * as it occurs throughout the game.
+ * Responsibilities include: performing game setup, performing dead or alive setup,
+ * storing data that comes in from the turn class.
+ * @author Jacob Strickland
+ * Collaborators: Colin Morrsion
+ */
 public class Game {
     Random rand = new Random();
 
@@ -30,9 +38,9 @@ public class Game {
     ChiefArrow arrow;
     
     /**
-     * 
-     * @param totalPlayers
-     * @param expansion 
+     * The constructor for the game class
+     * @param totalPlayers Integer, the total players in the game
+     * @param expansion Boolean, true if playing with expansions
      */
     public Game(int totalPlayers, boolean expansion)
     {
@@ -41,7 +49,7 @@ public class Game {
     }
     
     /**
-     * Mehod to get total number of players in game
+     * Method to get total number of players in game
      * @return integer, number of players playing
      */
     public int getTotalPlayers()
@@ -67,7 +75,7 @@ public class Game {
     }
     
     /**
-     * Method to get table seating arrylist
+     * Method to get table seating arraylist
      * @return arrayList
      */
     public ArrayList<Player> getTableSeating()
@@ -86,7 +94,7 @@ public class Game {
     
     /**
      * Method adds a dead player to dead list
-     * @param newPlayer 
+     * @param newPlayer Player, the player to be added to the dead list
      */
     public void addDeadList(Player newPlayer)
     {
@@ -104,7 +112,7 @@ public class Game {
     
     /**
      * Method to set the dead list 
-     * @param newSeating 
+     * @param newSeating ArrayList, the array list of players to set as the dead list
      */
     public void setDeadList(ArrayList<Player> newSeating)
     {
@@ -137,6 +145,7 @@ public class Game {
     {
         return this.expansion;
     }
+    
     /**
      * Method to get if to play dead or alive game
      * @return boolean true if DoA
@@ -147,19 +156,27 @@ public class Game {
     }
     
     /**
-     * 
-     * @param index 
+     * Method to set the index of the current player
+     * @param index Integer, the index of the current player
      */
     public void setIndex(int index)
     {
         this.index = index;
     }
     
+    /**
+     * Method to get the index of the current player
+     * @return Integer, the index of the current player
+     */
     public int getIndex()
     {
         return this.index;
     }
     
+    /**
+     * Method to get the total value of cards drawn
+     * @return Integer, the value of the total cards drawn so far
+     */
     public int getCardPile()
     {
         return this.drawnCount;
@@ -209,8 +226,8 @@ public class Game {
     
     /**
      * Method to update the game information after a players turn 
-     * @param turn
-     * @return table seating, dead list, arrow pile, role, arrow, tokens
+     * @param turn Turn, the turn to update the game with
+     * @return Game, the game object
      */
     public Game updateGame(Turn turn)
     {
@@ -228,7 +245,7 @@ public class Game {
     }
     
     /**
-     * Method for dead player to draw a card from graveyard and check conditions for Dead or alive game 
+     * Method for dead player to draw a card from graveyard and check conditions for Dead or alive game. 
      */
     public void deadDraw()
     {
@@ -247,7 +264,7 @@ public class Game {
     }
   
     /**
-     * Method to set up game and create graveyard deck, arrow pile, and add players to list totalPlayers
+     * Method to set up game and create graveyard deck, arrow pile, and add players to list totalPlayers.
      */
     public void gameSetup()
     {
@@ -313,8 +330,8 @@ public class Game {
     
     /**
      * Method to create player, set role, set health points, and set character name
-     * @param index
-     * @return 
+     * @param index Integer, the index of the current player
+     * @return newPlayer Player, the player that was created
      */
     public Player createPlayer(int index)
     {        
@@ -406,7 +423,7 @@ public class Game {
     
     /**
      * Method to setup zombies if dead or alive requirements are met, sets zombie master if applicable, 
-     * and sets all alive players roles to be alive and the dead players roles to dead 
+     * and sets all alive players roles to be alive and the dead players roles to dead.
      */
     public void zombieSetup()
     {
@@ -437,7 +454,7 @@ public class Game {
         
     /**
      * Test method to print the game setup to make sure players were being being 
-     * created properly
+     * created properly.
      */
     public void printGameSetup() //used as test method
     {
@@ -457,7 +474,7 @@ public class Game {
     
     /**
      * Test method to print number of players left in game and print players updated 
-     * role, health, and arrows
+     * role, health, and arrows.
      */
     public void printGameStatus() //used a test method
     {

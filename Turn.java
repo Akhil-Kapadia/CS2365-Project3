@@ -9,6 +9,7 @@ import java.util.Scanner;
  * Responsibilities include: rolling dice, resolving dice, checking if player
  * died, checking if game over.
  * @author Akhil Kapadia
+ * Collaborators: Jacob Strickland
  */
 public class Turn {
 
@@ -54,17 +55,17 @@ public class Turn {
     ChiefArrow arrow;
     
     /**
-     * 
-     * @param tableSeating
-     * @param deadList
-     * @param arrowPile
-     * @param current
-     * @param roles
-     * @param rolesDoA
-     * @param arrow
-     * @param tokens
-     * @param expansion
-     * @param DoA 
+     * Constructor for the Turn class
+     * @param tableSeating ArrayList, the list of alive players
+     * @param deadList ArrayList, the list of dead players
+     * @param arrowPile Integer, the amount of arrows left in the pile to be taken
+     * @param current Integer, the index of the current player's turn
+     * @param roles Integer[], the count of each role that is left alive in the game
+     * @param rolesDoA Integer[], the count of each role that is left in dead or alive game
+     * @param arrow ChiefArrow, the chief arrow
+     * @param tokens Token, the tokens for the duel system
+     * @param expansion Boolean, true if playing with expansions
+     * @param DoA Boolean, true if dead or alive game mode has started
      */
     public Turn(ArrayList<Player> tableSeating, ArrayList<Player> deadList, int arrowPile, int current, int[] roles, 
             int[] rolesDoA, ChiefArrow arrow, Token tokens, boolean expansion, boolean DoA)
@@ -89,7 +90,7 @@ public class Turn {
     
     /**
      * Method sets the game gui
-     * @param gui 
+     * @param gui GameGUI, the gui to set the gui as
      */
     public void setGUI(GameGUI gui)
     {
@@ -98,13 +99,17 @@ public class Turn {
     
     /**
      * Method gets game gui 
-     * @return 
+     * @return GameGUI, the game gui that was modified
      */
     public GameGUI getGUI()
     {
         return this.GUI;
     }
     
+    /**
+     * Method gets the index of the current player 
+     * @return Integer, the index of the current player
+     */
     public int getIndex()
     {
         return this.currentPlayer;
@@ -220,6 +225,10 @@ public class Turn {
         return new ArrayList<>(deadList);
     }
 
+    /**
+    * Method that gets the Chief Arrow.
+    * @return ChiefArrow, the arrow that is currently in use
+    */
     public ChiefArrow getChiefArrow()
     {
         return arrow;
@@ -245,11 +254,18 @@ public class Turn {
         return this.gameOver;
     }
 
+    /**
+    * Method that sets the win condition.
+    */
     public void setWinCond()
     {
         this.winCond = winCondition();
     }
 
+    /**
+    * Method that gets the win condition.
+    * @return Integer, the win condition of the game
+    */
     public int getWinCond()
     {
         return this.winCond;
@@ -277,6 +293,10 @@ public class Turn {
 
     }
 
+    /**
+     * Method that causes an indian attack to take place.
+     * Will also account for Chief Arrow when seeing if players take damage.
+     */
     public void indianAttack()
     {
         //System.out.println("Indians Attack!");
@@ -355,6 +375,9 @@ public class Turn {
         output = output + "\n";
     }
     
+    /**
+     * Method that runs the logic for a broken arrow.
+     */
     public void brokenArrow()
     {
         int target = -1;
@@ -392,7 +415,7 @@ public class Turn {
     }
     
     /**
-     * Method to deal on damage to the player who rolls the bullet the displays players new health
+     * Method to deal on damage to the player who rolls the bullet the displays players new health.
      */
     public void bullet()
     {
@@ -405,7 +428,7 @@ public class Turn {
     }
     
     /**
-     * Method to add 1 health to player who rolls whiskey the diplays players new health 
+     * Method to add 1 health to player who rolls whiskey the displays players new health .
      */
     public void whiskey()
     {
@@ -423,7 +446,7 @@ public class Turn {
      * If no special cases, the method determining whether the player to the left
      * or the right has worse favor, and shoots them dealing 1HP damage.
      * 
-     * @param jack boolean Used to tell if his ability has been used.
+     * @param target Integer, the index of the player to shoot from the user
      */
     public void bullsEyex1(int target)
     {
@@ -473,7 +496,7 @@ public class Turn {
      * If no special cases, the method determining whether the player to the left
      * or the right has worse favor, and shoots them dealing 2HP damage.
      * 
-     * @param jack boolean Used to tell if his ability has been used.
+     * @param target Integer, the index of the player to shoot from the user
      */
     public void bullsEyex2(int target)
     {
@@ -523,6 +546,7 @@ public class Turn {
      * Method for the beer dice. If current player is at max health, then HP
      * is added to the person with the highest favor. If not at max health 
      * then add to his own. Also handles Jesse Jones ability.
+     * @param targetIndex Integer, the target of who to heal from the user
      */
     public void beer(int targetIndex)
     {
@@ -556,7 +580,7 @@ public class Turn {
     }
     
     /**
-     * Method for gatling gun to shoot players
+     * Method for gatling gun to shoot players.
      * Paul Regrets special ability is also in here so they can not take any damage
      * After shooting method checks for any deaths then displays whos taken damage
      * and players new health
@@ -593,6 +617,11 @@ public class Turn {
             output = output + "\n";
     }
     
+    /**
+     * Method that runs the duel dice.
+     * Will pick a player to duel and then roll dice until someone loses.
+     * Then assigns duel tokens to the players
+     */
     public void duel()
     {
         int targetIndex;
@@ -807,7 +836,8 @@ public class Turn {
     }
 
     /**
-     * Handles the actual play of the turn.
+     * Handles the resolution of the dice.
+     * Handles them in proper order
      */
     public void resolveDice()
     {
@@ -960,10 +990,10 @@ public class Turn {
         }
     }
     /**
-     * Method to check if player is dead and if so displays whos died and their roe.
-     * Vulture Sams special ability is also in here
-     * @param damagedPlayer
-     * @return 
+     * Method to check if player is dead and if so displays whose died and their roe.
+     * Vulture Sam's special ability is also in here
+     * @param damagedPlayer Player, the damaged player to check if they died
+     * @return Boolean, true if player died
      */
     public boolean checkPlayerDeath(Player damagedPlayer)
     {

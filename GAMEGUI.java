@@ -1,17 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cs2365_project3;
 
 import java.util.ArrayList;
 
-/** GUI for the Game
+/** GUI for the Game part of the Game
  * @author Chase Willis
  * @version 1.0
- * @return Who to shoot and heal also goes to the DiceGameGUI. Also shows the players stats
- * 
+ * Collaborators: Jacob Strickland
 */
 public class GameGUI extends javax.swing.JFrame {
 
@@ -27,7 +21,7 @@ public class GameGUI extends javax.swing.JFrame {
     private boolean again; //used to handle double shoot and heal
     
     /**
-     * Method to initialize game gui
+     * Method to initialize game gui.
      */
     public GameGUI() {
         initComponents();
@@ -35,7 +29,7 @@ public class GameGUI extends javax.swing.JFrame {
     
     /**
      * Method to set the game 
-     * @param game 
+     * @param game Game, the game to set the game as
      */
     public void setGame(Game game)
     {
@@ -82,7 +76,7 @@ public class GameGUI extends javax.swing.JFrame {
     
     /**
      * Method to set the turn
-     * @param turn 
+     * @param turn Turn, the turn to set the turn as
      */
     public void setTurn(Turn turn)
     {
@@ -99,7 +93,7 @@ public class GameGUI extends javax.swing.JFrame {
     }
     
     /**
-     * Mthod to set the table seating for the game
+     * Method to set the table seating for the game.
      */
     public void setTableSeating()
     {
@@ -135,7 +129,7 @@ public class GameGUI extends javax.swing.JFrame {
     
     /**
      * Method to set the dice gui to see roll results in game gui
-     * @param obj 
+     * @param obj DiceGameGUI, the gui to set the gui as
      */
     public void setDiceGUI(DiceGameGUI obj)
     {
@@ -151,7 +145,7 @@ public class GameGUI extends javax.swing.JFrame {
     }
     
     /**
-     * Method to reset the dice count so next player can roll all needed dice
+     * Method to reset the dice count so next player can roll all needed dice.
      */
     public void resetDiceCount()
     {
@@ -159,7 +153,7 @@ public class GameGUI extends javax.swing.JFrame {
     }
     
     /**
-     * Method to increase the dice count by 1
+     * Method to increase the dice count by 1.
      */
     public void increaseDiceCount()
     {
@@ -167,7 +161,7 @@ public class GameGUI extends javax.swing.JFrame {
     }
     
     /**
-     * Method to decrease the dice amount by 1
+     * Method to decrease the dice amount by 1.
      */
     public void decreaseDiceCount()
     {
@@ -201,11 +195,19 @@ public class GameGUI extends javax.swing.JFrame {
         return this.shootValue;
     }
     
+    /**
+     * Method that will set value for repeating an action.
+     * @param set Boolean, true if repeat action
+     */
     public void setAgain(boolean set)
     {
         this.again = set;
     }
     
+    /**
+     * Method that will get value for repeating an action
+     * @return Boolean, true if repeat action
+     */
     public boolean getAgain()
     {
         return this.again;
@@ -918,6 +920,9 @@ public class GameGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Method that will update the gui when button pressed.
+     */
     private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
         // TODO add your handling code here: // Button is used to update all the players variables
         setTableSeating();
@@ -1111,6 +1116,9 @@ public class GameGUI extends javax.swing.JFrame {
         jTextArea1.setText(getOutput()); //To get the Events of the last turn
     }//GEN-LAST:event_UpdateActionPerformed
 
+    /**
+     * Method that will cause the next turn to take place when the button is pressed.
+     */
     private void NextTurnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NextTurnActionPerformed
         // TODO add your handling code here:
         if(!getGameOver())
@@ -1179,6 +1187,9 @@ public class GameGUI extends javax.swing.JFrame {
             //System.exit(0); //used to go to the next players turn
     }//GEN-LAST:event_NextTurnActionPerformed
 
+    /**
+     * Method that will allow the player to resolve their dice roll when the button is pressed.
+     */
     private void ResolveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResolveActionPerformed
         // TODO add your handling code here:
         String output = "";
@@ -1373,6 +1384,9 @@ public class GameGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ShootPersonActionPerformed
 
+    /**
+     * Method that will allow the user to heal a player when the button is pressed.
+     */
     private void healChoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_healChoiceActionPerformed
         // TODO add your handling code here:
         //healing choice
@@ -1387,6 +1401,9 @@ public class GameGUI extends javax.swing.JFrame {
             decreaseDiceCount(); //decrease the dicecount by one to repeat to heal to act as a pseudo double dice
     }//GEN-LAST:event_healChoiceActionPerformed
 
+    /**
+     * Method that will allow the user to shoot a player when the button is pressed.
+     */
     private void ShootChoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShootChoiceActionPerformed
         // TODO add your handling code here:
         //shooting choice

@@ -4,13 +4,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Dice Controller class 
- * @author 
+ * Dice Controller class is responsible for performing actions on the collective dice array.
+ * Responsibilities include: rolling all the dice, setup of the dice types, sorting the array
+ * @author Colin Morrsion
+ * Collaborators: Jacob Strickland
  */
 public class DiceController {
     
     ArrayList<Dice> diceArray;
     
+    /**
+     * The constructor for the DiceController class
+     * @param types Integer[], how much of each dice to make
+     */
     public DiceController(int[] types)
     {
         int index = 0;
@@ -41,16 +47,28 @@ public class DiceController {
         }
     }
     
+    /**
+     * Method that sets the dice array arraylist
+     * @param DA ArrayList, the arraylist of dice to be set
+     */
     public void setDiceArray(ArrayList<Dice> DA)
     {
         this.diceArray = DA;
     }
     
+    /**
+     * Method that gets the dice array arraylist
+     * @return ArrayList, the arraylist of dice
+     */
     public ArrayList<Dice> getDiceArray()
     {
         return new ArrayList<>(diceArray);
     }
     
+    /**
+     * Method that sorts the dice array arraylist
+     * @return ArrayList, the arraylist of dice
+     */
     public ArrayList<Dice> sortDiceArray() //sort the dice array by order of how you resolve
     {
         ArrayList<Dice> sortDiceArray = getDiceArray();
@@ -67,8 +85,8 @@ public class DiceController {
     }
     
     /**
-     * Method rolls all dice for tunr and checks for reroll and if true the rerolls
-     * @return array ArrayList
+     * Method rolls all dice for turn and checks for reroll and if true the rerolls
+     * @return array ArrayList, the array list of newly rolled dice
      */
     public ArrayList<Dice> rollAllDice()
     {
@@ -85,6 +103,11 @@ public class DiceController {
         return array;
     }
     
+    /**
+     * Method that checks the frequency of of give dice value
+     * @param diceValue String, the dice face that the frequency is to be checked for
+     * @return count Integer, the frequency of given string in dice arraylist
+     */
     public int checkFrequency(String diceValue)
     { 
         int count = 0;
@@ -96,8 +119,8 @@ public class DiceController {
     }
     
     /**
-     * Method prints the output of rolled dice 
-     * @return output string, string containing what was rolled
+     * Method prints the output of all rolled dice 
+     * @return output String, string containing what was rolled
      */
     public String printAllDice()
     {

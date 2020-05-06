@@ -3,8 +3,8 @@ package cs2365_project3;
 import java.util.Random;
 
 /**
- * Token class that creates a list of 4 possible tokens beer, shoot1, shoot2, and dynamite 
- * @author 
+ * Token class is responsible for creating tokens and allowing the players to get a token.
+ * @author Jacob Strickland
  */
 public class Token {
     Random rand = new Random();
@@ -12,7 +12,7 @@ public class Token {
     private int[] tokenList = {0,0,0,0};
     
     /**
-     * Method that creates the tokens and adds them to tokenList array
+     * Method that creates the tokens and adds them to tokenList array.
      */
     public void createTokens()
     {

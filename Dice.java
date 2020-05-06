@@ -3,8 +3,10 @@ package cs2365_project3;
 import java.util.Random;
 
 /**
- * Dice class that handles rolling, rerolling, normal dice, expansion dice, and dice face values
- * @author 
+ * Dice class is responsible for performing actions on a single die.
+ * Responsibilities include: rolling, rerolling, normal dice, expansion dice, and dice face values.
+ * @author Colin Morrison
+ * Collaborators: Jacob Strickland
  */
 public class Dice {
     Random rand = new Random();
@@ -16,7 +18,7 @@ public class Dice {
     
     /**
      * Method to create references to the objects of index, reroll, and type
-     * @param index integer, used to reference sides of dice by index
+     * @param index integer, used to reference the dice number
      * @param reroll boolean, true if reroll selected
      * @param type integer, to get which dice is being used
      */
@@ -58,7 +60,7 @@ public class Dice {
     
     /**
      * Method to get if reroll
-     * @return reroll boolean, true if reroll selected and possible 
+     * @return reroll Boolean, true if reroll selected and possible 
      */
     public boolean getReroll()
     {
@@ -67,7 +69,7 @@ public class Dice {
     
     /**
      * Method to get the dice value when rolled
-     * @return diceValue integer, number rolled when dice is rolled
+     * @return diceValue Integer, number rolled when dice is rolled
      */
     public int getDiceInt()
     {
@@ -76,7 +78,7 @@ public class Dice {
     
     /**
      * Method to return the dice index
-     * @return diceIndex integer
+     * @return diceIndex Integer
      */
     public int getDiceIndex()
     {
@@ -85,7 +87,7 @@ public class Dice {
     
     /**
      * Method to get the dice type for normal or expansion dice
-     * @return diceType integer, 1 normal dice, 2 duel dice, 3 coward dice, 4 loudmouth dice
+     * @return diceType Integer, 1 normal dice, 2 duel dice, 3 coward dice, 4 loudmouth dice
      */
     public int getDiceType()
     {
@@ -95,7 +97,7 @@ public class Dice {
     /**
      * Method to get which ie has been selected and dice values are set here 
      * Switch statement used after each dice type to get the dice integer which corresponds to attributes
-     * @return value string, attribute of dice side 
+     * @return value String, attribute of dice side 
      */
     public String getDiceString()
     {

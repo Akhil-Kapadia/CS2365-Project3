@@ -7,7 +7,7 @@ package cs2365_project3;
  * retrieve and alter the data.
  * @author Demetrios Mihaltses
  */
-class Player
+public class Player
 {
     //A String for the Character Name of the Player
     private String CharacterName;
@@ -30,6 +30,14 @@ class Player
     
     private int[] tokenList = {0,0,0,0};
     
+    /**
+    * Constructor for the Player class.
+    * @param CN String, the character name of the player
+    * @param R String, the role of the player
+    * @param PI Integer, the index of the player in the arraylist
+    * @param MH Integer, the max health of the player
+    * @param U Boolean, if the player is the user controller player or not
+    */
     public Player(String CN, String R, int PI, int MH, boolean U)
     {
         CharacterName = CN;
