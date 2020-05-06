@@ -2,11 +2,18 @@ package cs2365_project3;
 
 import java.util.Random;
 
+/**
+ * Token class that creates a list of 4 possible tokens beer, shoot1, shoot2, and dynamite 
+ * @author 
+ */
 public class Token {
     Random rand = new Random();
     
     private int[] tokenList = {0,0,0,0};
     
+    /**
+     * Method that creates the tokens and adds them to tokenList array
+     */
     public void createTokens()
     {
         int beer = 3;
@@ -19,6 +26,10 @@ public class Token {
         this.tokenList[3] = dynamite;
     }
     
+    /**
+     * Method to randomly chose a token then remove it from the list 
+     * @return randomIndex integer
+     */
     public int getToken()
     {
         int randomIndex = rand.nextInt(4);
@@ -36,6 +47,10 @@ public class Token {
         return randomIndex;
     }
     
+    /**
+     * Method adds tokens to token array
+     * @param tokens integer array 
+     */
     public void addToken(int[] tokens)
     {
         this.tokenList[0]+=tokens[0];

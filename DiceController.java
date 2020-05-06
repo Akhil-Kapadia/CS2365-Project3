@@ -3,6 +3,10 @@ package cs2365_project3;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Dice Controller class 
+ * @author 
+ */
 public class DiceController {
     
     ArrayList<Dice> diceArray;
@@ -62,6 +66,10 @@ public class DiceController {
         return diceArray;
     }
     
+    /**
+     * Method rolls all dice for tunr and checks for reroll and if true the rerolls
+     * @return array ArrayList
+     */
     public ArrayList<Dice> rollAllDice()
     {
         ArrayList<Dice> array = getDiceArray();
@@ -87,6 +95,10 @@ public class DiceController {
         return count;
     }
     
+    /**
+     * Method prints the output of rolled dice 
+     * @return output string, string containing what was rolled
+     */
     public String printAllDice()
     {
         String output = "";

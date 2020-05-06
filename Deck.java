@@ -3,9 +3,16 @@ package cs2365_project3;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * 
+ * @author 
+ */
 public class Deck {
     private ArrayList<Card> deck = new ArrayList<Card>();
     
+    /**
+     * Method to create deck
+     */
     public void createDeck()
     {
         for(int i = 0; i < 2; i++) //add two 0
@@ -30,6 +37,10 @@ public class Deck {
         
     }
     
+    /**
+     * Method to draw a card deck and check if card is zero to reshuffle back in deck
+     * @return drawnValue integer
+     */
     public int drawCard()
     {
         int drawnValue;

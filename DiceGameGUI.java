@@ -23,76 +23,133 @@ public class DiceGameGUI extends javax.swing.JFrame {
         initComponents();
     }
     
+    /**
+     * Method sets the dice choice 
+     * @param choice integer, which dice is selected
+     */
     public void setDieChoice(int choice)
     {
         this.dieChoice = choice;
     }
     
+    /**
+     * Method that gets the dice choice that was set in setDiceChoice
+     * @return dieChoice integer
+     */
     public int getDieChoice()
     {
         return this.dieChoice;
     }
     
+    /**
+     * Method sets wheter expansion is selected or not 
+     * @param expansion boolean, true if expansion is selected to play
+     */
     public void setExpansion(boolean expansion)
     {
         this.expansion = expansion;
     }
     
+    /**
+     * Method gets if expansion has been set from setExpansion method
+     * @return boolean, true if expansion selected 
+     */
     public boolean getExpansion()
     {
         return this.expansion;
     }
     
+    /**
+     * Method to set player names 
+     * @param name string
+     */
     public void setName(String name)
     {
         this.name = name;
     }
     
+    /**
+     * Method to get name that was set in setName method
+     * @return name string
+     */
     public String getName()
     {
         return this.name;
     }
     
+    /**
+     * Method to set the dice array for gui
+     * @param diceArray Arraylist
+     */
     public void setDiceArray(ArrayList<Dice> diceArray)
     {
         this.diceArray = diceArray;
     }
     
+    /**
+     * Method to get the array list set in setDiceArry method
+     * @return diceArray ArrayList
+     */
     public ArrayList<Dice> getDiceArray()
     {
         return new ArrayList<>(diceArray);
     }
     
+    /**
+     * Method to remove reroll option if reroll is selected and cannot be done again
+     */
     public void usedReroll()
     {
         this.rerolls--;
     }
     
+    /**
+     * Method to get if player has rerolls available
+     * @return rerolls integer, number of rerolls available 
+     */
     public int getReroll()
     {
         return this.rerolls;
     }
     
+    /**
+     * Method to decrease arrow count by 1 
+     */
     public void decreaseArrowCount()
     {
         this.arrowCount--;
     }
     
+    /**
+     * Method to increase the arrow count by 1
+     */
     public void increaseArrowCount()
     {
         this.arrowCount++;
     }
     
+    /** 
+     * Method to get number of arrows in arrow count
+     * @return arrowCount integer
+     */
     public int getArrowCount()
     {
         return this.arrowCount;
     }
 
+    /**
+     * Method sets the turn for player to have turn and roll dice and play game
+     * @param turn 
+     */
     public void setTurn(Turn turn)
     {
         this.turn = turn;
     }
     
+    /**
+     * Method to get turn information from player turn
+     * @return turn
+     */
     public Turn getTurn()
     {
         return this.turn;

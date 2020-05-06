@@ -1,5 +1,9 @@
 package cs2365_project3;
 
+/**
+ * Card class 
+ * @author 
+ */
 public class Card {
     private int value;
     

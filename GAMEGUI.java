@@ -26,29 +26,49 @@ public class GameGUI extends javax.swing.JFrame {
     private int shootValue;
     private boolean again; //used to handle double shoot and heal
     
+    /**
+     * Method to initialize game gui
+     */
     public GameGUI() {
         initComponents();
     }
     
+    /**
+     * Method to set the game 
+     * @param game 
+     */
     public void setGame(Game game)
     {
         this.game = game;
     }
     
+    /**
+     * Method to get game set in setGame method
+     * @return game
+     */
     public Game getGame()
     {
         return this.game;
     }
     
+    /**
+     * Method to set game over flag, false game is not over
+     * @param over boolean
+     */
     public void setGameOver(boolean over)
     {
         this.gameOver = over;
     }
     
+    /**
+     * Method to get whether game is over or not
+     * @return gameOver boolean 
+     */
     public boolean getGameOver()
     {
         return this.gameOver;
     }
+    
     
     public void setIndex(int index)
     {
@@ -60,71 +80,122 @@ public class GameGUI extends javax.swing.JFrame {
         return this.index;
     }
     
+    /**
+     * Method to set the turn
+     * @param turn 
+     */
     public void setTurn(Turn turn)
     {
         this.turn = turn;
     }
     
+    /**
+     * Method to get turn
+     * @return turn
+     */
     public Turn getTurn()
     {
         return this.turn;
     }
     
+    /**
+     * Mthod to set the table seating for the game
+     */
     public void setTableSeating()
     {
         this.tableSeating = getGame().getTableSeating();
     }
     
+    /**
+     * Method to get the table seating created in setTableSeating method
+     * @return tableSeating Arraylist
+     */
     public ArrayList<Player> getTableSeating()
     {
         return new ArrayList<>(tableSeating);
     }
     
+    /**
+     * Method to set the output
+     * @param output string
+     */
     public void setOutput(String output)
     {
         this.output = output;
     }
     
+    /**
+     * Method to get the output
+     * @return output string
+     */
     public String getOutput()
     {
         return this.output;
     }
     
+    /**
+     * Method to set the dice gui to see roll results in game gui
+     * @param obj 
+     */
     public void setDiceGUI(DiceGameGUI obj)
     {
         this.obj = obj;
     }
-    
+    /**
+     * Method to get the dice gui
+     * @return obj
+     */
     public DiceGameGUI getDiceGUI()
     {
         return this.obj;
     }
     
+    /**
+     * Method to reset the dice count so next player can roll all needed dice
+     */
     public void resetDiceCount()
     {
         this.diceCount = 0;
     }
     
+    /**
+     * Method to increase the dice count by 1
+     */
     public void increaseDiceCount()
     {
         this.diceCount++;
     }
     
+    /**
+     * Method to decrease the dice amount by 1
+     */
     public void decreaseDiceCount()
     {
         this.diceCount++;
     }
     
+    /**
+     * Method to return the dice count
+     * @return diceCount integer
+     */
     public int getDiceCount()
     {
         return this.diceCount;
     }
     
+    /**
+     * Method to set the shoot value for when shoot is rolled 
+     * @param value integer
+     */
     public void setShootValue(int value)
     {
         this.shootValue = value;
     }
     
+    /**
+     * Method to return the shoot value
+     * @return shootValue integer 
+     */
     public int getShootValue()
     {
         return this.shootValue;

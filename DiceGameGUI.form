@@ -152,7 +152,7 @@
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="DoneWithRolling" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="Die5" alignment="0" pref="70" max="32767" attributes="0"/>
+                                      <Component id="Die5" alignment="0" max="32767" attributes="0"/>
                                       <Component id="jLabel35" alignment="0" max="32767" attributes="0"/>
                                       <Component id="RerollDice" alignment="0" max="32767" attributes="0"/>
                                       <Component id="jLabel42" alignment="0" max="32767" attributes="0"/>
@@ -160,7 +160,7 @@
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="Die6" alignment="0" pref="70" max="32767" attributes="0"/>
+                                      <Component id="Die6" alignment="0" max="32767" attributes="0"/>
                                       <Component id="jLabel36" alignment="0" max="32767" attributes="0"/>
                                       <Component id="jLabel39" alignment="0" max="32767" attributes="0"/>
                                   </Group>

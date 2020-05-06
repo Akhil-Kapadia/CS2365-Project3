@@ -52,7 +52,20 @@ public class Turn {
     DiceController diceHandler;
 
     ChiefArrow arrow;
-
+    
+    /**
+     * 
+     * @param tableSeating
+     * @param deadList
+     * @param arrowPile
+     * @param current
+     * @param roles
+     * @param rolesDoA
+     * @param arrow
+     * @param tokens
+     * @param expansion
+     * @param DoA 
+     */
     public Turn(ArrayList<Player> tableSeating, ArrayList<Player> deadList, int arrowPile, int current, int[] roles, 
             int[] rolesDoA, ChiefArrow arrow, Token tokens, boolean expansion, boolean DoA)
     {
@@ -74,11 +87,19 @@ public class Turn {
         this.tokens = tokens;
     }
     
+    /**
+     * Method sets the game gui
+     * @param gui 
+     */
     public void setGUI(GameGUI gui)
     {
         this.GUI = gui;
     }
     
+    /**
+     * Method gets game gui 
+     * @return 
+     */
     public GameGUI getGUI()
     {
         return this.GUI;
@@ -89,6 +110,10 @@ public class Turn {
         return this.currentPlayer;
     }
     
+    /**
+     * Method gets output
+     * @return string output
+     */
     public String getOutput()
     {
         //System.out.println("working");
@@ -114,16 +139,28 @@ public class Turn {
         return this.expansion;
     }
     
+    /**
+     * Method returns if player is alive 
+     * @return boolean true if player is alive
+     */
     public boolean getPlayerAlive()
     {
         return this.playerAlive;
     }
     
+    /**
+     * Method to return tokens
+     * @return tokens
+     */
     public Token getTokens()
     {
         return this.tokens;
     }
     
+    /**
+     * Method to get player name 
+     * @return string name
+     */
     public String getName()
     {
         return this.name;
@@ -354,6 +391,9 @@ public class Turn {
             
     }
     
+    /**
+     * Method to deal on damage to the player who rolls the bullet the displays players new health
+     */
     public void bullet()
     {
         player.get(currentPlayer).TakeDamage(1);
@@ -364,6 +404,9 @@ public class Turn {
         output = output + "\n";
     }
     
+    /**
+     * Method to add 1 health to player who rolls whiskey the diplays players new health 
+     */
     public void whiskey()
     {
         player.get(currentPlayer).addHealth(1);
@@ -511,7 +554,13 @@ public class Turn {
         }
 
     }
-
+    
+    /**
+     * Method for gatling gun to shoot players
+     * Paul Regrets special ability is also in here so they can not take any damage
+     * After shooting method checks for any deaths then displays whos taken damage
+     * and players new health
+     */
     public void gatlingGun()
     {
         output = output + "Gatling Gun! \n";
@@ -881,7 +930,10 @@ public class Turn {
             //tokens.addToken(player.get(currentPlayer).getTokenList());
             //player.get(currentPlayer).wipeTokenList();
     }
-
+    /**
+     * Method to check game requirements to see if there is a winner(s)
+     * @return integers related to who won, 0 game is not over
+     */
     public int winCondition()
     {
         if(getDoA())
@@ -907,7 +959,12 @@ public class Turn {
                 return 0; //game is not over
         }
     }
-
+    /**
+     * Method to check if player is dead and if so displays whos died and their roe.
+     * Vulture Sams special ability is also in here
+     * @param damagedPlayer
+     * @return 
+     */
     public boolean checkPlayerDeath(Player damagedPlayer)
     {
         if(damagedPlayer.getHealth() <= 0)

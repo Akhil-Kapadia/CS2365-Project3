@@ -29,72 +29,127 @@ public class Game {
     
     ChiefArrow arrow;
     
+    /**
+     * 
+     * @param totalPlayers
+     * @param expansion 
+     */
     public Game(int totalPlayers, boolean expansion)
     {
         this.totalPlayers = totalPlayers;
         this.expansion = expansion;
     }
-        
+    
+    /**
+     * Mehod to get total number of players in game
+     * @return integer, number of players playing
+     */
     public int getTotalPlayers()
     {
         return this.totalPlayers;
     }
     
+    /**
+     * Method to decrease total amount of players if player dies
+     */
     public void decrementTotalPlayers()
     {
         this.totalPlayers--;
     }
     
+    /**
+     * Method to add seating at the table for player
+     * @param newPlayer, get new player to add 
+     */
     public void addTableSeating(Player newPlayer)
     {
         this.tableSeating.add(newPlayer);
     }
     
+    /**
+     * Method to get table seating arrylist
+     * @return arrayList
+     */
     public ArrayList<Player> getTableSeating()
     {
         return new ArrayList<>(tableSeating);
     }
     
+    /**
+     * Method to set the table seating
+     * @param newSeating Arraylist
+     */
     public void setTableSeating(ArrayList<Player> newSeating)
     {
         this.tableSeating = newSeating;
     }
     
+    /**
+     * Method adds a dead player to dead list
+     * @param newPlayer 
+     */
     public void addDeadList(Player newPlayer)
     {
         this.deadList.add(newPlayer);
     }
     
+    /**
+     * Method to return list of dead players
+     * @return deadList ArrayList
+     */
     public ArrayList<Player> getDeadList()
     {
         return new ArrayList<>(deadList);
     }
     
+    /**
+     * Method to set the dead list 
+     * @param newSeating 
+     */
     public void setDeadList(ArrayList<Player> newSeating)
     {
         this.deadList = newSeating;
     }
     
+    /**
+     * Method to set the total amount of arrows in arrow pile 
+     * @param totalArrows integer 
+     */
     public void setArrowPile(int totalArrows)
     {
         this.arrowPile = totalArrows;
     }
     
+    /**
+     * Method to get how many arrows are in arrow pile
+     * @return integer, arrowPile number of arrows in pile
+     */
     public int getArrowPile()
     {
         return this.arrowPile;
     }
     
+    /**
+     * Method to get if expansion selected or not
+     * @return boolean expansion, true if selected 
+     */
     public boolean getExpansion()
     {
         return this.expansion;
     }
-    
+    /**
+     * Method to get if to play dead or alive game
+     * @return boolean true if DoA
+     */
     public boolean getDoA()
     {
         return this.DoA;
     }
     
+    /**
+     * 
+     * @param index 
+     */
     public void setIndex(int index)
     {
         this.index = index;
@@ -110,6 +165,9 @@ public class Game {
         return this.drawnCount;
     }
     
+    /**
+     * Method to set all possible character names in an arraylist
+     */
     public void setCharacterNames()
     {
         //contains all possible names of characters that can be chosen from
@@ -126,6 +184,10 @@ public class Game {
         this.characterNames.add("GREG DIGGER");        
     }
     
+    /**
+     * Method to get the character name from list then remove name from list
+     * @return string character name 
+     */
     public String getCharacterName()
     {
         //get a random name from the list to return and remove that name from the list
@@ -135,11 +197,21 @@ public class Game {
         return name;
     }
     
+    /**
+     * Method creates a new turn for player whos turn it is
+     * @param playerTurnIndex integer 
+     * @return a new turn 
+     */
     public Turn createTurn(int playerTurnIndex)
     {
         return new Turn(getTableSeating(), getDeadList(), getArrowPile(), playerTurnIndex, roles, rolesDoA, arrow, tokens, expansion, DoA); //create a new turn
     }
     
+    /**
+     * Method to update the game information after a players turn 
+     * @param turn
+     * @return table seating, dead list, arrow pile, role, arrow, tokens
+     */
     public Game updateGame(Turn turn)
     {
         setTableSeating(turn.getTableSeating()); //get the list of alive players from turn
@@ -155,6 +227,9 @@ public class Game {
         return this;
     }
     
+    /**
+     * Method for dead player to draw a card from graveyard and check conditions for Dead or alive game 
+     */
     public void deadDraw()
     {
         for(Player player : getDeadList()) //for dead player, draw a card
@@ -171,7 +246,9 @@ public class Game {
         }
     }
   
-    
+    /**
+     * Method to set up game and create graveyard deck, arrow pile, and add players to list totalPlayers
+     */
     public void gameSetup()
     {
         //create a graveyard deck if playing with expansion and create chief arrow and create duel system
@@ -234,6 +311,11 @@ public class Game {
             tableSeating.add(createPlayer(index));
     }
     
+    /**
+     * Method to create player, set role, set health points, and set character name
+     * @param index
+     * @return 
+     */
     public Player createPlayer(int index)
     {        
         String characterName = getCharacterName(); //set the character name
@@ -322,6 +404,10 @@ public class Game {
         return newPlayer;
     }
     
+    /**
+     * Method to setup zombies if dead or alive requirements are met, sets zombie master if applicable, 
+     * and sets all alive players roles to be alive and the dead players roles to dead 
+     */
     public void zombieSetup()
     {
         rolesDoA[0] = getDeadList().size();
@@ -349,7 +435,10 @@ public class Game {
         }
     }
         
-    
+    /**
+     * Test method to print the game setup to make sure players were being being 
+     * created properly
+     */
     public void printGameSetup() //used as test method
     {
         System.out.println("There are " + getTotalPlayers() + " players in the game.\n");
@@ -366,6 +455,10 @@ public class Game {
         }
     }
     
+    /**
+     * Test method to print number of players left in game and print players updated 
+     * role, health, and arrows
+     */
     public void printGameStatus() //used a test method
     {
         System.out.println("----------------------------\nThere are " + getTableSeating().size() + " players left");

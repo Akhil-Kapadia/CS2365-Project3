@@ -19,46 +19,81 @@ public class DuelGUI extends javax.swing.JFrame {
     private Dice dice = new Dice(0, true, 2);
     private boolean winner;
     private Player player;
-            
+    
+    /**
+     * Method to initialize gui for duel
+     */
     public DuelGUI() {
         initComponents();
     }
     
+    /**
+     * Method to set player names in gui
+     * @param list string, list of player names
+     */
     public void setNames(String list)
     {
         NameOfPlayers.setText(list);
     }
     
+    /**
+     * Method to set the seating of players from the arrayList of players 
+     * @param tableSeating ArrayList
+     */
     public void setTableSeating(ArrayList<Player> tableSeating)
     {
         this.tableSeating = tableSeating;
     }
     
+    /**
+     * Method to get the seating of players 
+     * @return tableSeating ArrayList
+     */
     public ArrayList<Player> getTableSeating()
     {
         return new ArrayList<>(tableSeating);
     } 
     
+    /**
+     * method to get the dice 
+     * @return dice
+     */
     public Dice getDice()
     {
         return this.dice;
     }
     
+    /**
+     * Method to set winner boolean
+     * @param winner boolean
+     */
     public void setWinner(boolean winner)
     {
         this.winner = winner;
     }
     
+    /**
+     * Method to get if there is a winner fro setWinner method
+     * @return winner boolean
+     */
     public boolean getWinner()
     {
         return this.winner;
     }
     
+    /**
+     * Method to set the player 
+     * @param player 
+     */
     public void setPlayer(Player player)
     {
         this.player = player;
     }
     
+    /**
+     * Method to get the player 
+     * @return player 
+     */
     public Player getPlayer()
     {
         return this.player;
