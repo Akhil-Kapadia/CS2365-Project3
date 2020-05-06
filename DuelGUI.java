@@ -1,24 +1,96 @@
+package cs2365_project3;
 
-import my.gamesetup.DiceGameGUI;
+import java.util.ArrayList;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/** GUI for the Dueling
+/** GUI for the Dueling part of the Game
  * @author Chase Willis
  * @version 1.0
- * @return Who loses health based one how the dueling goes.
+ * Collaborators: Jacob Strickland
 */
 public class DuelGUI extends javax.swing.JFrame {
 
+    private ArrayList<Player> tableSeating;
+    private Dice dice = new Dice(0, true, 2);
+    private boolean winner;
+    private Player player;
+    
     /**
-     * Creates new form DuelGUI
+     * Method to initialize gui for duel.
      */
     public DuelGUI() {
         initComponents();
+    }
+    
+    /**
+     * Method to set player names in gui
+     * @param list string, list of player names
+     */
+    public void setNames(String list)
+    {
+        NameOfPlayers.setText(list);
+    }
+    
+    /**
+     * Method to set the seating of players from the arrayList of players 
+     * @param tableSeating ArrayList
+     */
+    public void setTableSeating(ArrayList<Player> tableSeating)
+    {
+        this.tableSeating = tableSeating;
+    }
+    
+    /**
+     * Method to get the seating of players 
+     * @return tableSeating ArrayList
+     */
+    public ArrayList<Player> getTableSeating()
+    {
+        return new ArrayList<>(tableSeating);
+    } 
+    
+    /**
+     * method to get the dice 
+     * @return dice
+     */
+    public Dice getDice()
+    {
+        return this.dice;
+    }
+    
+    /**
+     * Method to set winner boolean
+     * @param winner Boolean
+     */
+    public void setWinner(boolean winner)
+    {
+        this.winner = winner;
+    }
+    
+    /**
+     * Method to get if there is a winner
+     * @return winner Boolean
+     */
+    public boolean getWinner()
+    {
+        return this.winner;
+    }
+    
+    /**
+     * Method to set the player 
+     * @param player Player, the player that will be set
+     */
+    public void setPlayer(Player player)
+    {
+        this.player = player;
+    }
+    
+    /**
+     * Method to get the player 
+     * @return player 
+     */
+    public Player getPlayer()
+    {
+        return this.player;
     }
 
     /**
@@ -62,10 +134,10 @@ public class DuelGUI extends javax.swing.JFrame {
             }
         });
 
-        YourDie.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        YourDie.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         YourDie.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        TheirDie.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        TheirDie.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         TheirDie.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -105,32 +177,39 @@ public class DuelGUI extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(DuelDone, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(168, 168, 168))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(TheirRoll, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(40, 40, 40)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(YourDie, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(YourRoll, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(DuelPlayer, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(TheirDie)
-                                .addGap(30, 30, 30)
-                                .addComponent(YourDie, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(70, 70, 70)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(WinnerDuel, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(124, 124, 124))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(DuelDone, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(WinnerDuel, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(TheirDie, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(TheirRoll, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(176, 176, 176))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(147, 147, 147)
+                        .addComponent(DuelPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,27 +217,32 @@ public class DuelGUI extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(DuelPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(YourDie, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(YourRoll))
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(YourDie, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TheirDie, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(YourRoll)
-                            .addComponent(TheirRoll))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(WinnerDuel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(DuelDone)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(TheirDie, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(TheirRoll))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(WinnerDuel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(DuelDone)
+                                .addGap(5, 5, 5))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
 
@@ -187,24 +271,53 @@ public class DuelGUI extends javax.swing.JFrame {
         //IGNORE
     }//GEN-LAST:event_DuelPlayerActionPerformed
 
+    /**
+     * Method that will close the duel gui when button is pressed.
+     */
     private void DuelDoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DuelDoneActionPerformed
         // TODO add your handling code here:
-        //Go back to Dice Rolling GUI
-        DiceGameGUI obj = new DiceGameGUI(); //This will show the DiceGameGUI
-        obj.setVisible(true);
         this.dispose(); //Get rid of the GUI 
     }//GEN-LAST:event_DuelDoneActionPerformed
 
+    /**
+     * Method that will allow the user roll their dice when the button is pressed.
+     */
     private void YourRollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YourRollActionPerformed
         // TODO add your handling code here:
         //Update Your Die
-        //
+        if(!getWinner())
+        {
+            Dice die = getDice();
+            die.rollDice();
+            YourDie.setText(die.getDiceString());
+            if(die.getDiceString().equals("Duel Guns"))
+            {
+                setWinner(true);
+                setPlayer(getTableSeating().get(0)); //return user since they won
+                WinnerDuel.setText(getPlayer().getCharacterName());
+            }
+        }
     }//GEN-LAST:event_YourRollActionPerformed
 
+    /**
+     * Method that will allow the AI to roll their dice when the button is pressed.
+     */
     private void TheirRollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TheirRollActionPerformed
         // TODO add your handling code here:
         //Update Player you Challenged Die
         //In this send the players name to the code you are challenging.
+        setPlayer(getTableSeating().get((int)Float.parseFloat(DuelPlayer.getText())-1));
+        if(!getWinner())
+        {
+            Dice die = getDice();
+            die.rollDice();
+            TheirDie.setText(die.getDiceString());
+            if(die.getDiceString().equals("Duel Guns"))
+            {
+                setWinner(true);
+                WinnerDuel.setText(getPlayer().getCharacterName());
+            }
+        }
     }//GEN-LAST:event_TheirRollActionPerformed
 
     /**
